@@ -1,0 +1,689 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+div.launchScreenContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-image: url(../../../public/images/launchScreenBackground.svg);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: bottom;
+}
+div.launchScreenContainer div.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+div.launchScreenContainer div.wrapper img {
+  display: block;
+  flex-basis: 272px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+div.launchScreenContainer div.wrapper h1 {
+  display: block;
+  flex-grow: 0;
+  max-width: 320px;
+  margin: auto;
+  font-size: 40px;
+  line-height: 48px;
+  text-align: center;
+}
+div.launchScreenContainer div.wrapper p {
+  display: block;
+  flex-grow: 0;
+  max-width: 320px;
+  margin: auto;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  color: #9CABC9;
+}
+
+div.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+div.header h1 {
+  display: block;
+  font-size: 40px;
+  line-height: 48px;
+}
+div.header p {
+  display: block;
+  font-size: 16px;
+  line-height: 22px;
+  color: #9CABC9;
+}
+
+div.onboardingStartScreenContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 16px;
+  box-sizing: border-box;
+  height: 100%;
+  background-image: url(/public/images/onboardingStartScreenBackground.png);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position-y: top;
+  background-position-x: center;
+}
+div.onboardingStartScreenContainer div.header {
+  margin: 72px 0;
+  width: 260px;
+}
+div.onboardingStartScreenContainer div.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+div.onboardingStartScreenContainer div.content div.imageWrapper {
+  width: 96px;
+  height: 96px;
+}
+div.onboardingStartScreenContainer div.content h2 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+}
+div.onboardingStartScreenContainer div.content p {
+  display: block;
+  font-size: 16px;
+  line-height: 22px;
+  color: #9CABC9;
+}
+
+div.onboardingCreateScreenContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 16px;
+  box-sizing: border-box;
+  height: 100%;
+}
+div.onboardingCreateScreenContainer div.mnemonic {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+div.onboardingCreateScreenContainer div.mnemonic span {
+  display: block;
+  padding: 4px 8px;
+  color: #0184FC;
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 8px;
+  border: solid 1px #0184FC;
+  background-color: #00153F;
+  transition: 0.3s;
+}
+div.onboardingCreateScreenContainer div.mnemonic.blurred span {
+  filter: blur(4px);
+}
+div.onboardingCreateScreenContainer div.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+div.appLayoutContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+div.appLayoutContainer div.tabContent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 80px;
+}
+div.appLayoutContainer div.loadingScreen {
+  position: fixed;
+  display: flex;
+  gap: 16px;
+  z-index: 999;
+  top: 0;
+  bottom: 80px;
+  right: 0;
+  left: 0;
+  background: rgba(0, 6, 16, 0.8);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+div.appLayoutContainer div.loadingScreen.blocking {
+  bottom: 0 !important;
+  z-index: 1001 !important;
+}
+div.appLayoutContainer div.loadingScreen.hidden {
+  display: none !important;
+}
+div.appLayoutContainer div.loadingScreen span {
+  display: block;
+  font-size: 14px;
+  color: #9CABC9;
+}
+div.appLayoutContainer div.tabBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1000;
+  position: absolute;
+  height: 80px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background-color: #191F31;
+}
+div.appLayoutContainer div.tabBar div.tabs {
+  display: flex;
+  justify-content: space-around;
+}
+div.appLayoutContainer div.tabBar div.tabs a {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+}
+div.appLayoutContainer div.tabBar div.tabs a img {
+  display: block;
+  margin: auto;
+}
+div.appLayoutContainer div.tabBar div.tabs a span {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  color: #9CABC9;
+}
+div.appLayoutContainer div.tabBar div.tabs a.selected img {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(152deg) brightness(102%) contrast(102%);
+}
+div.appLayoutContainer div.tabBar div.tabs a.selected span {
+  color: #FFFFFF;
+}
+div.appLayoutContainer h1.header {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 16px;
+}
+
+div.homeScreenContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+div.homeScreenContainer div.map {
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin-top: -32px;
+}
+div.homeScreenContainer div.overlay {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+div.homeScreenContainer div.overlay div.balanceContainer {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  margin: 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #191F31;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+div.homeScreenContainer div.overlay div.balanceContainer div.balanceIcon img {
+  display: block;
+  height: 40px;
+}
+div.homeScreenContainer div.overlay div.balanceContainer div.balanceText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+div.homeScreenContainer div.overlay div.balanceContainer div.balanceText h1 {
+  display: block;
+  font-size: 12px;
+  color: #9CABC9;
+}
+div.homeScreenContainer div.overlay div.balanceContainer div.balanceText span {
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+div.homeScreenContainer div.overlay div.connectionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  padding-top: 200px;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: 8px;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #191F31;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.selectedNodeLocation {
+  display: flex;
+  margin: 16px 16px 0 16px;
+  gap: 8px;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.selectedNodeLocation span {
+  display: block;
+  font-size: 18px;
+  color: #FFFFFF;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.selectedNodeLocation span.muted {
+  color: #9CABC9;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.currentIP {
+  display: flex;
+  margin: 0 16px 12px 16px;
+  gap: 8px;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.currentIP span {
+  display: block;
+  font-size: 14px;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.currentIP span.key {
+  color: #9CABC9;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.currentIP span.value {
+  color: #FFFFFF;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.unprotectedNotification {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #26304C;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.unprotectedNotification img {
+  display: block;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.selectedNodeContainer div.unprotectedNotification span {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.actions {
+  display: flex;
+  justify-content: stretch;
+  gap: 16px;
+}
+div.homeScreenContainer div.overlay div.connectionContainer div.actions button, div.homeScreenContainer div.overlay div.connectionContainer div.actions a {
+  flex-grow: 1;
+}
+
+div.nodesScreenContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+div.nodesScreenContainer div.topBar {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 16px;
+  background-color: #191F31;
+  height: 68px;
+  margin: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+div.nodesScreenContainer div.topBar div.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+div.nodesScreenContainer div.topBar div.titleWrapper span {
+  font-weight: 500;
+}
+div.nodesScreenContainer div.topBar div.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+div.nodesScreenContainer div.topBar div.buttonWrapper a.backButton {
+  display: block;
+  width: 44px;
+  height: 44px;
+  background-color: #0156FC;
+  border-radius: 8px;
+  background-image: url(/public/images/backButtonIcon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 16px;
+}
+div.nodesScreenContainer div.topBar div.buttonWrapper div.spacer {
+  display: block;
+  width: 44px;
+  height: 44px;
+}
+div.nodesScreenContainer div.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  height: 100%;
+}
+div.nodesScreenContainer div.list a.location, div.nodesScreenContainer div.list button.location {
+  display: flex;
+  padding: 12px;
+  gap: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #26304C;
+  text-decoration: none;
+  text-align: left;
+  font-family: inherit;
+  line-height: inherit;
+}
+div.nodesScreenContainer div.list a.location div.imageWrapper, div.nodesScreenContainer div.list button.location div.imageWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+div.nodesScreenContainer div.list a.location div.infoWrapper, div.nodesScreenContainer div.list button.location div.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-basis: 200px;
+  flex-grow: 0;
+}
+div.nodesScreenContainer div.list a.location div.infoWrapper span.title, div.nodesScreenContainer div.list button.location div.infoWrapper span.title {
+  display: block;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 500;
+}
+div.nodesScreenContainer div.list a.location div.infoWrapper span.subtitle, div.nodesScreenContainer div.list button.location div.infoWrapper span.subtitle {
+  display: block;
+  color: #9CABC9;
+  font-size: 14px;
+  overflow: clip;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+div.accountScreenContainer {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+div.accountScreenContainer div.balanceBlock {
+  background: #191F31;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0 16px;
+}
+div.accountScreenContainer div.balanceBlock h1 {
+  display: block;
+  font-size: 16px;
+  color: #9CABC9;
+  margin-bottom: 90px;
+}
+div.accountScreenContainer div.balanceBlock div.balanceWrapper div.mainBalanceWrapper {
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+}
+div.accountScreenContainer div.balanceBlock div.balanceWrapper div.mainBalanceWrapper img {
+  display: block;
+  height: 40px;
+}
+div.accountScreenContainer div.balanceBlock div.balanceWrapper div.mainBalanceWrapper span {
+  display: block;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+}
+div.accountScreenContainer div.balanceBlock div.balanceWrapper div.convertedBalanceWrapper {
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+}
+div.accountScreenContainer div.balanceBlock div.balanceWrapper div.convertedBalanceWrapper span {
+  display: block;
+  font-size: 14px;
+  color: #9CABC9;
+}
+div.accountScreenContainer div.howToDeposit {
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+  gap: 16px;
+}
+div.accountScreenContainer div.howToDeposit h1 {
+  display: block;
+  font-size: 32px;
+  line-height: 40px;
+}
+div.accountScreenContainer div.howToDeposit p {
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  color: #9CABC9;
+}
+div.accountScreenContainer div.howToDeposit div.qrWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: #26304C;
+  padding: 16px;
+}
+div.accountScreenContainer div.howToDeposit div.qrWrapper svg {
+  display: block;
+  width: 128px;
+  height: 128px;
+  padding: 16px;
+  background: #FFF;
+  border-radius: 8px;
+}
+div.accountScreenContainer div.howToDeposit div.qrWrapper div.walletAddressWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 4px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+div.accountScreenContainer div.howToDeposit div.qrWrapper div.walletAddressWrapper span.title {
+  display: block;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: #9CABC9;
+  text-wrap: avoid;
+}
+div.accountScreenContainer div.howToDeposit div.qrWrapper div.walletAddressWrapper span.address {
+  display: block;
+  flex-basis: 60%;
+  flex-shrink: 1;
+  font-size: 14px;
+  color: #FFFFFF;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.accountScreenContainer div.howToDeposit div.qrWrapper button {
+  width: 100%;
+}
+
+div.settingsScreenContainer {
+  display: flex;
+  flex-direction: column;
+}
+div.settingsScreenContainer div.settingsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+div.settingsScreenContainer div.settingsSection h2 {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #9CABC9;
+}
+div.settingsScreenContainer div.settingsSection .sectionRow {
+  display: flex;
+  justify-content: space-between;
+  color: #FFFFFF;
+  text-decoration: none;
+  background: #191F31;
+  border-radius: 8px;
+  padding: 16px;
+}
+div.settingsScreenContainer div.settingsSection .sectionRow div.primaryData {
+  display: flex;
+  gap: 12px;
+}
+div.settingsScreenContainer div.settingsSection .sectionRow div.primaryData img {
+  display: block;
+  height: 22px;
+}
+div.settingsScreenContainer div.settingsSection .sectionRow div.primaryData span {
+  display: block;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+}
+div.settingsScreenContainer div.settingsSection .sectionRow div.secondaryData {
+  display: flex;
+}
+div.settingsScreenContainer div.settingsSection .sectionRow div.secondaryData span {
+  display: block;
+  font-size: 16px;
+  line-height: 22px;
+  color: #9CABC9;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #000610;
+  font-family: "Poppins", sans-serif;
+  color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+}
+
+div#root {
+  width: 100%;
+  height: 100%;
+}
+
+.button {
+  display: block;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+}
+.button.primary {
+  background-color: #0156FC;
+  color: #FFFFFF;
+}
+.button.secondary {
+  background-color: #191F31;
+  color: #0184FC;
+}
+
+/*# sourceMappingURL=App.css.map */

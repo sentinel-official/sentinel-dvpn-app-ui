@@ -1,0 +1,113 @@
+
+div.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h1 {
+    display: block;
+
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  p {
+    display: block;
+    font-size: 16px;
+    line-height: 22px;
+    color: $secondaryTextColor;
+  }
+}
+
+div.onboardingStartScreenContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  padding: 16px;
+  box-sizing: border-box;
+
+  height: 100%;
+
+  background-image: url(/public/images/onboardingStartScreenBackground.png);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position-y: top;
+  background-position-x: center;
+
+  div.header {
+    margin: 72px 0;
+    width: 260px;
+  }
+
+  div.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    margin-bottom: 48px;
+
+    div.imageWrapper {
+      width: 96px;
+      height: 96px;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 500;
+    }
+
+    p {
+      display: block;
+      font-size: 16px;
+      line-height: 22px;
+      color: $secondaryTextColor;
+    }
+  }
+}
+
+div.onboardingCreateScreenContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  padding: 16px;
+  box-sizing: border-box;
+
+  height: 100%;
+
+  div.mnemonic {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    span {
+      display: block;
+      padding: 4px 8px;
+
+      color: $mnemonicTextColor;
+      font-size: 16px;
+      line-height: 22px;
+
+      border-radius: 8px;
+      border: solid 1px $mnemonicBorderColor;
+      background-color: $mnemonicBackgroundColor;
+
+      transition: 0.3s;
+    }
+
+    &.blurred {
+      span {
+        filter: blur(4px);
+      }
+    }
+  }
+
+  div.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+  }
+}

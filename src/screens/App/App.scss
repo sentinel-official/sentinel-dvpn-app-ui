@@ -1,0 +1,569 @@
+
+div.appLayoutContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+
+  div.tabContent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 80px;
+  }
+
+  div.loadingScreen {
+    position: fixed;
+    display: flex;
+    gap: 16px;
+    z-index: 999;
+    top: 0;
+    bottom: 80px;
+    right: 0;
+    left: 0;
+
+    background: transparentize($backgroundColor, 0.2);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &.blocking {
+      bottom: 0 !important;
+      z-index: 1001 !important;
+    }
+
+    &.hidden {
+      display: none !important;
+    }
+
+    span {
+      display: block;
+      font-size: 14px;
+      color: $secondaryTextColor;
+    }
+
+  }
+
+  div.tabBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1000;
+    position: absolute;
+    height: 80px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    box-sizing: border-box;
+
+
+    border-radius: 16px;
+    background-color: $overlayMainBackgroundColor;
+
+    div.tabs {
+      display: flex;
+      justify-content: space-around;
+
+      a {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border: none;
+        background-color: transparent;
+        text-decoration: none;
+
+        img {
+          display: block;
+          margin: auto;
+        }
+
+        span {
+          display: block;
+          font-size: 10px;
+          font-weight: 600;
+          text-align: center;
+
+          color: $secondaryTextColor;
+        }
+
+        &.selected {
+          img {
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(152deg) brightness(102%) contrast(102%);
+          }
+
+          span {
+            color: $textColor;
+          }
+        }
+      }
+    }
+  }
+
+  h1.header {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    color: $textColor;
+    margin: 16px;
+  }
+}
+
+div.homeScreenContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  div.map {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin-top: -32px;
+  }
+
+  div.overlay {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    z-index: 1;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    div.balanceContainer {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      margin: 16px;
+      box-sizing: border-box;
+
+      border-radius: 8px;
+      background-color: $overlayMainBackgroundColor;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+      div.balanceIcon {
+        img {
+          display: block;
+          height: 40px;
+        }
+      }
+
+      div.balanceText {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+
+        h1 {
+          display: block;
+          font-size: 12px;
+          color: $secondaryTextColor;
+        }
+
+        span {
+          display: block;
+          font-size: 20px;
+          font-weight: 500;
+          color: $textColor;
+        }
+      }
+    }
+
+    div.connectionContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px;
+      padding-top: 200px;
+
+
+      background: rgb(0, 0, 0);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+
+      div.selectedNodeContainer {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        gap: 8px;
+
+        overflow: hidden;
+        border-radius: 8px;
+        background-color: $overlayMainBackgroundColor;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+        div.selectedNodeLocation {
+          display: flex;
+          margin: 16px 16px 0 16px;
+          gap: 8px;
+
+          span {
+            display: block;
+            font-size: 18px;
+            color: $textColor;
+
+            &.muted {
+              color: $secondaryTextColor;
+            }
+          }
+        }
+
+        div.currentIP {
+          display: flex;
+          margin: 0 16px 12px 16px;
+          gap: 8px;
+
+          span {
+            display: block;
+            font-size: 14px;
+
+            &.key {
+              color: $secondaryTextColor;
+            }
+
+            &.value {
+              color: $textColor;
+            }
+          }
+        }
+
+        div.unprotectedNotification {
+          display: flex;
+          gap: 8px;
+
+          padding: 12px 16px;
+
+          background-color: $overlaySecondaryBackgroundColor;
+
+          img {
+            display: block;
+          }
+
+          span {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: $textColor;
+          }
+        }
+      }
+
+      div.actions {
+        display: flex;
+        justify-content: stretch;
+        gap: 16px;
+
+        button, a {
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+}
+
+div.nodesScreenContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  div.topBar {
+    display: flex;
+    justify-content: space-between;
+
+    border-radius: 16px;
+    background-color: $overlayMainBackgroundColor;
+
+    height: 68px;
+    margin: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+
+    div.titleWrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      span {
+        font-weight: 500;
+      }
+    }
+
+    div.buttonWrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      a.backButton {
+        display: block;
+        width: 44px;
+        height: 44px;
+        background-color: $primaryButtonBackgroundColor;
+        border-radius: 8px;
+
+        background-image: url(/public/images/backButtonIcon.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: auto 16px;
+
+      }
+
+      div.spacer {
+        display: block;
+        width: 44px;
+        height: 44px;
+      }
+    }
+  }
+
+  div.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+
+    overflow-y: scroll;
+    height: 100%;
+
+    a.location, button.location {
+      display: flex;
+      padding: 12px;
+      gap: 16px;
+
+      border: none;
+      border-radius: 8px;
+      background-color: $overlaySecondaryBackgroundColor;
+
+      text-decoration: none;
+      text-align: left;
+      font-family: inherit;
+      line-height: inherit;
+
+      div.imageWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      div.infoWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex-basis: 200px;
+        flex-grow: 0;
+
+        span.title {
+          display: block;
+          color: $textColor;
+          font-size: 18px;
+          font-weight: 500;
+        }
+
+        span.subtitle {
+          display: block;
+          color: $secondaryTextColor;
+          font-size: 14px;
+          overflow: clip;
+          text-overflow: ellipsis;
+          max-width: 280px;
+        }
+      }
+    }
+  }
+}
+
+div.accountScreenContainer {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+
+  div.balanceBlock {
+
+    background: $overlayMainBackgroundColor;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0 16px;
+
+    h1 {
+      display: block;
+      font-size: 16px;
+      color: $secondaryTextColor;
+
+      margin-bottom: 90px;
+    }
+
+    div.balanceWrapper {
+      div.mainBalanceWrapper {
+        display: flex;
+        justify-content: end;
+        gap: 8px;
+
+        img {
+          display: block;
+          height: 40px;
+        }
+
+        span {
+          display: block;
+          font-size: 32px;
+          font-weight: 500;
+          line-height: 40px;
+
+          &.balance {
+
+          }
+
+          &.currency {
+
+          }
+        }
+      }
+
+      div.convertedBalanceWrapper {
+        display: flex;
+        justify-content: end;
+        gap: 8px;
+
+        span {
+          display: block;
+          font-size: 14px;
+          color: $secondaryTextColor;
+        }
+      }
+    }
+  }
+
+  div.howToDeposit {
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    gap: 16px;
+
+    h1 {
+      display: block;
+
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    p {
+      display: block;
+      font-size: 14px;
+      line-height: 16px;
+      color: $secondaryTextColor;
+    }
+
+    div.qrWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      border-radius: 8px;
+      background-color: $overlaySecondaryBackgroundColor;
+      padding: 16px;
+
+      svg {
+        display: block;
+        width: 128px;
+        height: 128px;
+        padding: 16px;
+        background: #FFF;
+        border-radius: 8px;
+      }
+
+      div.walletAddressWrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        gap: 4px;
+        padding: 16px;
+        box-sizing: border-box;
+
+        span.title {
+          display: block;
+          flex-shrink: 0;
+          font-size: 14px;
+          color: $secondaryTextColor;
+          text-wrap: avoid;
+        }
+
+        span.address {
+          display: block;
+          flex-basis: 60%;
+          flex-shrink: 1;
+          font-size: 14px;
+          color: $textColor;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+div.settingsScreenContainer {
+  display: flex;
+  flex-direction: column;
+
+  div.settingsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+
+    h2 {
+      display: block;
+      font-size: 16px;
+      font-weight: 500;
+      color: $secondaryTextColor;
+    }
+
+    .sectionRow {
+      display: flex;
+      justify-content: space-between;
+      color: $textColor;
+      text-decoration: none;
+
+      background: $overlayMainBackgroundColor;
+      border-radius: 8px;
+      padding: 16px;
+
+      div.primaryData {
+        display: flex;
+        gap: 12px;
+
+        img {
+          display: block;
+          height: 22px;
+        }
+
+        span {
+          display: block;
+          font-size: 16px;
+          line-height: 22px;
+          font-weight: 500;
+        }
+      }
+
+      div.secondaryData {
+        display: flex;
+
+        span {
+          display: block;
+          font-size: 16px;
+          line-height: 22px;
+          color: $secondaryTextColor;
+        }
+      }
+    }
+  }
+}
