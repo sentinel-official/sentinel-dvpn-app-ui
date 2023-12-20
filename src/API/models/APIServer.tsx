@@ -4,4 +4,5 @@ export default interface APIServer {
     address: string
     load: number
     protocol: string
+    remote_url: string
 }

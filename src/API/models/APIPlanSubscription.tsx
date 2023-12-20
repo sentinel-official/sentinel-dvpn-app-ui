@@ -1,7 +1,6 @@
 import APISubscriptionBase from "./APISubscriptionBase";
 
-export default interface APINodeSubscription {
+export default interface APIPlanSubscription {
     base: APISubscriptionBase
-    nodeAddress: string
-    hours: string
+    planId: string
 }

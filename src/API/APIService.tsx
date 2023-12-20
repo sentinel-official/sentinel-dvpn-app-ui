@@ -11,7 +11,12 @@ import GETProxyIpResponse from "./responses/GETProxyIpResponse";
 import GETProxyCountriesResponse from "./responses/GETProxyCountriesResponse";
 import GETProxyServersResponse from "./responses/GETProxyServersResponse";
 import GETBlockchainWalletSubscriptionsResponse from "./responses/GETBlockchainWalletSubscriptionsResponse";
-import POSTBlockchainNodeSubscribeRequest from "./requests/POSTBlockchainNodeSubscribeRequest";
+import POSTBlockchainPlanSubscribeRequest from "./requests/POSTBlockchainPlanSubscribeRequest";
+import GETBlockchainPlansResponse from "./responses/GETBlockchainPlansResponse";
+import GETBlockchainWalletSessionResponse from "./responses/GETBlockchainWalletSessionResponse";
+import POSTBlockchainWalletSessionRequest from "./requests/POSTBlockchainWalletSessionRequest";
+import POSTBlockchainFetchCredentialsResponse from "./responses/POSTBlockchainFetchCredentialsResponse";
+import POSTBlockchainFetchCredentialsRequest from "./requests/POSTBlockchainFetchCredentialsRequest";
 
 
 const setKey = (data: POSTRegistryRequest) => {
@@ -82,13 +87,38 @@ const getServers = (deviceToken: string, countryId: string, cityId: string) => {
     })
 }
 
+const getPlans = () => {
+    return Http.get<GETBlockchainPlansResponse>("/blockchain/plans?limit=100000&offset=0")
+}
 
 const getSubscriptions = (walletAddress: string) => {
     return Http.get<GETBlockchainWalletSubscriptionsResponse>("/blockchain/wallet/" + walletAddress + "/subscriptions?limit=100000&offset=0")
 }
 
-const subscribeToNode = (nodeAddress: string, data: POSTBlockchainNodeSubscribeRequest) => {
-    return Http.post("/blockchain/nodes/" + nodeAddress + "/subscription", data, {
+const subscribeToPlan = (planId: number, data: POSTBlockchainPlanSubscribeRequest) => {
+    return Http.post("/blockchain/plans/" + planId + "/subscription", data, {
+        headers: {
+            "x-chain-id": "sentinelhub-2",
+            "x-gas-prices": 1000000
+        }
+    })
+}
+
+const getSession = (walletAddress: string) => {
+    return Http.get<GETBlockchainWalletSessionResponse>("/blockchain/wallet/" + walletAddress + "/session")
+}
+
+const createSession = (walletAddress: string, data: POSTBlockchainWalletSessionRequest) => {
+    return Http.post("/blockchain/wallet/" + walletAddress + "/session", data, {
+        headers: {
+            "x-chain-id": "sentinelhub-2",
+            "x-gas-prices": 1000000
+        }
+    })
+}
+
+const fetchCredentials = (data: POSTBlockchainFetchCredentialsRequest) => {
+    return Http.post<POSTBlockchainFetchCredentialsResponse>("/blockchain/wallet/connect", data, {
         headers: {
             "x-chain-id": "sentinelhub-2",
             "x-gas-prices": 1000000
@@ -109,8 +139,12 @@ const APIService = {
     getCountries,
     getCities,
     getServers,
+    getPlans,
     getSubscriptions,
-    subscribeToNode
+    subscribeToPlan,
+    getSession,
+    createSession,
+    fetchCredentials
 };
 
 export default APIService;

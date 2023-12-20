@@ -58,4 +58,9 @@ div#root {
     background-color: $secondaryButtonBackgroundColor;
     color: $secondaryButtonTextColor;
   }
+
+  &:disabled {
+    opacity: 0.8;
+    filter: grayscale(1);
+  }
 }

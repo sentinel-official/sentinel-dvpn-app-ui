@@ -115,6 +115,61 @@ div.homeScreenContainer {
   width: 100%;
   height: 100%;
 
+  div.subscribePopUpWrapper {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    gap: 16px;
+    z-index: 1001;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+
+    &.hidden {
+      display: none !important;
+    }
+
+    div.subscribePopUp {
+      display: flex;
+      flex-direction: column;
+      background: $backgroundColor;
+      box-sizing: border-box;
+      margin: auto;
+      padding: 24px;
+      max-width: 340px;
+      gap: 16px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+      img {
+        display: block;
+        margin: 24px auto;
+        height: 56px;
+      }
+
+      h1 {
+        display: block;
+        color: $textColor;
+        font-size: 32px;
+        line-height: 40px;
+        text-align: center;
+      }
+      p {
+        display:block;
+        color: $secondaryTextColor;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+      }
+    }
+  }
+
+
   div.map {
     z-index: 0;
     position: absolute;

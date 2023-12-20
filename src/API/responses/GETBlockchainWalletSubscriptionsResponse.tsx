@@ -1,5 +1,5 @@
-import APINodeSubscription from "../models/APINodeSubscription";
+import APIPlanSubscription from "../models/APIPlanSubscription";
 
 export default interface GETBlockchainWalletSubscriptionsResponse {
-    nodeSubscriptions?: [APINodeSubscription]
+    planSubscriptions?: [APIPlanSubscription]
 }

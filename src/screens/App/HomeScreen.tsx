@@ -1,5 +1,6 @@
 import Map from 'react-map-gl';
 
+import timeIcon from '../../assets/images/timeIcon.svg';
 import balanceIcon from '../../assets/images/balanceIcon.png';
 import homeScreenInfoIcon from '../../assets/images/homeScreenInfoIcon.svg';
 import ReactCountryFlag from "react-country-flag";
@@ -8,9 +9,12 @@ import APIService from "../../API/APIService";
 import SelectedNode from "../../models/SelectedNode";
 import {useNavigate} from "react-router-dom";
 import LoadingIndicator from "../../elements/LoadingIndicator/LoadingIndicator";
-import APINodeSubscription from "../../API/models/APINodeSubscription";
+import APIPlanSubscription from "../../API/models/APIPlanSubscription";
 import POSTBlockchainWalletRequest from "../../API/requests/POSTBlockchainWalletRequest";
-import POSTBlockchainNodeSubscribeRequest from "../../API/requests/POSTBlockchainNodeSubscribeRequest";
+import POSTBlockchainPlanSubscribeRequest from "../../API/requests/POSTBlockchainPlanSubscribeRequest";
+import POSTBlockchainWalletSessionRequest from "../../API/requests/POSTBlockchainWalletSessionRequest";
+import POSTBlockchainFetchCredentialsResponse from "../../API/responses/POSTBlockchainFetchCredentialsResponse";
+import POSTBlockchainFetchCredentialsRequest from "../../API/requests/POSTBlockchainFetchCredentialsRequest";
 
 const HomeScreen = () => {
 
@@ -18,6 +22,10 @@ const HomeScreen = () => {
 
 
     const [loading, setLoading] = useState('');
+    const [isAskingForSubscription, setIsAskingForSubscription] = useState(false);
+    const [planPrice, setPlanPrice] = useState(0);
+    const [providerAddress , setProviderAddress] = useState("");
+
 
     const [isConnected, setIsConnected] = useState(false);
     const [balance, setBalance] = useState(0);
@@ -33,6 +41,40 @@ const HomeScreen = () => {
         longitude: 0,
         zoom: 7
     })
+
+    const updatePlanData = () => {
+        const currentPlanPrice = localStorage.getItem("planPrice");
+        const currentProviderAddress = localStorage.getItem("providerAddress");
+
+        if (currentPlanPrice) {
+            setPlanPrice(Number(currentPlanPrice));
+        }
+
+        if (currentProviderAddress) {
+            setProviderAddress(currentProviderAddress);
+        }
+
+        APIService.getPlans().then((response: any) => {
+            response.data.plans.forEach((plan: any) => {
+                if (plan.id == 6) {
+
+                    localStorage.setItem("providerAddress", plan.providerAddress);
+                    setProviderAddress(plan.providerAddress);
+
+                    plan.prices.forEach((price: any) => {
+                        if (price.denom == "udvpn") {
+                            const newPlanPrice = Number(price.amount) / 1000000;
+                            localStorage.setItem("planPrice", String(newPlanPrice));
+                            setPlanPrice(newPlanPrice);
+                        }
+                    })
+                }
+            })
+        }).catch((e: Error) => {
+            //TODO: Unresolvable error
+            console.log(e);
+        })
+    }
 
     const updateBalance = () => {
         const walletAddress = localStorage.getItem("walletAddress")!;
@@ -101,47 +143,116 @@ const HomeScreen = () => {
 
     }
 
+    const renewSubscription = () => {
+        setIsAskingForSubscription(false);
+        setLoading("Subscribing to the plan...");
+
+        const payload: POSTBlockchainPlanSubscribeRequest = {
+            denom: 'udvpn',
+            address: localStorage.getItem("providerAddress")!
+        }
+
+        APIService.subscribeToPlan(6, payload).then((response: any) => {
+            connect();
+        }).catch((e: Error) => {
+            //TODO: Unresolvable error
+            console.log(e);
+        })
+
+    }
+
     const connect = () => {
         const walletAddress = localStorage.getItem("walletAddress")!;
-        let subscription: APINodeSubscription | undefined;
+        let subscription: APIPlanSubscription | undefined;
 
-        const subscribeToNode = () => {
-            //setLoading("Subscribing to the node...");
 
-            const payload: POSTBlockchainNodeSubscribeRequest = {
-                denom: 'udvpn',
-                hours: 1,
-                gigabytes: 0
+        const establishConnection = (payload: any) => {
+            setLoading("Requesting credentials...");
+
+            console.log(payload);
+        }
+
+        const fetchCredentials = (sessionId: number) => {
+            setLoading("Requesting credentials...");
+
+            const payload: POSTBlockchainFetchCredentialsRequest = {
+                url: selectedNode.server!.remote_url,
+                nodeProtocol: selectedNode.server!.protocol!,
+                address: walletAddress,
+                session: sessionId
             }
 
-            APIService.subscribeToNode(selectedNode.server!.address, payload).then((response: any) => {
-                console.log(response.data)
+            APIService.fetchCredentials(payload).then((response: any) => {
+                establishConnection(response.data);
             }).catch((e: Error) => {
                 //TODO: Unresolvable error
                 console.log(e);
             })
         }
 
-        const checkSession = () => {
-            setLoading("Looking for active sessions...");
+        const createSession = (subscriptionId: number, activeSession?: number) => {
+            setLoading("Starting new session...");
+
+            const payload: POSTBlockchainWalletSessionRequest = {
+                activeSession: activeSession,
+                subscriptionID: subscriptionId,
+                node: selectedNode.server?.address!
+            }
+
+            APIService.createSession(walletAddress, payload).then((response: any) => {
+                checkSession(subscriptionId, true);
+            }).catch((e: Error) => {
+                //TODO: Unresolvable error
+                console.log(e);
+            })
+        }
+
+        const checkSession = (subscriptionId: number, secondTime?: boolean) => {
+            setLoading(secondTime ? "Verifying session..." : "Looking for active sessions...");
+
+            APIService.getSession(walletAddress).then((response: any) => {
+                if (
+                    response.data.status == "STATUS_ACTIVE" &&
+                    response.data.subscriptionId == String(subscriptionId) &&
+                    response.data.nodeAddress == selectedNode.server?.address!
+                ) {
+                    fetchCredentials(Number(response.data.id));
+                } else {
+                    createSession(subscriptionId, Number(response.data.id));
+                }
+
+            }).catch((e: Error) => {
+                // @ts-ignore
+                if(e.response.status == 404) {
+                    createSession(subscriptionId);
+                } else {
+                    //TODO: Unresolvable error
+                    console.log(e);
+                }
+            })
+        }
+
+        const promptToSubscribe = () => {
+            setLoading("");
+            setIsAskingForSubscription(true);
         }
 
         setLoading("Checking your subscriptions...");
 
         APIService.getSubscriptions(walletAddress).then((response: any) => {
-            const subscriptions = response.data.nodeSubscriptions;
+            const subscriptions = response.data.planSubscriptions;
             if (subscriptions) {
                 subscription = subscriptions.find((subscription: any) => {
-                    return subscription.nodeAddress == selectedNode.server!.address;
+                    return subscription.planId == "6";
                 });
 
                 if (subscription) {
-                    checkSession();
+                    checkSession(Number(subscription.base.id));
                 } else {
-                    subscribeToNode();
+                    promptToSubscribe();
                 }
             } else {
-                subscribeToNode();
+                promptToSubscribe();
             }
         }).catch((e: Error) => {
             //TODO: Unresolvable error
@@ -159,6 +270,7 @@ const HomeScreen = () => {
 
     useEffect(() => {
         updateBalance();
+        updatePlanData();
         updateIpAddress();
         updateSelectedNode();
     }, []);
@@ -169,6 +281,17 @@ const HomeScreen = () => {
                 <LoadingIndicator/>
                 <span>{loading}</span>
             </div>
+
+            <div className={isAskingForSubscription ? "subscribePopUpWrapper" : "subscribePopUpWrapper hidden"}>
+                <div className="subscribePopUp">
+                    <img src={timeIcon}/>
+                    <h1>Your subscription has expired</h1>
+                    <p>Renew your on-chain subscription to enjoy Sentinel dVPN.</p>
+                    <button className="button primary" onClick={renewSubscription}>Renew for {planPrice} DVPN</button>
+                    <button className="button secondary" onClick={()=> {setIsAskingForSubscription(false); }}>Cancel</button>
+                </div>
+            </div>
+
 
             <div className="map">
                 <Map
@@ -228,7 +351,7 @@ const HomeScreen = () => {
                             </div>
                         ) : (
                             <div className="actions">
-                                <button className="button primary" onClick={connect}>Connect</button>
+                                <button className="button primary" onClick={connect} disabled={selectedNode.countryCode == ""}>Connect</button>
                             </div>
                         )
                     }
