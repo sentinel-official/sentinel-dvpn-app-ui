@@ -14,6 +14,7 @@ import AccountScreen from "./screens/App/AccountScreen";
 import SettingsScreen from "./screens/App/SettingsScreen";
 import NodesCitiesScreen from "./screens/App/NodesCitiesScreen";
 import NodesServersScreen from "./screens/App/NodesServersScreen";
+import OnboardingImportScreen from "./screens/Onboarding/OnboardImportScreen";
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
                 <Route path="/onboarding" element={<OnboardingLayout/>}>
                     <Route index element={<OnboardingStartScreen/>}/>
                     <Route path="create" element={<OnboardingCreateScreen/>}/>
-                    <Route path="import" element={<LaunchScreen/>}/>
+                    <Route path="import" element={<OnboardingImportScreen/>}/>
                 </Route>
                 <Route path="/app" element={<AppLayout/>}>
                     <Route index element={<HomeScreen/>}/>

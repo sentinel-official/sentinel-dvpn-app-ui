@@ -14,37 +14,9 @@ div.appLayoutContainer {
     bottom: 80px;
   }
 
-  div.loadingScreen {
-    position: fixed;
-    display: flex;
-    gap: 16px;
-    z-index: 999;
-    top: 0;
-    bottom: 80px;
-    right: 0;
-    left: 0;
 
-    background: transparentize($backgroundColor, 0.2);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
-    &.blocking {
-      bottom: 0 !important;
-      z-index: 1001 !important;
-    }
 
-    &.hidden {
-      display: none !important;
-    }
-
-    span {
-      display: block;
-      font-size: 14px;
-      color: $secondaryTextColor;
-    }
-
-  }
 
   div.tabBar {
     display: flex;
@@ -144,7 +116,7 @@ div.homeScreenContainer {
       max-width: 340px;
       gap: 16px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
       img {
         display: block;
@@ -159,8 +131,9 @@ div.homeScreenContainer {
         line-height: 40px;
         text-align: center;
       }
+
       p {
-        display:block;
+        display: block;
         color: $secondaryTextColor;
         font-size: 16px;
         line-height: 22px;
@@ -436,6 +409,8 @@ div.accountScreenContainer {
   display: flex;
   gap: 8px;
   flex-direction: column;
+  height: 100%;
+  overflow: scroll;
 
   div.balanceBlock {
 
@@ -449,7 +424,7 @@ div.accountScreenContainer {
       font-size: 16px;
       color: $secondaryTextColor;
 
-      margin-bottom: 90px;
+      margin-bottom: 16px;
     }
 
     div.balanceWrapper {
@@ -498,6 +473,7 @@ div.accountScreenContainer {
     flex-direction: column;
     margin: 16px;
     gap: 16px;
+    box-sizing: border-box;
 
     h1 {
       display: block;
@@ -509,7 +485,7 @@ div.accountScreenContainer {
     p {
       display: block;
       font-size: 14px;
-      line-height: 16px;
+      line-height: 18px;
       color: $secondaryTextColor;
     }
 
@@ -521,6 +497,7 @@ div.accountScreenContainer {
       border-radius: 8px;
       background-color: $overlaySecondaryBackgroundColor;
       padding: 16px;
+      margin-top: 24px;
 
       svg {
         display: block;
@@ -532,25 +509,23 @@ div.accountScreenContainer {
       }
 
       div.walletAddressWrapper {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        gap: 4px;
-        padding: 16px;
+        display: block;
+        padding: 16px 0;
         box-sizing: border-box;
+        max-width: 100%;
 
         span.title {
           display: block;
-          flex-shrink: 0;
+          float: left;
+          width: 45%;
           font-size: 14px;
           color: $secondaryTextColor;
-          text-wrap: avoid;
         }
 
         span.address {
           display: block;
-          flex-basis: 60%;
-          flex-shrink: 1;
+          float: right;
+          width: 45%;
           font-size: 14px;
           color: $textColor;
           overflow: hidden;

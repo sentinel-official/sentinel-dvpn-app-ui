@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 import * as bip39 from '@scure/bip39';
@@ -9,26 +9,20 @@ import APIService from "../../API/APIService";
 import POSTBlockchainWalletRequest from "../../API/requests/POSTBlockchainWalletRequest";
 import LoadingIndicator from "../../elements/LoadingIndicator/LoadingIndicator";
 
-const OnboardingCreateScreen = () => {
+const OnboardingImportScreen = () => {
 
     const navigate = useNavigate();
 
+
     const [error, setError] = useState('');
     const [loading, setLoading] = useState('');
-
-    const [mnemonic, setMnemonic] = useState("")
-    const [revealMnemonic, setRevealMnemonic] = useState(false)
-
     const [isWalletReady, setIsWalletReady] = useState(false)
+    const [mnemonic, setMnemonic] = useState("")
 
-    useEffect(() => {
-        setMnemonic(bip39.generateMnemonic(wordlist, 256))
-    }, []);
 
-    const copyToClipboard = () => {
-        Clipboard.copy(mnemonic);
+    const updateMnemonic = (event: any) => {
+        setMnemonic(event.target.value);
     }
-
     const setupWallet = () => {
         const payload: POSTBlockchainWalletRequest = {
             mnemonic: mnemonic
@@ -37,7 +31,7 @@ const OnboardingCreateScreen = () => {
         APIService.createWallet(payload).then((response: any) => {
             setIsWalletReady(true);
         }).catch((e: Error) => {
-            setError("Failed to create wallet. Please, try again.");
+            setError("Failed to import mnemonic. Check, if you entered the correct mnemonic.");
             console.log(e);
         })
     }
@@ -52,6 +46,14 @@ const OnboardingCreateScreen = () => {
         }
     }, [isWalletReady]);
 
+    useEffect(() => {
+        if(error != "") {
+            setTimeout(() => {
+                setError("");
+            }, 2000);
+        }
+    }, [error]);
+
     return (
         <div className="onboardingMnemonicScreenContainer">
             <div className={error == '' ? "errorToast hidden" : "errorToast"}>
@@ -64,37 +66,23 @@ const OnboardingCreateScreen = () => {
             </div>
 
             <div className="header">
-                <h1>Your unique<br/>mnemonic</h1>
+                <h1>Log in with<br/>existing mnemonic</h1>
                 <p>
-                    Copy down this unique 24 word key somewhere safe. This key will be needed to access your wallet
-                    in case you get logged out or need to use your wallet outside this application.
+                    Please provide your unique 24 word key to access your account.
                 </p>
             </div>
 
-            <div className={revealMnemonic ? "mnemonic" : "mnemonic blurred"}>
-                {mnemonic.split(" ").map((word, index) => {
-                    return (
-                        <span id={"word_" + index}>{word}</span>
-                    )
-                })}
+            <div className="mnemonicInput">
+                <textarea placeholder="Your mnemonic" onChange={updateMnemonic}/>
             </div>
 
             <div className="content">
-                {
-                    revealMnemonic ?
-                        (<button onClick={copyToClipboard} className="button secondary">Copy Mnemonic</button>) :
-                        (<button onClick={() => {
-                            setRevealMnemonic(true);
-                        }} className="button primary">Reveal Mnemonic</button>)
-                }
-
-                <button onClick={setupWallet}
-                        className={revealMnemonic ? "button primary" : "button secondary"}>Continue
-                </button>
+                <button onClick={setupWallet} className="button primary">Log In</button>
+                <NavLink to={"/onboarding/create"} className="button secondary">I don't have an account</NavLink>
             </div>
 
         </div>
     )
 };
 
-export default OnboardingCreateScreen;
+export default OnboardingImportScreen;

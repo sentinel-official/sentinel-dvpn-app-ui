@@ -13,7 +13,7 @@ const SettingsScreen = () => {
                         <span>DNS</span>
                     </div>
                     <div className="secondaryData">
-                        <span>Handshake DNS</span>
+                        <span>Cloudflare DNS</span>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
 
-import balanceIcon from '../../assets/images/balanceIcon.png';
+import balanceIcon from '../../assets/images/balanceIcon.svg';
 import APIService from "../../API/APIService";
 
 const AccountScreen = () => {

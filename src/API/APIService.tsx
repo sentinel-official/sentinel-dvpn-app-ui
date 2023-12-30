@@ -17,6 +17,7 @@ import GETBlockchainWalletSessionResponse from "./responses/GETBlockchainWalletS
 import POSTBlockchainWalletSessionRequest from "./requests/POSTBlockchainWalletSessionRequest";
 import POSTBlockchainFetchCredentialsResponse from "./responses/POSTBlockchainFetchCredentialsResponse";
 import POSTBlockchainFetchCredentialsRequest from "./requests/POSTBlockchainFetchCredentialsRequest";
+import APIStatus from "./models/APIStatus";
 
 
 const setKey = (data: POSTRegistryRequest) => {
@@ -118,12 +119,24 @@ const createSession = (walletAddress: string, data: POSTBlockchainWalletSessionR
 }
 
 const fetchCredentials = (data: POSTBlockchainFetchCredentialsRequest) => {
-    return Http.post<POSTBlockchainFetchCredentialsResponse>("/blockchain/wallet/connect", data, {
+    return Http.post<any>("/blockchain/wallet/connect", data, {
         headers: {
             "x-chain-id": "sentinelhub-2",
             "x-gas-prices": 1000000
         }
     })
+}
+
+const getStatus = () => {
+    return Http.get<APIStatus>("/status")
+}
+
+const connect = (data: any) => {
+    return Http.post<APIStatus>("/connect", data)
+}
+
+const disconnect = ()=> {
+    return Http.post<APIStatus>("/disconnect")
 }
 
 const APIService = {
@@ -144,7 +157,10 @@ const APIService = {
     subscribeToPlan,
     getSession,
     createSession,
-    fetchCredentials
+    fetchCredentials,
+    getStatus,
+    connect,
+    disconnect
 };
 
 export default APIService;

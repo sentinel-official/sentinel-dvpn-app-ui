@@ -1,7 +1,7 @@
 import Map from 'react-map-gl';
 
 import timeIcon from '../../assets/images/timeIcon.svg';
-import balanceIcon from '../../assets/images/balanceIcon.png';
+import balanceIcon from '../../assets/images/balanceIcon.svg';
 import homeScreenInfoIcon from '../../assets/images/homeScreenInfoIcon.svg';
 import ReactCountryFlag from "react-country-flag";
 import {useEffect, useState} from "react";
@@ -21,6 +21,7 @@ const HomeScreen = () => {
     const navigate = useNavigate();
 
 
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState('');
     const [isAskingForSubscription, setIsAskingForSubscription] = useState(false);
     const [planPrice, setPlanPrice] = useState(0);
@@ -71,8 +72,8 @@ const HomeScreen = () => {
                 }
             })
         }).catch((e: Error) => {
-            //TODO: Unresolvable error
-            console.log(e);
+            setError("Failed to fetch plan data");
+            setLoading("");
         })
     }
 
@@ -91,8 +92,8 @@ const HomeScreen = () => {
                 }
             });
         }).catch((e: Error) => {
-            //TODO: Unresolvable error
-            console.log(e);
+            setError("Failed to fetch balance data");
+            setLoading("");
         })
     }
 
@@ -118,8 +119,8 @@ const HomeScreen = () => {
                 zoom: 7
             });
         }).catch((e: Error) => {
-            //TODO: Unresolvable error
-            console.log(e);
+            setError("Failed to fetch IP address");
+            setLoading("");
         });
     }
 
@@ -134,13 +135,21 @@ const HomeScreen = () => {
         APIService.getKey("selectedNode").then((response: any) => {
             setSelectedNode(JSON.parse(response.data.value));
         }).catch((e: Error) => {
-            //TODO: Unresolvable error
-            console.log(e);
+            // @ts-ignore
+            if(e.response.status != 404) {
+                setError("Failed to fetch dVPN node data");
+                setLoading("");
+            }
         })
     }
 
     const updateIsConnected = () => {
-
+        APIService.getStatus().then((response: any) => {
+            setIsConnected(response.data.isConnected);
+        }).catch((e: Error) => {
+            setError("Failed to retrieve connection status");
+            setLoading("");
+        })
     }
 
     const renewSubscription = () => {
@@ -155,8 +164,8 @@ const HomeScreen = () => {
         APIService.subscribeToPlan(6, payload).then((response: any) => {
             connect();
         }).catch((e: Error) => {
-            //TODO: Unresolvable error
-            console.log(e);
+            setError("Failed to subscribe to the plan");
+            setLoading("");
         })
 
     }
@@ -167,12 +176,22 @@ const HomeScreen = () => {
 
 
         const establishConnection = (payload: any) => {
-            setLoading("Requesting credentials...");
+            setLoading("Establishing connection...");
 
-            console.log(payload);
+            APIService.connect({
+                data: payload,
+            }).then((response: any) => {
+                if(response.data.isConnected) {
+                    setIsConnected(true);
+                    setLoading("");
+                }
+            }).catch((e: Error) => {
+                setError("Failed to establish connection");
+                setLoading("");
+            })
         }
 
-        const fetchCredentials = (sessionId: number) => {
+        const fetchCredentials = (sessionId: number, subscriptionId: number) => {
             setLoading("Requesting credentials...");
 
             const payload: POSTBlockchainFetchCredentialsRequest = {
@@ -185,8 +204,8 @@ const HomeScreen = () => {
             APIService.fetchCredentials(payload).then((response: any) => {
                 establishConnection(response.data);
             }).catch((e: Error) => {
-                //TODO: Unresolvable error
-                console.log(e);
+                setError("Failed to fetch credentials");
+                setLoading("");
             })
         }
 
@@ -202,8 +221,8 @@ const HomeScreen = () => {
             APIService.createSession(walletAddress, payload).then((response: any) => {
                 checkSession(subscriptionId, true);
             }).catch((e: Error) => {
-                //TODO: Unresolvable error
-                console.log(e);
+                setError("Failed to create session");
+                setLoading("");
             })
         }
 
@@ -216,7 +235,11 @@ const HomeScreen = () => {
                     response.data.subscriptionId == String(subscriptionId) &&
                     response.data.nodeAddress == selectedNode.server?.address!
                 ) {
-                    fetchCredentials(Number(response.data.id));
+                    if(secondTime) {
+                        fetchCredentials(Number(response.data.id), subscriptionId);
+                    } else {
+                        createSession(subscriptionId, Number(response.data.id));
+                    }
                 } else {
                     createSession(subscriptionId, Number(response.data.id));
                 }
@@ -226,8 +249,8 @@ const HomeScreen = () => {
                 if(e.response.status == 404) {
                     createSession(subscriptionId);
                 } else {
-                    //TODO: Unresolvable error
-                    console.log(e);
+                    setError("Failed to check session");
+                    setLoading("");
                 }
             })
         }
@@ -255,13 +278,23 @@ const HomeScreen = () => {
                 promptToSubscribe();
             }
         }).catch((e: Error) => {
-            //TODO: Unresolvable error
-            console.log(e);
+            setError("Failed to fetch subscriptions");
+            setLoading("");
         })
     }
 
     const disconnect = () => {
-        setIsConnected(false)
+        setLoading("Disconnecting...");
+
+        APIService.disconnect().then((response: any) => {
+            if(response.data.isConnected == false) {
+                setIsConnected(false);
+                setLoading("");
+            }
+        }).catch((e: Error) => {
+            setError("Failed to disconnect");
+            setLoading("");
+        });
     }
 
     const switchNode = () => {
@@ -273,10 +306,33 @@ const HomeScreen = () => {
         updatePlanData();
         updateIpAddress();
         updateSelectedNode();
+        updateIsConnected();
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            updateIpAddress();
+        }, 1000);
+
+    }, [
+        isConnected
+    ]);
+
+    useEffect(() => {
+        if(error != "") {
+            setTimeout(() => {
+                setError("");
+            }, 2000);
+        }
+    }, [error]);
 
     return (
         <div className="homeScreenContainer">
+
+            <div className={error == '' ? "errorToast hidden" : "errorToast"}>
+                {error}
+            </div>
+
             <div className={loading == '' ? "loadingScreen hidden" : "loadingScreen blocking"}>
                 <LoadingIndicator/>
                 <span>{loading}</span>
@@ -288,7 +344,10 @@ const HomeScreen = () => {
                     <h1>Your subscription has expired</h1>
                     <p>Renew your on-chain subscription to enjoy Sentinel dVPN.</p>
                     <button className="button primary" onClick={renewSubscription}>Renew for {planPrice} DVPN</button>
-                    <button className="button secondary" onClick={()=> {setIsAskingForSubscription(false); }}>Cancel</button>
+                    <button className="button secondary" onClick={() => {
+                        setIsAskingForSubscription(false);
+                    }}>Cancel
+                    </button>
                 </div>
             </div>
 
@@ -351,7 +410,9 @@ const HomeScreen = () => {
                             </div>
                         ) : (
                             <div className="actions">
-                                <button className="button primary" onClick={connect} disabled={selectedNode.countryCode == ""}>Connect</button>
+                                <button className="button primary" onClick={connect}
+                                        disabled={selectedNode.countryCode == ""}>Connect
+                                </button>
                             </div>
                         )
                     }

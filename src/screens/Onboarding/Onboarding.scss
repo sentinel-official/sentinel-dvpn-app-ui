@@ -67,7 +67,7 @@ div.onboardingStartScreenContainer {
   }
 }
 
-div.onboardingCreateScreenContainer {
+div.onboardingMnemonicScreenContainer {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -102,6 +102,35 @@ div.onboardingCreateScreenContainer {
         filter: blur(4px);
       }
     }
+  }
+
+  div.mnemonicInput {
+
+    display: flex;
+    flex-basis: 300px;
+    flex-shrink: 1;
+    flex-grow: 0;
+
+    margin-top:32px;
+    margin-bottom: 32px;
+
+    textarea {
+      background: #26304C;
+      border: 1px solid $mnemonicBorderColor;
+      resize: none;
+      border-radius: 8px;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 16px;
+      font-family: inherit;
+      color: $textColor;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
   }
 
   div.content {

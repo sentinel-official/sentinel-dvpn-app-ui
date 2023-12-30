@@ -64,3 +64,56 @@ div#root {
     filter: grayscale(1);
   }
 }
+
+div.loadingScreen {
+  position: fixed;
+  display: flex;
+  gap: 16px;
+  z-index: 999;
+  top: 0;
+  bottom: 80px;
+  right: 0;
+  left: 0;
+
+  background: transparentize($backgroundColor, 0.2);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &.blocking {
+    bottom: 0 !important;
+    z-index: 1001 !important;
+  }
+
+  &.hidden {
+    display: none !important;
+  }
+
+  span {
+    display: block;
+    font-size: 14px;
+    color: $secondaryTextColor;
+  }
+
+}
+
+div.errorToast {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 16px;
+  z-index: 999;
+  background-color: #B65138;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+
+  transition: 0.3s;
+
+  &.hidden {
+    height: 0 !important;
+    padding: 0 16px !important;
+  }
+}

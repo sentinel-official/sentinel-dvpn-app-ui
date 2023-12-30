@@ -147,7 +147,7 @@ div.onboardingStartScreenContainer div.content p {
   color: #9CABC9;
 }
 
-div.onboardingCreateScreenContainer {
+div.onboardingMnemonicScreenContainer {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -155,12 +155,12 @@ div.onboardingCreateScreenContainer {
   box-sizing: border-box;
   height: 100%;
 }
-div.onboardingCreateScreenContainer div.mnemonic {
+div.onboardingMnemonicScreenContainer div.mnemonic {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-div.onboardingCreateScreenContainer div.mnemonic span {
+div.onboardingMnemonicScreenContainer div.mnemonic span {
   display: block;
   padding: 4px 8px;
   color: #0184FC;
@@ -171,10 +171,33 @@ div.onboardingCreateScreenContainer div.mnemonic span {
   background-color: #00153F;
   transition: 0.3s;
 }
-div.onboardingCreateScreenContainer div.mnemonic.blurred span {
+div.onboardingMnemonicScreenContainer div.mnemonic.blurred span {
   filter: blur(4px);
 }
-div.onboardingCreateScreenContainer div.content {
+div.onboardingMnemonicScreenContainer div.mnemonicInput {
+  display: flex;
+  flex-basis: 300px;
+  flex-shrink: 1;
+  flex-grow: 0;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+div.onboardingMnemonicScreenContainer div.mnemonicInput textarea {
+  background: #26304C;
+  border: 1px solid #0184FC;
+  resize: none;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  font-family: inherit;
+  color: #FFFFFF;
+}
+div.onboardingMnemonicScreenContainer div.mnemonicInput textarea:focus {
+  outline: none;
+}
+div.onboardingMnemonicScreenContainer div.content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -193,32 +216,6 @@ div.appLayoutContainer div.tabContent {
   right: 0;
   left: 0;
   bottom: 80px;
-}
-div.appLayoutContainer div.loadingScreen {
-  position: fixed;
-  display: flex;
-  gap: 16px;
-  z-index: 999;
-  top: 0;
-  bottom: 80px;
-  right: 0;
-  left: 0;
-  background: rgba(0, 6, 16, 0.8);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-div.appLayoutContainer div.loadingScreen.blocking {
-  bottom: 0 !important;
-  z-index: 1001 !important;
-}
-div.appLayoutContainer div.loadingScreen.hidden {
-  display: none !important;
-}
-div.appLayoutContainer div.loadingScreen span {
-  display: block;
-  font-size: 14px;
-  color: #9CABC9;
 }
 div.appLayoutContainer div.tabBar {
   display: flex;
@@ -542,6 +539,8 @@ div.accountScreenContainer {
   display: flex;
   gap: 8px;
   flex-direction: column;
+  height: 100%;
+  overflow: scroll;
 }
 div.accountScreenContainer div.balanceBlock {
   background: #191F31;
@@ -553,7 +552,7 @@ div.accountScreenContainer div.balanceBlock h1 {
   display: block;
   font-size: 16px;
   color: #9CABC9;
-  margin-bottom: 90px;
+  margin-bottom: 16px;
 }
 div.accountScreenContainer div.balanceBlock div.balanceWrapper div.mainBalanceWrapper {
   display: flex;
@@ -585,6 +584,7 @@ div.accountScreenContainer div.howToDeposit {
   flex-direction: column;
   margin: 16px;
   gap: 16px;
+  box-sizing: border-box;
 }
 div.accountScreenContainer div.howToDeposit h1 {
   display: block;
@@ -594,7 +594,7 @@ div.accountScreenContainer div.howToDeposit h1 {
 div.accountScreenContainer div.howToDeposit p {
   display: block;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 18px;
   color: #9CABC9;
 }
 div.accountScreenContainer div.howToDeposit div.qrWrapper {
@@ -605,6 +605,7 @@ div.accountScreenContainer div.howToDeposit div.qrWrapper {
   border-radius: 8px;
   background-color: #26304C;
   padding: 16px;
+  margin-top: 24px;
 }
 div.accountScreenContainer div.howToDeposit div.qrWrapper svg {
   display: block;
@@ -615,24 +616,22 @@ div.accountScreenContainer div.howToDeposit div.qrWrapper svg {
   border-radius: 8px;
 }
 div.accountScreenContainer div.howToDeposit div.qrWrapper div.walletAddressWrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  gap: 4px;
-  padding: 16px;
+  display: block;
+  padding: 16px 0;
   box-sizing: border-box;
+  max-width: 100%;
 }
 div.accountScreenContainer div.howToDeposit div.qrWrapper div.walletAddressWrapper span.title {
   display: block;
-  flex-shrink: 0;
+  float: left;
+  width: 45%;
   font-size: 14px;
   color: #9CABC9;
-  text-wrap: avoid;
 }
 div.accountScreenContainer div.howToDeposit div.qrWrapper div.walletAddressWrapper span.address {
   display: block;
-  flex-basis: 60%;
-  flex-shrink: 1;
+  float: right;
+  width: 45%;
   font-size: 14px;
   color: #FFFFFF;
   overflow: hidden;
@@ -737,6 +736,52 @@ div#root {
 .button:disabled {
   opacity: 0.8;
   filter: grayscale(1);
+}
+
+div.loadingScreen {
+  position: fixed;
+  display: flex;
+  gap: 16px;
+  z-index: 999;
+  top: 0;
+  bottom: 80px;
+  right: 0;
+  left: 0;
+  background: rgba(0, 6, 16, 0.8);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+div.loadingScreen.blocking {
+  bottom: 0 !important;
+  z-index: 1001 !important;
+}
+div.loadingScreen.hidden {
+  display: none !important;
+}
+div.loadingScreen span {
+  display: block;
+  font-size: 14px;
+  color: #9CABC9;
+}
+
+div.errorToast {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 16px;
+  z-index: 999;
+  background-color: #B65138;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: 0.3s;
+}
+div.errorToast.hidden {
+  height: 0 !important;
+  padding: 0 16px !important;
 }
 
 /*# sourceMappingURL=App.css.map */
