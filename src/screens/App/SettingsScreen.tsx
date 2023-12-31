@@ -19,13 +19,13 @@ const SettingsScreen = () => {
             </div>
             <div className="settingsSection">
                 <h2>Legal</h2>
-                <a href="https://sentinel.co/legal/terms" target="_blank" className="sectionRow">
+                <a href="https://sentinel.co/terms-of-service.html" className="sectionRow">
                     <div className="primaryData">
                         <img src={legalDocIcon}/>
                         <span>Terms of Service</span>
                     </div>
                 </a>
-                <a href="https://sentinel.co/legal/privacy" target="_blank" className="sectionRow">
+                <a href="https://sentinel.co/privacy-policy.html" className="sectionRow">
                     <div className="primaryData">
                         <img src={legalDocIcon}/>
                         <span>Privacy Policy</span>

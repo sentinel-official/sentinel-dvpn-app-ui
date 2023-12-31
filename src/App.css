@@ -65,11 +65,16 @@ div.launchScreenContainer div.wrapper {
   flex-direction: column;
   gap: 16px;
 }
-div.launchScreenContainer div.wrapper img {
+div.launchScreenContainer div.wrapper div.logo {
   display: block;
-  flex-basis: 272px;
+  overflow: hidden;
+  text-align: center;
+  flex-basis: 220px;
   flex-grow: 0;
   flex-shrink: 0;
+}
+div.launchScreenContainer div.wrapper div.logo img {
+  max-height: 100%;
 }
 div.launchScreenContainer div.wrapper h1 {
   display: block;
@@ -439,7 +444,8 @@ div.homeScreenContainer div.overlay div.connectionContainer div.actions {
   justify-content: stretch;
   gap: 16px;
 }
-div.homeScreenContainer div.overlay div.connectionContainer div.actions button, div.homeScreenContainer div.overlay div.connectionContainer div.actions a {
+div.homeScreenContainer div.overlay div.connectionContainer div.actions button,
+div.homeScreenContainer div.overlay div.connectionContainer div.actions a {
   flex-grow: 1;
 }
 
@@ -496,7 +502,8 @@ div.nodesScreenContainer div.list {
   overflow-y: scroll;
   height: 100%;
 }
-div.nodesScreenContainer div.list a.location, div.nodesScreenContainer div.list button.location {
+div.nodesScreenContainer div.list a.location,
+div.nodesScreenContainer div.list button.location {
   display: flex;
   padding: 12px;
   gap: 16px;
@@ -508,25 +515,29 @@ div.nodesScreenContainer div.list a.location, div.nodesScreenContainer div.list 
   font-family: inherit;
   line-height: inherit;
 }
-div.nodesScreenContainer div.list a.location div.imageWrapper, div.nodesScreenContainer div.list button.location div.imageWrapper {
+div.nodesScreenContainer div.list a.location div.imageWrapper,
+div.nodesScreenContainer div.list button.location div.imageWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-div.nodesScreenContainer div.list a.location div.infoWrapper, div.nodesScreenContainer div.list button.location div.infoWrapper {
+div.nodesScreenContainer div.list a.location div.infoWrapper,
+div.nodesScreenContainer div.list button.location div.infoWrapper {
   display: flex;
   flex-direction: column;
   gap: 4px;
   flex-basis: 200px;
   flex-grow: 0;
 }
-div.nodesScreenContainer div.list a.location div.infoWrapper span.title, div.nodesScreenContainer div.list button.location div.infoWrapper span.title {
+div.nodesScreenContainer div.list a.location div.infoWrapper span.title,
+div.nodesScreenContainer div.list button.location div.infoWrapper span.title {
   display: block;
   color: #FFFFFF;
   font-size: 18px;
   font-weight: 500;
 }
-div.nodesScreenContainer div.list a.location div.infoWrapper span.subtitle, div.nodesScreenContainer div.list button.location div.infoWrapper span.subtitle {
+div.nodesScreenContainer div.list a.location div.infoWrapper span.subtitle,
+div.nodesScreenContainer div.list button.location div.infoWrapper span.subtitle {
   display: block;
   color: #9CABC9;
   font-size: 14px;
@@ -597,6 +608,35 @@ div.accountScreenContainer div.howToDeposit p {
   line-height: 18px;
   color: #9CABC9;
 }
+div.accountScreenContainer div.howToDeposit .tokensAcceptedDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 16px;
+}
+div.accountScreenContainer div.howToDeposit .tokensAcceptedDivLeft {
+  color: #9CABC9;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+}
+div.accountScreenContainer div.howToDeposit .tokensAcceptedDivLeftBottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+div.accountScreenContainer div.howToDeposit .tokensAcceptedDivLeftBottom img {
+  width: 32px;
+  height: autp;
+}
+div.accountScreenContainer div.howToDeposit .tokensAcceptedDiv .textHowItWorks {
+  color: #0156fc;
+}
 div.accountScreenContainer div.howToDeposit div.qrWrapper {
   display: flex;
   flex-direction: column;
@@ -612,7 +652,7 @@ div.accountScreenContainer div.howToDeposit div.qrWrapper svg {
   width: 128px;
   height: 128px;
   padding: 16px;
-  background: #FFF;
+  background: #fff;
   border-radius: 8px;
 }
 div.accountScreenContainer div.howToDeposit div.qrWrapper div.walletAddressWrapper {

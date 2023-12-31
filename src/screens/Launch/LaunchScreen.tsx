@@ -81,7 +81,10 @@ const LaunchScreen = () => {
     return (
         <div className="launchScreenContainer">
             <div className="wrapper">
-                <img src={launchScreenLogo} className="logo"/>
+                <div className="logo">
+                    <img src={launchScreenLogo} className="logo"/>
+                </div>
+
                 <h1>Welcome to Sentinel VPN</h1>
                 <p>Join Sentinel and enjoy the unlimited possibilities of a decentralized VPN</p>
             </div>
