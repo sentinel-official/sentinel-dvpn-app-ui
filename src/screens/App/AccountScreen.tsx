@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
 
 import balanceIcon from "../../assets/images/balanceIcon.svg";
+import acceptedToken from "../../assets/images/acceptedToken.svg";
 import APIService from "../../API/APIService";
 import {Clipboard} from "ts-clipboard";
 
@@ -70,8 +71,8 @@ const AccountScreen = () => {
           <section className="tokensAcceptedDivLeft">
             <span>Tokens Accepted</span>
             <section className="tokensAcceptedDivLeftBottom">
-              <img src={balanceIcon} />
-              <span>DVPN</span>
+              <img src={acceptedToken} />
+              <span className="tokenSymbol">DVPN</span>
             </section>
           </section>
           {/* <span className="textHowItWorks">How this works?</span> */}

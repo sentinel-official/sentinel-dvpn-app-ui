@@ -629,10 +629,18 @@ div.accountScreenContainer div.howToDeposit .tokensAcceptedDivLeftBottom {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  margin-top: 8px;
 }
 div.accountScreenContainer div.howToDeposit .tokensAcceptedDivLeftBottom img {
   width: 32px;
-  height: autp;
+  height: auto;
+  margin-right: 8px;
+}
+div.accountScreenContainer div.howToDeposit .tokensAcceptedDivLeftBottom span.tokenSymbol {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
 }
 div.accountScreenContainer div.howToDeposit .tokensAcceptedDiv .textHowItWorks {
   color: #0156fc;

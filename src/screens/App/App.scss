@@ -55,8 +55,7 @@ div.appLayoutContainer {
 
         &.selected {
           img {
-            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(152deg)
-              brightness(102%) contrast(102%);
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(152deg) brightness(102%) contrast(102%);
           }
 
           span {
@@ -205,9 +204,9 @@ div.homeScreenContainer {
 
       background: rgb(0, 0, 0);
       background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 1) 100%
+                      180deg,
+                      rgba(0, 0, 0, 0) 0%,
+                      rgba(0, 0, 0, 1) 100%
       );
 
       div.selectedNodeContainer {
@@ -490,6 +489,7 @@ div.accountScreenContainer {
       justify-content: space-between;
       font-size: 14px;
       margin-top: 16px;
+
       &Left {
         color: $secondaryTextColor;
         display: flex;
@@ -497,17 +497,29 @@ div.accountScreenContainer {
         align-items: flex-start;
         justify-content: flex-start;
         gap: 6px;
+
         &Bottom {
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: flex-start;
+          margin-top: 8px;
+
           img {
             width: 32px;
-            height: autp;
+            height: auto;
+            margin-right: 8px;
+          }
+
+          span.tokenSymbol {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: $textColor;
           }
         }
       }
+
       .textHowItWorks {
         color: #0156fc;
       }
