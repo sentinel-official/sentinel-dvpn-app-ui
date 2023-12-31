@@ -4,6 +4,7 @@ import QRCode from "react-qr-code";
 
 import balanceIcon from "../../assets/images/balanceIcon.svg";
 import APIService from "../../API/APIService";
+import {Clipboard} from "ts-clipboard";
 
 const AccountScreen = () => {
   const [balance, setBalance] = useState(0);
@@ -32,6 +33,10 @@ const AccountScreen = () => {
         console.log(e);
       });
   };
+
+  const copyToClipboard = () => {
+    Clipboard.copy(walletAddress);
+  }
 
   useEffect(() => {
     updateBalance();
@@ -77,7 +82,7 @@ const AccountScreen = () => {
             <span className="title">Wallet Address</span>
             <span className="address">{walletAddress}</span>
           </div>
-          <button className="button primary">Copy Address</button>
+          <button onClick={copyToClipboard} className="button primary">Copy Address</button>
         </div>
       </div>
     </div>
