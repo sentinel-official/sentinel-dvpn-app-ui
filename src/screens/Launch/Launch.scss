@@ -17,11 +17,17 @@ div.launchScreenContainer {
     flex-direction: column;
     gap: 16px;
 
-    img {
+    div.logo {
       display: block;
-      flex-basis: 272px;
+      overflow:hidden;
+      text-align: center;
+      flex-basis: 220px;
       flex-grow: 0;
       flex-shrink: 0;
+
+      img {
+        max-height: 100%;
+      }
     }
 
     h1 {
