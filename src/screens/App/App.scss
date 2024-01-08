@@ -357,6 +357,8 @@ div.nodesScreenContainer {
     a.location,
     button.location {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 12px;
       gap: 16px;
 
@@ -618,6 +620,41 @@ div.settingsScreenContainer {
           color: $secondaryTextColor;
         }
       }
+    }
+  }
+}
+
+div.search-connect {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px;
+  div.input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: inherit;
+    line-height: 16px;
+    font-weight: 500;
+    border: 1px solid $overlaySecondaryBackgroundColor;
+    background-color: $overlayMainBackgroundColor;
+    width: 100%;
+    outline: none;
+    padding-inline: 4px;
+
+    input {
+      outline: none;
+      color: $primaryButtonTextColor;
+      background: none;
+      padding-block: 10px;
+      font-size: 16px;
+      border: none;
+      height: inherit;
+      width: inherit;
     }
   }
 }
