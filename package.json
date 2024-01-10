@@ -3,13 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
+    "@reduxjs/toolkit": "^2.0.1",
+    "@scure/bip39": "^1.2.2",
+    "axios": "^1.6.5",
+    "copy-to-clipboard": "^3.3.3",
+    "css-loader": "^6.8.1",
+    "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.0.4",
+    "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.0"
+    "redux-persist": "^6.0.0",
+    "sass": "^1.69.6",
+    "style-loader": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://127.0.0.1:3876"
 }

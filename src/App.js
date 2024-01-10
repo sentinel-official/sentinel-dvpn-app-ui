@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+
+import AppLayout from "./layouts/AppLayout";
+import HomeScreen from "./screens/HomeScreen";
+import LaunchingScreen from "./screens/LaunchingScreen";
+
+import OnboardingLayout from "./layouts/OnboardingLayout";
+import {
+  OnboardingCreateScreen,
+  OnboardingImportScreen,
+  OnboardingStartScreen,
+} from "./screens/Onboarding";
+import Snakbar from "./components/Alerts/Snakbar";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { showSnakAlert } = useSelector((state) => state.alerts);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route index element={<LaunchingScreen />} />
+
+        <Route path="/onboarding" element={<OnboardingLayout />}>
+          <Route index element={<OnboardingStartScreen />} />
+          <Route path="create" element={<OnboardingCreateScreen />} />
+          <Route path="import" element={<OnboardingImportScreen />} />
+        </Route>
+
+        <Route path="/app" element={<AppLayout />}>
+          <Route index element={<HomeScreen />} />
+        </Route>
+      </Routes>
+      {showSnakAlert && <Snakbar />}
+    </>
   );
 }
 
-export default App;
+export default React.memo(App);
