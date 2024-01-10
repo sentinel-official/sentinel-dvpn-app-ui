@@ -1,19 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  showSnakAlert: false,
+  showSuccessAlert: false,
+  showErrorAlert: false,
   message: "",
 };
 const alertsSlice = createSlice({
   name: "alerts",
   initialState,
   reducers: {
-    SET_SHOW_SNAK_ALERT: (state, { payload }) => ({
+    SET_SHOW_SUCCESS_ALERT: (state, { payload }) => ({
       ...state,
-      showSnakAlert: payload.showSnakAlert,
+      showSuccessAlert: payload.showSuccessAlert,
+      message: payload.message,
+    }),
+    SET_SHOW_ERROR_ALERT: (state, { payload }) => ({
+      ...state,
+      showErrorAlert: payload.showErrorAlert,
       message: payload.message,
     }),
   },
 });
 
-export const { SET_SHOW_SNAK_ALERT } = alertsSlice.actions;
+export const { SET_SHOW_SUCCESS_ALERT, SET_SHOW_ERROR_ALERT } =
+  alertsSlice.actions;
 export default alertsSlice.reducer;

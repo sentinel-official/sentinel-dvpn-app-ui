@@ -1,21 +1,29 @@
 @import "../../constants.scss";
 
-.snakbar {
-  width: max(128px, 50%);
-  position: absolute;
-  bottom: 128px;
-  right: 0;
-  margin-inline: 16px;
+.success {
+  position: fixed;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 4px 8px;
-  color: $mnemonicTextColor;
-  font-size: 14px;
-  line-height: 18px;
-  border-radius: 50px 50px 50px 0;
-  background-color: $cardBackgroundColor;
-  transition: 0.3s;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 16px;
+  z-index: 2000;
+  background-color: #097969;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.error {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 16px;
+  z-index: 2000;
+  background-color: #b65138;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }

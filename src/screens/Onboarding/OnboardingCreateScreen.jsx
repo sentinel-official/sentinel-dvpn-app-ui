@@ -5,7 +5,7 @@ import { wordlist } from "@scure/bip39/wordlists/english";
 import { useDispatch } from "react-redux";
 
 import Button, { variants } from "../../components/Button";
-import { SET_SHOW_SNAK_ALERT } from "../../redux/alerts.reducer";
+import { SET_SHOW_SUCCESS_ALERT } from "../../redux/alerts.reducer";
 import styles from "../styles/onboarding-screen.module.scss";
 import APIService from "../../services/app.services";
 import { useNavigate } from "react-router-dom";
@@ -33,8 +33,8 @@ const OnboardingCreateScreen = () => {
     if (revealed) {
       copy(mnemonic);
       dispatch(
-        SET_SHOW_SNAK_ALERT({
-          showSnakAlert: true,
+        SET_SHOW_SUCCESS_ALERT({
+          showSuccessAlert: true,
           message: "Mnemonic copied successfully!",
         })
       );

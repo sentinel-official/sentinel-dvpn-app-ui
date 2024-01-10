@@ -1,16 +1,15 @@
 import React from "react";
-import styles from "./styles/launching-screen.module.scss";
-import Logo from "../assets/images/launching-screen-logo.png";
+import styles from "../../styles/launching-screen.module.scss";
+import Logo from "../../assets/images/launching-screen-logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import APIService from "../services/app.services";
-import { SET_USER_DETAILS } from "../redux/user.reducer";
-import { SET_SHOW_ERROR_ALERT } from "../redux/alerts.reducer";
+import APIService from "../../services/app.services";
+import { SET_USER_DETAILS } from "../../redux/user.reducer";
+import { SET_SHOW_ERROR_ALERT } from "../../redux/alerts.reducer";
 import { useNavigate } from "react-router-dom";
 
 const LaunchingScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = React.useState(true);
 
   const { walletAddress, deviceToken } = useSelector((state) => state.user);
 
@@ -31,20 +30,16 @@ const LaunchingScreen = () => {
             message: "Error while initializing",
           })
         );
-      })
-      .finally(() => setIsLoading(false));
+      });
   }, [dispatch]);
 
   React.useEffect(() => {
-    if (isLoading) {
-      return;
-    }
     if (walletAddress && deviceToken) {
       navigate("/app");
     } else {
       navigate("/onboarding");
     }
-  }, [walletAddress, deviceToken, navigate, isLoading]);
+  }, [walletAddress, deviceToken, navigate]);
 
   return (
     <div className={styles.root}>

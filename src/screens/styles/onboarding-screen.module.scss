@@ -141,3 +141,76 @@
     gap: 16px;
   }
 }
+
+.import {
+  padding: 16px;
+  height: 100%;
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 32px;
+    gap: 16px;
+    height: 100%;
+    width: 100%;
+    .title {
+      max-width: 260px;
+      display: block;
+      font-size: 40px;
+      line-height: 48px;
+      font-weight: 500;
+      pointer-events: none;
+      user-select: none;
+    }
+    .subtitle {
+      display: block;
+      font-size: 16px;
+      line-height: 22px;
+      color: $textSecondaryColor;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  .bottom {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 250px;
+    gap: 32px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    textarea {
+      background: #26304c;
+      border: 1px solid $mnemonicBorderColor;
+      resize: none;
+      border-radius: 8px;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 16px;
+      font-family: inherit;
+      color: $textPrimaryColor;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .actions {
+    margin-block: 16px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

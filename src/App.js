@@ -1,21 +1,26 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-
-import AppLayout from "./layouts/AppLayout";
-import HomeScreen from "./screens/HomeScreen";
-import LaunchingScreen from "./screens/LaunchingScreen";
-
-import OnboardingLayout from "./layouts/OnboardingLayout";
+import { useSelector } from "react-redux";
 import {
   OnboardingCreateScreen,
   OnboardingImportScreen,
   OnboardingStartScreen,
 } from "./screens/Onboarding";
-import Snakbar from "./components/Alerts/Snakbar";
-import { useSelector } from "react-redux";
+
+import AppLayout from "./layouts/AppLayout";
+import OnboardingLayout from "./layouts/OnboardingLayout";
+
+import { Error, Success } from "./components/Alerts";
+import LaunchingScreen from "./screens/LaunchingScreen";
+import HomeScreen from "./screens/HomeScreen";
+import { Cities, Continents, Countries, Nodes } from "./screens/NodesScreen";
+import AccountScreen from "./screens/AccountScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 
 function App() {
-  const { showSnakAlert } = useSelector((state) => state.alerts);
+  const { showSuccessAlert, showErrorAlert } = useSelector(
+    (state) => state.alerts
+  );
 
   return (
     <>
@@ -30,9 +35,25 @@ function App() {
 
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<HomeScreen />} />
+          <Route path="continents" element={<Continents />} />
+          <Route
+            path="continents/:continent/countries"
+            element={<Countries />}
+          />
+          <Route
+            path="continents/:continent/countries/:country/cities"
+            element={<Cities />}
+          />
+          <Route
+            path="continents/:continent/countries/:country/cities/:city/nodes"
+            element={<Nodes />}
+          />
+          <Route path="account" element={<AccountScreen />} />
+          <Route path="settings" element={<SettingsScreen />} />
         </Route>
       </Routes>
-      {showSnakAlert && <Snakbar />}
+      {showSuccessAlert && <Success />}
+      {showErrorAlert && <Error />}
     </>
   );
 }
