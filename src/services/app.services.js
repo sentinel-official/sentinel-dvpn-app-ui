@@ -1,3 +1,4 @@
+import axios from "axios";
 import Axios from "./Axios";
 
 const getKey = (key) =>
@@ -49,12 +50,28 @@ const getBalance = (walletAddress) =>
       throw new Error(error);
     });
 
+const getCurrentPrice = () =>
+  axios.get("https://api.coingecko.com/api/v3/coins/sentinel", {
+    community_data: false,
+    developer_data: false,
+    localization: false,
+    sparkline: false,
+    tickers: false,
+  })
+    .then((response) => {
+      return response?.data?.market_data?.current_price?.usd;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
 const APIService = {
   getKey,
   getWallet,
   setWallet,
   getIpAddress,
   getBalance,
+  getCurrentPrice,
 };
 
 export default APIService;

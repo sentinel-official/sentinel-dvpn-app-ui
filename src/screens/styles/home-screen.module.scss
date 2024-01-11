@@ -106,8 +106,9 @@
       justify-content: flex-start;
       gap: 8px;
       font-size: 14px;
-      border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 16px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      font-weight: 500;
     }
   }
 }

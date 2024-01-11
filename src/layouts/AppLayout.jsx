@@ -8,15 +8,18 @@ import SettingsIcon from "../assets/icons/tab-settings-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import APIService from "../services/app.services";
 import { SET_MAP_LOCATION } from "../redux/map.reducer";
-import { SET_IP_ADDRESS } from "../redux/user.reducer";
-import { SET_ACCOUNT_BALANCE } from "../redux/account.reducer";
+import {
+  SET_ACCOUNT_BALANCE,
+  SET_IP_ADDRESS,
+  SET_USD_PRICE,
+} from "../redux/account.reducer";
 import { SET_SHOW_ERROR_ALERT } from "../redux/alerts.reducer";
 
 const tabs = [
   {
     title: "Nodes",
     logo: NodesIcon,
-    path: "/app/continents",
+    path: "/app/countries",
   },
   {
     title: "Account",
@@ -42,23 +45,18 @@ const AppLayout = () => {
   };
 
   const fetchBalance = React.useCallback(() => {
-    APIService.getBalance(walletAddress)
-      .then(({ balances = [] }) => {
-        if (balances && balances.length > 0) {
-          balances.forEach((balance) => {
-            if (balance.denom === "udvpn") {
-              const newBalance = Number.parseInt(balance.amount) / 1e6;
-              dispatch(SET_ACCOUNT_BALANCE(newBalance));
-            }
-          });
-        } else {
-          dispatch(
-            SET_SHOW_ERROR_ALERT({
-              showErrorAlert: true,
-              message: "Error while fetching balance",
-            })
-          );
-        }
+    APIService.getCurrentPrice()
+      .then((price) => {
+        dispatch(SET_USD_PRICE(Number.parseFloat(price)));
+        return APIService.getBalance(walletAddress);
+      })
+      .then(({ balances }) => {
+        balances.forEach(async (balance) => {
+          if (balance.denom === "udvpn") {
+            const newBalance = Number.parseInt(balance.amount) / 1e6;
+            dispatch(SET_ACCOUNT_BALANCE(newBalance));
+          }
+        });
       })
       .catch(() => {
         dispatch(

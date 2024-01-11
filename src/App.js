@@ -11,7 +11,7 @@ import {
 import OnboardingLayout from "./layouts/OnboardingLayout";
 import AppLayout from "./layouts/AppLayout";
 import HomeScreen from "./screens/HomeScreen";
-import { Cities, Continents, Countries, Nodes } from "./screens/NodesScreen";
+import { Cities, Countries, Nodes } from "./screens/NodesScreen";
 import AccountScreen from "./screens/AccountScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import LaunchingScreen from "./screens/LaunchingScreen";
@@ -35,17 +35,10 @@ function App() {
 
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<HomeScreen />} />
-          <Route path="continents" element={<ListLayout />}>
-            <Route index element={<Continents />} />
-            <Route path=":contient/countries" element={<Countries />} />
-            <Route
-              path=":contient/countries/:country/cities"
-              element={<Cities />}
-            />
-            <Route
-              path=":contient/countries/:country/cities/:city/nodes"
-              element={<Nodes />}
-            />
+          <Route path="countries" element={<ListLayout />}>
+            <Route index element={<Countries />} />
+            <Route path=":country/cities" element={<Cities />} />
+            <Route path=":country/cities/:city/nodes" element={<Nodes />} />
           </Route>
           <Route path="account" element={<AccountScreen />} />
           <Route path="settings" element={<SettingsScreen />} />

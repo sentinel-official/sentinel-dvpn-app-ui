@@ -1,0 +1,105 @@
+@import "../../constants.scss";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 36px;
+  .header {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  .balance-card {
+    width: inherit;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    .title {
+      color: $textSecondaryColor;
+    }
+    .balance-dvpn {
+      text-align: right;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 40px;
+    }
+    .balance-dollors {
+      text-align: right;
+      color: $textSecondaryColor;
+      font-weight: 500;
+    }
+  }
+  .how-to-deposit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+    .title {
+      font-size: 24px;
+      font-weight: 500;
+    }
+    .description {
+      color: $textSecondaryColor;
+      font-size: 14px;
+    }
+  }
+  .tokens-accepted {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+    color: $textSecondaryColor;
+    font-size: 14px;
+    font-weight: 500;
+    .token {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+    }
+  }
+  .qr-code-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px;
+    svg {
+      display: block;
+      width: 144px;
+      height: 144px;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 8px;
+    }
+    .wallet-address {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      width: 100%;
+      .title {
+        color: $textSecondaryColor;
+      }
+      .address {
+        width: 45%;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

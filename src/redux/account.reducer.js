@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   balance: 0,
+  price: 0,
+  ip: null,
 };
 
 const accountSlice = createSlice({
@@ -12,9 +14,18 @@ const accountSlice = createSlice({
       ...state,
       balance: payload,
     }),
+    SET_USD_PRICE: (state, { payload }) => ({
+      ...state,
+      price: payload,
+    }),
+    SET_IP_ADDRESS: (state, { payload }) => ({
+      ...state,
+      ip: payload,
+    }),
   },
 });
 
-export const { SET_ACCOUNT_BALANCE } = accountSlice.actions;
+export const { SET_ACCOUNT_BALANCE, SET_USD_PRICE, SET_IP_ADDRESS } =
+  accountSlice.actions;
 
 export default accountSlice.reducer;

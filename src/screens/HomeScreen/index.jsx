@@ -12,7 +12,7 @@ import Button, { variants } from "../../components/Button";
 const HomeScreen = () => {
   const { latitude, longitude } = useSelector((state) => state.map);
   const { balance } = useSelector((state) => state.account);
-  const { ip } = useSelector((state) => state.user);
+  const { ip } = useSelector((state) => state.account);
 
   return (
     <div className={styles.root}>

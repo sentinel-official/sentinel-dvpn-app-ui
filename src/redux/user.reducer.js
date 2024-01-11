@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import dnsList from "../constants/dns.constants";
 
 const initialState = {
   deviceToken: null,
@@ -6,7 +7,7 @@ const initialState = {
   mnemonic: null,
   isLoading: true,
   isOnboarding: false,
-  ip: null,
+  selectedDNS: dnsList.cloudflare,
 };
 
 const userSlice = createSlice({
@@ -30,11 +31,10 @@ const userSlice = createSlice({
       ...state,
       isOnboarding: payload,
     }),
-    SET_IP_ADDRESS: (state, { payload }) => ({
+    CHANGE_SELECTED_DNS: (state, { payload }) => ({
       ...state,
-      ip: payload,
+      selectedDNS: payload,
     }),
-
   },
 });
 
@@ -43,7 +43,7 @@ export const {
   SET_LOADING,
   SET_MNEMONIC,
   SET_IS_ONBOARDING,
-  SET_IP_ADDRESS,
+  CHANGE_SELECTED_DNS
 } = userSlice.actions;
 
 export default userSlice.reducer;

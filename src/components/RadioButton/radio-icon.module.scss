@@ -1,0 +1,45 @@
+@import "../../constants.scss";
+
+.radioBtn {
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+
+  input {
+    display: none;
+  }
+  span {
+    color: $textPrimaryColor;
+  }
+
+  .svg {
+    margin-right: 0.5em;
+  }
+
+  .radioDot {
+    opacity: 0;
+  }
+
+  .radioOutline {
+    opacity: 0.2;
+  }
+
+  input:checked + svg {
+    .radioDot,
+    .radioOutline {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    .radioDot {
+      opacity: 0;
+    }
+    .radioOutline {
+      opacity: 0.3;
+    }
+  }
+}
