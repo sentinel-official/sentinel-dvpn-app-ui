@@ -67,39 +67,4 @@
       gap: 8px;
     }
   }
-  .qr-code-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 16px;
-    svg {
-      display: block;
-      width: 144px;
-      height: 144px;
-      padding: 16px;
-      background: #ffffff;
-      border-radius: 8px;
-    }
-    .wallet-address {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      width: 100%;
-      .title {
-        color: $textSecondaryColor;
-      }
-      .address {
-        width: 45%;
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-  }
 }
