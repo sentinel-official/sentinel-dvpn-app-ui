@@ -1,7 +1,7 @@
 const dnsList = {
-  cloudflare: "Cloudflare DNS",
-  google: "Google DNS",
-  handshake: "Handshake DNS",
+  cloudflare: "Cloudflare",
+  google: "Google",
+  handshake: "Handshake",
 };
 
 export default dnsList;

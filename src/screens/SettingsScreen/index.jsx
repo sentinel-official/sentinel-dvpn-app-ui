@@ -38,7 +38,7 @@ const DNSCard = () => {
   const DNSListModal = (
     <Modal>
       <div className={styles["dns-list"]}>
-        <span className={styles.title}>Choose type</span>
+        <span className={styles.title}>Choose DNS</span>
         <section className={styles.list}>
           {Object.entries(dnsList).map(([key, value]) => {
             const isChecked = value === selectedDNS;
@@ -55,7 +55,7 @@ const DNSCard = () => {
         <section className={styles.actions}>
           <Button
             onClick={() => setIsModalOpen(false)}
-            title={"Ok"}
+            title={"OK"}
             variant={variants.primary}
           />
         </section>
