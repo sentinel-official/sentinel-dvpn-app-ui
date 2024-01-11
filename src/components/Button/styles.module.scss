@@ -9,6 +9,11 @@ button {
   font-size: 14px;
   line-height: 16px;
   font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   span {
     user-select: none;
   }
@@ -17,10 +22,6 @@ button {
 .primary {
   background-color: #0156fc;
   color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
   &.disabled {
     opacity: 0.8;
     filter: grayscale(1);

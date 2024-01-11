@@ -34,7 +34,7 @@ const Map = ({ latitude, longitude }) => {
     }
   };
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     handleFlyTo(latitude, longitude);
   }, [longitude, latitude]);
 

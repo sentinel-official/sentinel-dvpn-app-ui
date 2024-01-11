@@ -34,6 +34,7 @@ const userSlice = createSlice({
       ...state,
       ip: payload,
     }),
+
   },
 });
 

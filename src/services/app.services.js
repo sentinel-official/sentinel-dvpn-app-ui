@@ -40,11 +40,21 @@ const getIpAddress = (deviceToken) =>
       throw new Error(error);
     });
 
+const getBalance = (walletAddress) =>
+  Axios.get(`/blockchain/wallet/${walletAddress}/balance`, {})
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
 const APIService = {
   getKey,
   getWallet,
   setWallet,
   getIpAddress,
+  getBalance,
 };
 
 export default APIService;

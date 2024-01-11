@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import APIService from "../services/app.services";
 import { SET_MAP_LOCATION } from "../redux/map.reducer";
 import { SET_IP_ADDRESS } from "../redux/user.reducer";
+import { SET_ACCOUNT_BALANCE } from "../redux/account.reducer";
+import { SET_SHOW_ERROR_ALERT } from "../redux/alerts.reducer";
 
 const tabs = [
   {
@@ -39,20 +41,60 @@ const AppLayout = () => {
     navigate(path);
   };
 
-  React.useLayoutEffect(() => {
+  const fetchBalance = React.useCallback(() => {
+    APIService.getBalance(walletAddress)
+      .then(({ balances = [] }) => {
+        if (balances && balances.length > 0) {
+          balances.forEach((balance) => {
+            if (balance.denom === "udvpn") {
+              const newBalance = Number.parseInt(balance.amount) / 1e6;
+              dispatch(SET_ACCOUNT_BALANCE(newBalance));
+            }
+          });
+        } else {
+          dispatch(
+            SET_SHOW_ERROR_ALERT({
+              showErrorAlert: true,
+              message: "Error while fetching balance",
+            })
+          );
+        }
+      })
+      .catch(() => {
+        dispatch(
+          SET_SHOW_ERROR_ALERT({
+            showErrorAlert: true,
+            message: "Error while fetching balance",
+          })
+        );
+      });
+  }, [walletAddress, dispatch]);
+
+  const updateMapLocation = React.useCallback(() => {
     APIService.getIpAddress(deviceToken)
       .then(({ data }) => {
-        console.log(data);
-        dispatch(SET_IP_ADDRESS(data.ip));
         dispatch(
           SET_MAP_LOCATION({
             latitude: data.latitude,
             longitude: data.longitude,
           })
         );
+        dispatch(SET_IP_ADDRESS(data.ip));
       })
-      .catch(console.error);
+      .catch(() => {
+        dispatch(
+          SET_SHOW_ERROR_ALERT({
+            showErrorAlert: true,
+            message: "Error while fetching IP Address",
+          })
+        );
+      });
   }, [deviceToken, dispatch]);
+
+  React.useLayoutEffect(() => {
+    fetchBalance();
+    updateMapLocation();
+  }, [fetchBalance, updateMapLocation]);
 
   if (walletAddress && deviceToken) {
     return (

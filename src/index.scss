@@ -13,27 +13,10 @@ body {
   box-sizing: border-box;
 }
 
-// @for $value from 0 through 50 {
-//   .gap-#{$value} {
-//     gap: 1px * $value;
-//   }
-//   .margin-inline-#{$value} {
-//     margin: 1px * $value;
-//   }
-//   .margin-block-#{$value} {
-//     margin: 1px * $value;
-//   }
-//   .padding-inline-#{$value} {
-//     margin: 1px * $value;
-//   }
-//   .padding-block-#{$value} {
-//     margin: 1px * $value;
-//   }
-// }
-
 span {
   font: inherit;
   vertical-align: baseline;
+  user-select: none;
 }
 
 * {
@@ -42,4 +25,8 @@ span {
 
 .mapboxgl-ctrl-logo {
   display: none !important;
+}
+
+img {
+  user-select: none;
 }

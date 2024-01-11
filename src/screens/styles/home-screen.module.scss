@@ -1,0 +1,113 @@
+@import "../../constants.scss";
+
+.root {
+  width: inherit;
+  height: inherit;
+  .overlay {
+    z-index: 999;
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    .top {
+      margin-block: 16px;
+      padding-inline: 16px;
+    }
+
+    .balance-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 16px;
+      padding: 16px;
+
+      img {
+        width: auto;
+        height: 100%;
+        aspect-ratio: 1/1;
+      }
+      .balance {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .title {
+          font-size: 12px;
+          font-weight: 500;
+          color: $textSecondaryColor;
+        }
+        .amount {
+          font-weight: 500;
+          font-size: 18px;
+          color: $textPrimaryColor;
+        }
+      }
+    }
+
+    .bottom {
+      width: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgb(0, 0, 0) 100%
+      );
+      padding-inline: 16px;
+      padding-block: 16px;
+      padding-top: max(200px, 20vh);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ip-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px;
+
+      .muted {
+        font-weight: 500;
+        font-size: 18px;
+        color: $textSecondaryColor;
+      }
+      .ip {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        .title {
+          font-size: 14px;
+          font-weight: 500;
+          color: $textSecondaryColor;
+        }
+        .address {
+          font-weight: 500;
+          font-size: 14px;
+          color: $textPrimaryColor;
+        }
+      }
+    }
+
+    .protected {
+      padding: 12px 16px;
+      background-color: #26304c;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+  }
+}
