@@ -15,7 +15,7 @@ const LaunchingScreen = () => {
   );
 
   React.useEffect(() => {
-    if (isLoading) {
+    if (isLoading && [walletAddress, deviceToken].includes(null)) {
       Promise.all([APIService.getKey("deviceToken"), APIService.getWallet()])
         .then(([deviceToken, walletAddress]) => {
           dispatch(

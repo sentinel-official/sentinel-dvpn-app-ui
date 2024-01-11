@@ -6,6 +6,7 @@ const initialState = {
   mnemonic: null,
   isLoading: true,
   isOnboarding: false,
+  ip: null,
 };
 
 const userSlice = createSlice({
@@ -29,6 +30,10 @@ const userSlice = createSlice({
       ...state,
       isOnboarding: payload,
     }),
+    SET_IP_ADDRESS: (state, { payload }) => ({
+      ...state,
+      ip: payload,
+    }),
   },
 });
 
@@ -37,6 +42,7 @@ export const {
   SET_LOADING,
   SET_MNEMONIC,
   SET_IS_ONBOARDING,
+  SET_IP_ADDRESS,
 } = userSlice.actions;
 
 export default userSlice.reducer;

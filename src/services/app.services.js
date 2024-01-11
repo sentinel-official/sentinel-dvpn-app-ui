@@ -27,10 +27,24 @@ const setWallet = (data) =>
       throw new Error(error);
     });
 
+const getIpAddress = (deviceToken) =>
+  Axios.get("/proxy/ip", {
+    headers: {
+      "x-device-token": deviceToken,
+    },
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
 const APIService = {
   getKey,
   getWallet,
   setWallet,
+  getIpAddress,
 };
 
 export default APIService;
