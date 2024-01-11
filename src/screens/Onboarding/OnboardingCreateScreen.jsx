@@ -7,25 +7,16 @@ import { useDispatch } from "react-redux";
 import Button, { variants } from "../../components/Button";
 import { SET_SHOW_SUCCESS_ALERT } from "../../redux/alerts.reducer";
 import styles from "../styles/onboarding-screen.module.scss";
-import APIService from "../../services/app.services";
-import { useNavigate } from "react-router-dom";
+import { SET_MNEMONIC } from "../../redux/user.reducer";
 
 const mnemonic = generateMnemonic(wordlist, 256);
 
 const OnboardingCreateScreen = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [revealed, setRevealed] = React.useState(false);
 
   const createWallet = () => {
-    const payload = {
-      mnemonic,
-    };
-    APIService.setWallet(payload)
-      .then(() => {
-        navigate("/");
-      })
-      .catch(console.error);
+    dispatch(SET_MNEMONIC(mnemonic));
   };
 
   const handleRevealed = (event) => {

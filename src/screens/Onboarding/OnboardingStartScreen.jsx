@@ -10,7 +10,6 @@ const OnboardingStartScreen = () => {
 
   const navigateTo = (event, path) => {
     event.preventDefault();
-    console.log("path", path);
     navigate(path);
   };
 

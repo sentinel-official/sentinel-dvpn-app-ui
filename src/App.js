@@ -1,21 +1,21 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Error, Success } from "./components/Alerts";
+import { Route, Routes } from "react-router-dom";
+
 import {
   OnboardingCreateScreen,
   OnboardingImportScreen,
   OnboardingStartScreen,
 } from "./screens/Onboarding";
-
-import AppLayout from "./layouts/AppLayout";
 import OnboardingLayout from "./layouts/OnboardingLayout";
-
-import { Error, Success } from "./components/Alerts";
-import LaunchingScreen from "./screens/LaunchingScreen";
+import AppLayout from "./layouts/AppLayout";
 import HomeScreen from "./screens/HomeScreen";
 import { Cities, Continents, Countries, Nodes } from "./screens/NodesScreen";
 import AccountScreen from "./screens/AccountScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import LaunchingScreen from "./screens/LaunchingScreen";
+import ListLayout from "./layouts/ListLayout";
 
 function App() {
   const { showSuccessAlert, showErrorAlert } = useSelector(
@@ -25,7 +25,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route index element={<LaunchingScreen />} />
+        <Route exact path="/" element={<LaunchingScreen />} />
 
         <Route path="/onboarding" element={<OnboardingLayout />}>
           <Route index element={<OnboardingStartScreen />} />
@@ -35,23 +35,23 @@ function App() {
 
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<HomeScreen />} />
-          <Route path="continents" element={<Continents />} />
-          <Route
-            path="continents/:continent/countries"
-            element={<Countries />}
-          />
-          <Route
-            path="continents/:continent/countries/:country/cities"
-            element={<Cities />}
-          />
-          <Route
-            path="continents/:continent/countries/:country/cities/:city/nodes"
-            element={<Nodes />}
-          />
+          <Route path="continents" element={<ListLayout />}>
+            <Route index element={<Continents />} />
+            <Route path=":contient/countries" element={<Countries />} />
+            <Route
+              path=":contient/countries/:country/cities"
+              element={<Cities />}
+            />
+            <Route
+              path=":contient/countries/:country/cities/:city/nodes"
+              element={<Nodes />}
+            />
+          </Route>
           <Route path="account" element={<AccountScreen />} />
           <Route path="settings" element={<SettingsScreen />} />
         </Route>
       </Routes>
+
       {showSuccessAlert && <Success />}
       {showErrorAlert && <Error />}
     </>

@@ -2,9 +2,8 @@ import React from "react";
 import styles from "../styles/onboarding-screen.module.scss";
 import Button, { variants } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
-import APIService from "../../services/app.services";
 import { useDispatch } from "react-redux";
-import { SET_SHOW_ERROR_ALERT } from "../../redux/alerts.reducer";
+import { SET_MNEMONIC } from "../../redux/user.reducer";
 
 const OnboardingImportScreen = () => {
   const navigate = useNavigate();
@@ -12,25 +11,9 @@ const OnboardingImportScreen = () => {
   const [mnemonic, setMnemonic] = React.useState("");
 
   const setupWallet = () => {
-    const payload = {
-      mnemonic,
-    };
-
-    APIService.setWallet(payload)
-      .then(() => {
-        navigate("/");
-      })
-      .catch((e) => {
-        dispatch(
-          SET_SHOW_ERROR_ALERT({
-            showErrorAlert: true,
-            message:
-              "Failed to import mnemonic. Check, if you entered the correct mnemonic.",
-          })
-        );
-        console.log(e);
-      });
+    dispatch(SET_MNEMONIC(mnemonic));
   };
+
   return (
     <div className={styles.import}>
       <div className={styles.top}>
