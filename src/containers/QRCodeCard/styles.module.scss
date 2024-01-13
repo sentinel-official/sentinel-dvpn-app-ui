@@ -17,8 +17,9 @@
     border-radius: 8px;
   }
   .wallet-address {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
@@ -27,9 +28,10 @@
     width: 100%;
     .title {
       color: $textSecondaryColor;
+      text-align: left;
     }
     .address {
-      width: 45%;
+      text-align: right;
       font-size: 14px;
       overflow: hidden;
       text-overflow: ellipsis;

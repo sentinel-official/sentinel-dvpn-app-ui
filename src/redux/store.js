@@ -15,6 +15,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import accountReducer from "./account.reducer";
+import nodesReducer from "./nodes.reducer";
 
 const persistConfig = {
   key: "root",
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   alerts: alertsReducer,
   map: mapReducer,
   account: accountReducer,
+  nodes: nodesReducer,
 });
 
 const store = configureStore({

@@ -14,6 +14,7 @@ import {
   SET_USD_PRICE,
 } from "../redux/account.reducer";
 import { SET_SHOW_ERROR_ALERT } from "../redux/alerts.reducer";
+import { fetchCountriesAction } from "../actions/nodes.actions";
 
 const tabs = [
   {
@@ -89,10 +90,15 @@ const AppLayout = () => {
       });
   }, [deviceToken, dispatch]);
 
+  const fetchCountries = React.useCallback(() => {
+    dispatch(fetchCountriesAction());
+  }, [dispatch]);
+
   React.useLayoutEffect(() => {
     fetchBalance();
     updateMapLocation();
-  }, [fetchBalance, updateMapLocation]);
+    fetchCountries();
+  }, [fetchBalance, updateMapLocation, fetchCountries]);
 
   if (walletAddress && deviceToken) {
     return (

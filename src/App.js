@@ -37,8 +37,8 @@ function App() {
           <Route index element={<HomeScreen />} />
           <Route path="countries" element={<ListLayout />}>
             <Route index element={<Countries />} />
-            <Route path=":country/cities" element={<Cities />} />
-            <Route path=":country/cities/:city/nodes" element={<Nodes />} />
+            <Route path=":countryId/cities" element={<Cities />} />
+            <Route path=":countryId/cities/:cityId/nodes" element={<Nodes />} />
           </Route>
           <Route path="account" element={<AccountScreen />} />
           <Route path="settings" element={<SettingsScreen />} />

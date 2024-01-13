@@ -34,4 +34,11 @@ span {
 
 img {
   user-select: none;
+  pointer-events: none;
+}
+
+.list-button {
+  background: none;
+  outline: none;
+  border: none;
 }

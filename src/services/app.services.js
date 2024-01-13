@@ -51,15 +51,55 @@ const getBalance = (walletAddress) =>
     });
 
 const getCurrentPrice = () =>
-  axios.get("https://api.coingecko.com/api/v3/coins/sentinel", {
-    community_data: false,
-    developer_data: false,
-    localization: false,
-    sparkline: false,
-    tickers: false,
-  })
+  axios
+    .get("https://api.coingecko.com/api/v3/coins/sentinel", {
+      community_data: false,
+      developer_data: false,
+      localization: false,
+      sparkline: false,
+      tickers: false,
+    })
     .then((response) => {
       return response?.data?.market_data?.current_price?.usd;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
+const getCountries = (deviceToken) =>
+  Axios.get("/proxy/countries", {
+    headers: {
+      "x-device-token": deviceToken,
+    },
+  })
+    .then((response) => {
+      return response.data.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
+const getCities = (countryId, deviceToken) =>
+  Axios.get(`/proxy/countries/${countryId}/cities`, {
+    headers: {
+      "x-device-token": deviceToken,
+    },
+  })
+    .then((response) => {
+      return response.data.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
+const getNodes = async ({ countryId, cityId, deviceToken }) =>
+  Axios.get(`/proxy/countries/${countryId}/cities/${cityId}/servers`, {
+    headers: {
+      "x-device-token": deviceToken,
+    },
+  })
+    .then((response) => {
+      return response.data.data;
     })
     .catch((error) => {
       throw new Error(error);
@@ -72,6 +112,9 @@ const APIService = {
   getIpAddress,
   getBalance,
   getCurrentPrice,
+  getCountries,
+  getCities,
+  getNodes,
 };
 
 export default APIService;

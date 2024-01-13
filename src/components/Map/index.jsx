@@ -65,9 +65,4 @@ const Map = ({ latitude, longitude }) => {
   );
 };
 
-export default React.memo(Map, (prevProps, nextProps) => {
-  return (
-    prevProps.latitude === nextProps.latitude &&
-    prevProps.longitude === nextProps.longitude
-  );
-});
+export default React.memo(Map);

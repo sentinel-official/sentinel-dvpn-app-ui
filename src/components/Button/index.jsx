@@ -8,15 +8,24 @@ export const variants = {
   disabled: "disabled",
 };
 
-const Button = ({ variant, title, onClick, disabled, icon }) => {
+const Button = ({
+  variant,
+  title,
+  onClick,
+  disabled,
+  icon,
+  className = "",
+}) => {
   return (
     <button
-      className={`${styles[variant]} ${disabled ? styles.disabled : ""}`}
+      className={`${styles[variant]} ${
+        disabled ? styles.disabled : ""
+      } ${className}`}
       disabled={disabled}
       onClick={onClick}
     >
       {icon && <img src={icon} alt="" />}
-      <span>{title}</span>
+      {title && <span>{title}</span>}
     </button>
   );
 };
