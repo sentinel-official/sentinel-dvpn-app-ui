@@ -11,7 +11,7 @@ const LaunchingScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { walletAddress, deviceToken } = useSelector((state) => state.user);
+  const { walletAddress, deviceToken } = useSelector((state) => state.device);
 
   React.useEffect(() => {
     Promise.all([APIService.getKey("deviceToken"), APIService.getWallet()])

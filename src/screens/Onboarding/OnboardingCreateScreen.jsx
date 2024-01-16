@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import Button, { variants } from "../../components/Button";
 import { SET_SHOW_SUCCESS_ALERT } from "../../redux/alerts.reducer";
 import styles from "../styles/onboarding-screen.module.scss";
-import { SET_MNEMONIC } from "../../redux/user.reducer";
+import { createWalletMnemonic } from "../../actions/device.actions";
+import { withLoader } from "../../actions/loader.actions";
 
 const mnemonic = generateMnemonic(wordlist, 256);
 
@@ -16,7 +17,7 @@ const OnboardingCreateScreen = () => {
   const [revealed, setRevealed] = React.useState(false);
 
   const createWallet = () => {
-    dispatch(SET_MNEMONIC(mnemonic));
+    dispatch(withLoader({ dispatchers: [createWalletMnemonic(mnemonic)] }));
   };
 
   const handleRevealed = (event) => {

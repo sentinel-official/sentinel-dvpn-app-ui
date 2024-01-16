@@ -8,7 +8,7 @@ import dnsList from "../../constants/dns.constants";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/Modal";
 import Button, { variants } from "../../components/Button";
-import { CHANGE_SELECTED_DNS } from "../../redux/user.reducer";
+import { CHANGE_SELECTED_DNS } from "../../redux/device.reducer";
 import RadioButton from "../../components/RadioButton";
 
 const legalDocs = [
@@ -26,7 +26,7 @@ const legalDocs = [
 
 const DNSCard = () => {
   const dispatch = useDispatch();
-  const { selectedDNS } = useSelector((state) => state.user);
+  const { selectedDNS } = useSelector((state) => state.device);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleOnChangeDNSValue = (event) => {

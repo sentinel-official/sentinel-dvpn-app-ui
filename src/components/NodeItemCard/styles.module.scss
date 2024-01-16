@@ -2,7 +2,7 @@
 
 .card-details {
   width: 100%;
-  height: 72px;
+  height: min(72px, 100%);
   display: grid;
   grid-template-columns: calc(85% - 16px) 15%;
   grid-template-rows: 1fr;
@@ -25,12 +25,17 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-block: 8px;
   gap: 8px;
   .title {
     font-size: 18px;
     color: $textPrimaryColor;
+    text-overflow: ellipsis;
+    max-width: 75vw;
+    overflow: hidden;
+    text-align: left;
+    line-height: 22px;
   }
   .description {
     font-size: 12px;
@@ -38,6 +43,6 @@
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 280px;
+    max-width: 60vw;
   }
 }

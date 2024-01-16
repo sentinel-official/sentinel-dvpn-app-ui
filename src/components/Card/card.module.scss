@@ -1,6 +1,12 @@
 @import "../../constants.scss";
 
 .root {
-  background-color: $cardBackgroundColor;
   border-radius: 8px;
+}
+
+.primary {
+  background-color: $cardBackgroundColor;
+}
+.secondary {
+  background-color: #26304c;
 }

@@ -23,10 +23,6 @@ const userSlice = createSlice({
       ...state,
       isLoading: payload,
     }),
-    SET_MNEMONIC: (state, { payload }) => ({
-      ...state,
-      mnemonic: payload,
-    }),
     SET_IS_ONBOARDING: (state, { payload }) => ({
       ...state,
       isOnboarding: payload,
@@ -41,9 +37,8 @@ const userSlice = createSlice({
 export const {
   SET_USER_DETAILS,
   SET_LOADING,
-  SET_MNEMONIC,
   SET_IS_ONBOARDING,
-  CHANGE_SELECTED_DNS
+  CHANGE_SELECTED_DNS,
 } = userSlice.actions;
 
 export default userSlice.reducer;

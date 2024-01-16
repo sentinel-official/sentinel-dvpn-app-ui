@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 const QRCodeCard = () => {
   const dispatch = useDispatch();
 
-  const { walletAddress } = useSelector((state) => state.user);
+  const { walletAddress } = useSelector((state) => state.device);
 
   const copyWalletAddress = (event) => {
     event.preventDefault();
@@ -23,7 +23,7 @@ const QRCodeCard = () => {
     );
   };
   return (
-    <Card>
+    <Card variant="secondary">
       <section className={styles["qr-code-card"]}>
         <QRCode value={walletAddress} />
         <section className={styles["wallet-address"]}>

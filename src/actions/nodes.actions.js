@@ -13,7 +13,7 @@ export const fetchNodesAction = createAsyncThunk(
       if (avaibaleNodes[cityId]) {
         return;
       }
-      const deviceToken = getState().user.deviceToken;
+      const deviceToken = getState().device.deviceToken;
       const params = { countryId, cityId, deviceToken };
       const response = await APIService.getNodes(params);
       const nodes = segregateByKey(response, "city_id");
@@ -32,7 +32,7 @@ export const fetchCitiesAction = createAsyncThunk(
       if (avaibaleCities[countryId]) {
         return;
       }
-      const deviceToken = getState().user.deviceToken;
+      const deviceToken = getState().device.deviceToken;
       const response = await APIService.getCities(countryId, deviceToken);
       const cities = segregateByKey(response, "country_id");
       return fulfillWithValue({ cities, countryId });
@@ -46,7 +46,7 @@ export const fetchCountriesAction = createAsyncThunk(
   "FETCH_COUNTRIES_LIST",
   async (_, { fulfillWithValue, rejectWithValue, getState }) => {
     try {
-      const deviceToken = getState().user.deviceToken;
+      const deviceToken = getState().device.deviceToken;
       const countries = await APIService.getCountries(deviceToken);
       return fulfillWithValue({ countries: countries });
     } catch (e) {

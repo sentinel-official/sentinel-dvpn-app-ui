@@ -10,9 +10,8 @@ const LaunchingScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { walletAddress, deviceToken, isLoading } = useSelector(
-    (state) => state.user
-  );
+  const { walletAddress, deviceToken } = useSelector((state) => state.device);
+  const { isLoading } = useSelector((state) => state.user);
 
   React.useEffect(() => {
     if (isLoading && [walletAddress, deviceToken].includes(null)) {

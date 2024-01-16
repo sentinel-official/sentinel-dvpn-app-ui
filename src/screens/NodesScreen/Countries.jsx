@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/nodes-screen.module.scss";
 import NodeItemCard from "../../components/NodeItemCard";
 import {
+  SET_PAGE_HEADER,
   SET_SELECTED_CITY,
   SET_SELECTED_COUNTRY,
 } from "../../redux/nodes.reducer";
@@ -10,10 +11,13 @@ import {
 const Countries = () => {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.nodes.filteredCountries);
-  
-  React.useEffect(() => {
+
+  React.useLayoutEffect(() => {
     dispatch(SET_SELECTED_CITY({}));
     dispatch(SET_SELECTED_COUNTRY({}));
+    dispatch(
+      SET_PAGE_HEADER({ pageTitle: "Select a Country", shouldNavBack: false })
+    );
   }, [dispatch]);
 
   return (

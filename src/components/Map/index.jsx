@@ -2,6 +2,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import React, { useRef } from "react";
 import ReactMapGl from "react-map-gl";
+import { useSelector } from "react-redux";
 
 const mapSettings = {
   doubleClickZoom: true,
@@ -20,8 +21,9 @@ const mapSettings = {
 
 const zoom = [7];
 
-const Map = ({ latitude, longitude }) => {
+const Map = () => {
   const mapRef = useRef();
+  const { latitude, longitude } = useSelector((state) => state.map);
 
   const handleFlyTo = (latitude, longitude) => {
     if (mapRef && mapRef?.current) {

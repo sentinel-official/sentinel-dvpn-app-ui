@@ -6,25 +6,33 @@ import {
 } from "../actions/nodes.actions";
 
 const initialState = {
+  pageTitle: "",
+  shouldNavBack: false,
   searchText: "",
   isCountriesLoading: true,
   countries: [],
   filteredCountries: [],
   isCitiesLoading: true,
   cities: {},
-  filteredCities: {},
+  filteredCities: [],
   isNodesLoading: true,
   nodes: {},
-  filteredNodes: {},
+  filteredNodes: [],
   selected: {
     country: {},
     city: {},
+    node: {},
   },
 };
 const nodesSlice = createSlice({
   name: "nodes",
   initialState,
   reducers: {
+    SET_PAGE_HEADER: (state, { payload }) => ({
+      ...state,
+      pageTitle: payload.pageTitle,
+      shouldNavBack: payload.shouldNavBack,
+    }),
     SET_SELECTED_COUNTRY: (state, { payload }) => ({
       ...state,
       selected: { ...state.selected, country: payload },
@@ -120,6 +128,7 @@ export const {
   SET_FILTERED_CITIES,
   SET_FILTERED_NODES,
   SET_SEARCH_TEXT,
+  SET_PAGE_HEADER,
 } = nodesSlice.actions;
 
 export default nodesSlice.reducer;

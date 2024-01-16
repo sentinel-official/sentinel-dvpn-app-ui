@@ -28,26 +28,30 @@ const TokensAccepted = () => {
   );
 };
 
-const AccountScreen = () => {
+const BalanceCard = () => {
   const { balance, price } = useSelector((state) => state.account);
 
   return (
+    <Card variant="secondary">
+      <div className={styles["balance-card"]}>
+        <span className={styles.title}>Your Balance</span>
+        <section className={styles["balance-dvpn"]}>
+          <img src={BalanceIcon} alt="" />
+          <section className={styles.balance}>
+            <span className={styles.amount}>{balance} DVPN</span>
+          </section>
+        </section>
+        <span className={styles["balance-dollors"]}>~ ${price * balance}</span>
+      </div>
+    </Card>
+  );
+};
+
+const AccountScreen = () => {
+  return (
     <div className={styles.root}>
       <span className={styles.header}>Account</span>
-      <Card>
-        <div className={styles["balance-card"]}>
-          <span className={styles.title}>Your Balance</span>
-          <section className={styles["balance-dvpn"]}>
-            <img src={BalanceIcon} alt="" />
-            <section className={styles.balance}>
-              <span className={styles.amount}>{balance} DVPN</span>
-            </section>
-          </section>
-          <span className={styles["balance-dollors"]}>
-            ~ ${price * balance}
-          </span>
-        </div>
-      </Card>
+      <BalanceCard />
       <TokensAccepted />
       <QRCodeCard />
     </div>

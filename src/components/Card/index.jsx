@@ -1,8 +1,12 @@
 import React from "react";
 import styles from "./card.module.scss";
 
-const Card = ({ children, className }) => {
-  return <div className={`${styles.root} ${className}`}>{children}</div>;
+const Card = ({ children, className, variant = "primary" }) => {
+  return (
+    <div className={`${styles.root} ${className} ${styles[variant]}`}>
+      {children}
+    </div>
+  );
 };
 
 export default Card;

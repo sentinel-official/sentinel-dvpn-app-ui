@@ -4,25 +4,39 @@ import styles from "../styles/nodes-screen.module.scss";
 import { useParams } from "react-router-dom";
 import NodeItemCard from "../../components/NodeItemCard";
 import { fetchCitiesAction } from "../../actions/nodes.actions";
-import { SET_SEARCH_TEXT, SET_SELECTED_CITY } from "../../redux/nodes.reducer";
+import {
+  SET_PAGE_HEADER,
+  SET_SEARCH_TEXT,
+  SET_SELECTED_CITY,
+} from "../../redux/nodes.reducer";
+import { withLoader } from "../../actions/loader.actions";
 
 const Cities = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const countryId = params.countryId;
-  const { filteredCities: cities, isCitiesLoading } = useSelector(
+  const { filteredCities: cities, selected } = useSelector(
     (state) => state.nodes
   );
-
   React.useLayoutEffect(() => {
     dispatch(SET_SEARCH_TEXT(""));
-    dispatch(fetchCitiesAction({ countryId }));
+    dispatch(
+      withLoader({
+        dispatchers: [fetchCitiesAction({ countryId })],
+        message: "Loading Cities...",
+      })
+    );
+    dispatch(
+      SET_PAGE_HEADER({
+        pageTitle: `${
+          selected?.country?.name ? selected?.country?.name : "Select a City"
+        }`,
+        shouldNavBack: true,
+      })
+    );
     return;
-  }, [countryId, dispatch]);
+  }, [countryId, dispatch, selected?.country?.name]);
 
-  if (isCitiesLoading) {
-    return <div>Loading...</div>;
-  }
   return (
     <div className={styles.list}>
       {cities &&

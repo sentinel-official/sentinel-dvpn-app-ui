@@ -19,7 +19,7 @@ const NodeItemCard = ({
   const dispatch = useDispatch();
 
   return (
-    <Card className={styles["card-details"]}>
+    <Card className={styles["card-details"]} variant="secondary">
       <button
         onClick={(event) => {
           event.preventDefault();

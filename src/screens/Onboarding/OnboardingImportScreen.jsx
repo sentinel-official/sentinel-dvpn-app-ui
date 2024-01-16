@@ -3,7 +3,8 @@ import styles from "../styles/onboarding-screen.module.scss";
 import Button, { variants } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { SET_MNEMONIC } from "../../redux/user.reducer";
+import { withLoader } from "../../actions/loader.actions";
+import { createWalletMnemonic } from "../../actions/device.actions";
 
 const OnboardingImportScreen = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const OnboardingImportScreen = () => {
   const [mnemonic, setMnemonic] = React.useState("");
 
   const setupWallet = () => {
-    dispatch(SET_MNEMONIC(mnemonic));
+    dispatch(withLoader({ dispatchers: [createWalletMnemonic(mnemonic)] }));
   };
 
   return (

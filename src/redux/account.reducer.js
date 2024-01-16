@@ -1,31 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  dispatchFetchCurrentPrice,
+  dispatchGetBalance,
+  dispatchGetIpAddress,
+  dispatchGetPlans,
+} from "../actions/user.actions";
 
 const initialState = {
   balance: 0,
   price: 0,
-  ip: null,
+  ip: "0.0.0.0",
+  plan: {},
 };
 
 const accountSlice = createSlice({
   name: "account",
   initialState,
-  reducers: {
-    SET_ACCOUNT_BALANCE: (state, { payload }) => ({
+  extraReducers: (builder) => {
+    builder.addCase(dispatchGetPlans.fulfilled, (state, { payload }) => ({
+      ...state,
+      plan: payload,
+    }));
+    builder.addCase(
+      dispatchFetchCurrentPrice.fulfilled,
+      (state, { payload }) => ({
+        ...state,
+        price: payload,
+      })
+    );
+    builder.addCase(dispatchGetBalance.fulfilled, (state, { payload }) => ({
       ...state,
       balance: payload,
-    }),
-    SET_USD_PRICE: (state, { payload }) => ({
+    }));
+    builder.addCase(dispatchGetIpAddress.fulfilled, (state, { payload }) => ({
       ...state,
-      price: payload,
-    }),
-    SET_IP_ADDRESS: (state, { payload }) => ({
-      ...state,
-      ip: payload,
-    }),
+      ip: payload.ip,
+    }));
   },
 });
-
-export const { SET_ACCOUNT_BALANCE, SET_USD_PRICE, SET_IP_ADDRESS } =
-  accountSlice.actions;
 
 export default accountSlice.reducer;

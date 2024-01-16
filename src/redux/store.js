@@ -16,18 +16,20 @@ import {
 import storage from "redux-persist/lib/storage";
 import accountReducer from "./account.reducer";
 import nodesReducer from "./nodes.reducer";
+import deviceReducer from "./device.reducer";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  safelist: ["user"],
+  safelist: ["device"],
 };
 
-const persistedUserReducer = persistReducer(persistConfig, userReducer);
+const persistedUserReducer = persistReducer(persistConfig, deviceReducer);
 
 const rootReducer = combineReducers({
-  user: persistedUserReducer,
+  device: persistedUserReducer,
+  user: userReducer,
   alerts: alertsReducer,
   map: mapReducer,
   account: accountReducer,

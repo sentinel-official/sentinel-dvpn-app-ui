@@ -11,7 +11,7 @@
     overflow-y: auto;
   }
   .tab-bar {
-    position: sticky;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
@@ -26,8 +26,12 @@
     justify-content: space-evenly;
     gap: 16px;
     padding: 16px;
+    @media only screen and (max-width: 300px) {
+      padding: 4px;
+      gap: 4px;
+    }
     .tab {
-      height: inherit;
+      height: 100%;
       background-color: transparent;
       color: $textSecondaryColor;
       text-decoration: none;
@@ -36,8 +40,11 @@
       align-items: center;
       justify-content: space-evenly;
       gap: 8px;
+      font-size: 10px;
+      font-weight: 500;
+
       img {
-        width: 24px;
+        // width: 16px;
         height: auto;
         aspect-ratio: 1/1;
       }

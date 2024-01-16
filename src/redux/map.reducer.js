@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { dispatchGetIpAddress } from "../actions/user.actions";
 
 const initialState = {
   latitude: 0,
@@ -8,15 +9,13 @@ const initialState = {
 const mapSlice = createSlice({
   name: "map",
   initialState,
-  reducers: {
-    SET_MAP_LOCATION: (state, { payload }) => ({
+  extraReducers: (builder) => {
+    builder.addCase(dispatchGetIpAddress.fulfilled, (state, { payload }) => ({
       ...state,
       latitude: payload.latitude,
       longitude: payload.longitude,
-    }),
+    }));
   },
 });
-
-export const { SET_MAP_LOCATION } = mapSlice.actions;
 
 export default mapSlice.reducer;

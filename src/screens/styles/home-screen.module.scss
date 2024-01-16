@@ -1,11 +1,11 @@
 @import "../../constants.scss";
 
 .root {
-  width: inherit;
+  width: 100%;
   height: inherit;
   .overlay {
     z-index: 999;
-    width: inherit;
+    width: 100%;
     height: inherit;
     display: flex;
     flex-direction: column;
@@ -14,43 +14,10 @@
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
 
     .top {
       margin-block: 16px;
       padding-inline: 16px;
-    }
-
-    .balance-content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 16px;
-      padding: 16px;
-
-      img {
-        width: auto;
-        height: 100%;
-        aspect-ratio: 1/1;
-      }
-      .balance {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        .title {
-          font-size: 12px;
-          font-weight: 500;
-          color: $textSecondaryColor;
-        }
-        .amount {
-          font-weight: 500;
-          font-size: 18px;
-          color: $textPrimaryColor;
-        }
-      }
     }
 
     .bottom {
@@ -66,49 +33,15 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      @media only screen and (max-height: 599px) {
+        padding-top: 0;
+      }
     }
     .ip-content {
       display: flex;
       flex-direction: column;
       gap: 8px;
       padding: 16px;
-
-      .muted {
-        font-weight: 500;
-        font-size: 18px;
-        color: $textSecondaryColor;
-      }
-      .ip {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 8px;
-        .title {
-          font-size: 14px;
-          font-weight: 500;
-          color: $textSecondaryColor;
-        }
-        .address {
-          font-weight: 500;
-          font-size: 14px;
-          color: $textPrimaryColor;
-        }
-      }
-    }
-
-    .protected {
-      padding: 12px 16px;
-      background-color: #26304c;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 8px;
-      font-size: 14px;
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-      font-weight: 500;
     }
   }
 }
