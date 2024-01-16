@@ -53,11 +53,14 @@ const getBalance = (walletAddress) =>
 const getCurrentPrice = () =>
   axios
     .get("https://api.coingecko.com/api/v3/coins/sentinel", {
-      community_data: false,
-      developer_data: false,
-      localization: false,
-      sparkline: false,
-      tickers: false,
+      params: {
+        community_data: false,
+        developer_data: false,
+        localization: false,
+        sparkline: false,
+        tickers: false,
+        description: false,
+      },
     })
     .then((response) => {
       return response?.data?.market_data?.current_price?.usd;
@@ -106,10 +109,14 @@ const getNodes = ({ countryId, cityId, deviceToken }) =>
     });
 
 const getSubscriptions = (walletAddress) =>
-  Axios.get(
-    `/blockchain/wallet/${walletAddress}/subscriptions?limit=100000&offset=0`
-  )
+  Axios.get(`/blockchain/wallet/${walletAddress}/subscriptions`, {
+    params: {
+      limit: 100000,
+      offset: 0,
+    },
+  })
     .then((response) => {
+      console.log("response", response);
       return response.data;
     })
     .catch((error) => {
@@ -117,7 +124,12 @@ const getSubscriptions = (walletAddress) =>
     });
 
 const getPlans = () =>
-  Axios.get(`blockchain/plans?limit=100000&offset=0`)
+  Axios.get(`blockchain/plans`, {
+    params: {
+      limit: 100000,
+      offset: 0,
+    },
+  })
     .then((response) => {
       return response.data.plans;
     })
@@ -125,14 +137,22 @@ const getPlans = () =>
       throw new Error(error);
     });
 
-const subscribeToPlan = (planId, data) => {
-  return Axios.post(`/blockchain/plans/${planId}/subscription`, data, {
+const subscribeToPlan = (planId, data) =>
+  Axios.post(`/blockchain/plans/${planId}/subscription`, data, {
     headers: {
       "x-chain-id": "sentinelhub-2",
       "x-gas-prices": 1000000,
     },
   });
-};
+
+const getSession = (walletAddress) =>
+  Axios.post(`/blockchain/wallet/${walletAddress}/session`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
 
 const APIService = {
   getKey,
@@ -147,6 +167,7 @@ const APIService = {
   getSubscriptions,
   getPlans,
   subscribeToPlan,
+  getSession,
 };
 
 export default APIService;

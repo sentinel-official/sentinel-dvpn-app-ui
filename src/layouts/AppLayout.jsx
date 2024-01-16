@@ -9,19 +9,22 @@ import {
   dispatchGetBalance,
   dispatchGetIpAddress,
   dispatchGetPlans,
-  fetchMySubscriptions,
 } from "../actions/user.actions";
 import { withLoader } from "../actions/loader.actions";
 import { fetchCountriesAction } from "../actions/nodes.actions";
-import { SET_USER_DETAILS_FETCHED } from "../redux/alerts.reducer";
+import {
+  SET_USER_DETAILS_FETCHED,
+  SHOW_NO_BALANCE,
+} from "../redux/alerts.reducer";
 import BottomTabs from "../containers/BottomTabs";
+import NoBalanceModal from "../components/NoBalanceModal";
 
 const AppLayout = () => {
   const dispatch = useDispatch();
   const { walletAddress, deviceToken } = useSelector((state) => state.device);
-  const { showRenewSubscription, isUserDetailsFetched } = useSelector(
-    (state) => state.alerts
-  );
+  const { showRenewSubscription, isUserDetailsFetched, isShowNoBalance } =
+    useSelector((state) => state.alerts);
+  const { balance } = useSelector((state) => state.account);
 
   React.useLayoutEffect(() => {
     if (walletAddress && deviceToken && !isUserDetailsFetched) {
@@ -33,7 +36,6 @@ const AppLayout = () => {
             dispatchFetchCurrentPrice(),
             dispatchGetBalance(walletAddress),
             dispatchGetIpAddress(deviceToken),
-            fetchMySubscriptions(walletAddress),
             SET_USER_DETAILS_FETCHED(true),
           ],
         })
@@ -45,6 +47,12 @@ const AppLayout = () => {
     return (
       <div className={styles.root}>
         {showRenewSubscription && <RenewSubscriptionModal />}
+        {isShowNoBalance && (
+          <NoBalanceModal
+            balance={balance}
+            onCancel={() => dispatch(SHOW_NO_BALANCE(false))}
+          />
+        )}
 
         <div className={styles.content}>
           <Outlet />

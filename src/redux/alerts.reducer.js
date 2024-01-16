@@ -8,6 +8,7 @@ const initialState = {
   isLoading: false,
   showRenewSubscription: false,
   isUserDetailsFetched: false,
+  isShowNoBalance: false,
 };
 const alertsSlice = createSlice({
   name: "alerts",
@@ -35,6 +36,10 @@ const alertsSlice = createSlice({
       ...state,
       isUserDetailsFetched: payload,
     }),
+    SHOW_NO_BALANCE: (state, { payload }) => ({
+      ...state,
+      isShowNoBalance: payload,
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -60,6 +65,7 @@ export const {
   SET_SHOW_ERROR_ALERT,
   SET_LOADING_MESSAGE,
   SHOW_RENEW_SUBSCRIPTION,
-  SET_USER_DETAILS_FETCHED
+  SET_USER_DETAILS_FETCHED,
+  SHOW_NO_BALANCE,
 } = alertsSlice.actions;
 export default alertsSlice.reducer;

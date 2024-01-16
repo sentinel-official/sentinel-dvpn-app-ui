@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import APIService from "../services/app.services";
 import {
+  SET_LOADING_MESSAGE,
   SET_SHOW_ERROR_ALERT,
+  SHOW_NO_BALANCE,
   SHOW_RENEW_SUBSCRIPTION,
 } from "../redux/alerts.reducer";
 
@@ -53,6 +55,9 @@ export const dispatchGetBalance = createAsyncThunk(
           balance = Number.parseInt(balance.amount) / 1e6;
         }
       });
+      if (balance === 0) {
+        dispatch(SHOW_NO_BALANCE(true));
+      }
       return fulfillWithValue(balance);
     } catch (e) {
       dispatch(
@@ -85,30 +90,45 @@ export const dispatchGetIpAddress = createAsyncThunk(
   }
 );
 
-export const fetchMySubscriptions = createAsyncThunk(
-  "FETCH_MY_SUBSCRIPTIONS",
-  async (walletAddress, { dispatch, rejectWithValue, getState }) => {
+export const fetchCredentials = createAsyncThunk(
+  "FETCH_CREDENTIALS",
+  async () => {}
+);
+
+export const createASession = createAsyncThunk(
+  "CREATE_A_SESSION",
+  async () => {}
+);
+
+export const checkActiveSession = createAsyncThunk(
+  "CHECK_ACTIVE_SESSION",
+  async (
+    { subscriptionId, secondTime },
+    { fulfillWithValue, rejectWithValue, dispatch, getState }
+  ) => {
     try {
-      console.log(getState().account);
-      let subscription;
-      const response = await APIService.getSubscriptions(walletAddress);
-      if (response && response.planSubscriptions) {
-        subscription = response.planSubscriptions.find((subscription) => {
-          return subscription.planId === "6";
-        });
-      }
-      if (subscription) {
+      const walletAddress = getState().device.walletAddress;
+      const selectedNode = getState().device.selectedNode;
+      console.log("selectedNode", selectedNode);
+      const session = await APIService.getSession(walletAddress);
+      console.log("session", session);
+
+      if (
+        session &&
+        session.status === "STATUS_ACTIVE" &&
+        session.subscriptionId === String(subscriptionId) &&
+        session.nodeAddress === selectedNode.address
+      ) {
+        if (secondTime) {
+          dispatch(fetchCredentials());
+        } else {
+          dispatch(createASession());
+        }
       } else {
-        dispatch(SHOW_RENEW_SUBSCRIPTION(true));
-        return rejectWithValue();
+        dispatch(createASession());
       }
     } catch (e) {
-      dispatch(
-        SET_SHOW_ERROR_ALERT({
-          showErrorAlert: true,
-          message: "Failed to fetch your subscriptions",
-        })
-      );
+      dispatch(createASession(subscriptionId));
       return rejectWithValue();
     }
   }
@@ -117,19 +137,48 @@ export const fetchMySubscriptions = createAsyncThunk(
 export const connectAction = createAsyncThunk(
   "CONNECT",
   async (_, { getState, fulfillWithValue, rejectWithValue, dispatch }) => {
-    console.log(getState().account);
-
     const walletAddress = getState().device.walletAddress;
     APIService.getSubscriptions(walletAddress)
       .then((response) => {
-        console.log("response", response);
+        console.log("CONNECT", response);
         if (response && response.planSubscriptions) {
+          const subscription = response.planSubscriptions.find(
+            (subscription) => {
+              return subscription.planId === "6";
+            }
+          );
+          if (subscription) {
+            dispatch(
+              SET_LOADING_MESSAGE({
+                loadingMessage: "Looking for active sessions...",
+              })
+            );
+            dispatch(
+              checkActiveSession({
+                subscriptionId: Number(subscription.base.id),
+              })
+            );
+          } else {
+            dispatch(
+              checkActiveSession({
+                subscriptionId: Number(subscription.base.id),
+              })
+            );
+            dispatch(SHOW_RENEW_SUBSCRIPTION(true));
+          }
         } else {
           dispatch(SHOW_RENEW_SUBSCRIPTION(true));
         }
-        // const subscriptions = response.data.planSubscriptions;
       })
-      .catch(console.error);
+      .catch(() => {
+        dispatch(
+          SET_SHOW_ERROR_ALERT({
+            showErrorAlert: true,
+            message: "Failed to Connect",
+          })
+        );
+        return rejectWithValue();
+      });
   }
 );
 
@@ -144,7 +193,7 @@ export const subscribeToPlanAction = createAsyncThunk(
       dispatch(
         SET_SHOW_ERROR_ALERT({
           showErrorAlert: true,
-          message: "Failed to fetch ip address or location",
+          message: "Failed to subscribe",
         })
       );
       return rejectWithValue();

@@ -5,9 +5,6 @@ body {
   height: 100vh;
   padding: 0;
   margin: 0;
-  font-family: "Poppins", monospace, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background-color: $backgroundColor;
   color: $textPrimaryColor;
   box-sizing: border-box;
@@ -23,6 +20,9 @@ span {
   box-sizing: border-box;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  font-family: "Poppins", monospace, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   &::-webkit-scrollbar {
     display: none;
   }
