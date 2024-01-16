@@ -1,0 +1,53 @@
+@import "../../constants.scss";
+
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 84px;
+  z-index: 1000;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+  background-color: $cardBackgroundColor;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 16px;
+  padding: 16px;
+  @media only screen and (max-width: 300px) {
+    padding: 4px;
+    gap: 4px;
+  }
+  .tab {
+    height: 100%;
+    background-color: transparent;
+    color: $textSecondaryColor;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 500;
+
+    img {
+      // width: 16px;
+      height: auto;
+      aspect-ratio: 1/1;
+    }
+
+    &.selected {
+      img {
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(152deg)
+          brightness(102%) contrast(102%);
+      }
+
+      span {
+        color: $textPrimaryColor;
+      }
+    }
+  }
+}
