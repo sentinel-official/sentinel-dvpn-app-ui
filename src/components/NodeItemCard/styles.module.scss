@@ -2,14 +2,14 @@
 
 .card-details {
   width: 100%;
-  height: min(72px, 100%);
+  height: min(64px, 100%);
   display: grid;
   grid-template-columns: calc(85% - 16px) 15%;
   grid-template-rows: 1fr;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 16px;
-  padding-block: 8px;
+  padding-inline: 8px;
+  // padding-block: 8px;
 
   .card-button {
     width: 100%;
@@ -27,7 +27,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding-block: 8px;
-  gap: 8px;
+  gap: 4px;
   .title {
     font-size: 18px;
     color: $textPrimaryColor;

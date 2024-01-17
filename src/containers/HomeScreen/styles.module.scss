@@ -18,15 +18,15 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    
     .title {
       font-size: 12px;
-      font-weight: 500;
       color: $textSecondaryColor;
     }
     .amount {
       font-weight: 500;
-      font-size: 18px;
+      font-size: 20px;
       color: $textPrimaryColor;
     }
   }

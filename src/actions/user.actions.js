@@ -1,11 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import APIService from "../services/app.services";
-import {
-  SET_LOADING_MESSAGE,
-  SET_SHOW_ERROR_ALERT,
-  SHOW_NO_BALANCE,
-  SHOW_RENEW_SUBSCRIPTION,
-} from "../redux/alerts.reducer";
+import { SET_SHOW_ERROR_ALERT, SHOW_NO_BALANCE } from "../redux/alerts.reducer";
 
 export const dispatchGetPlans = createAsyncThunk(
   "DISPATCH_GET_PLANS",
@@ -48,18 +43,21 @@ export const dispatchGetBalance = createAsyncThunk(
   "DISPATCH_GET_BALANCE",
   async (walletAddress, { rejectWithValue, dispatch, fulfillWithValue }) => {
     try {
-      let balance = 0;
-      const balances = await APIService.getBalance(walletAddress);
-      balances.forEach(async (balance) => {
-        if (balance.denom === "udvpn") {
-          balance = Number.parseInt(balance.amount) / 1e6;
-        }
-      });
-      if (balance === 0) {
+      let amount = 0;
+      const response = await APIService.getBalance(walletAddress);
+      response &&
+        response.balances &&
+        response.balances.forEach(async (balance) => {
+          if (balance.denom === "udvpn") {
+            amount = Number.parseInt(balance.amount) / 1e6;
+          }
+        });
+      if (amount === 0) {
         dispatch(SHOW_NO_BALANCE(true));
       }
-      return fulfillWithValue(balance);
+      return fulfillWithValue(amount);
     } catch (e) {
+      console.log(e);
       dispatch(
         SET_SHOW_ERROR_ALERT({
           showErrorAlert: true,
@@ -90,95 +88,21 @@ export const dispatchGetIpAddress = createAsyncThunk(
   }
 );
 
-export const fetchCredentials = createAsyncThunk(
-  "FETCH_CREDENTIALS",
-  async () => {}
-);
-
-export const createASession = createAsyncThunk(
-  "CREATE_A_SESSION",
-  async () => {}
-);
-
-export const checkActiveSession = createAsyncThunk(
-  "CHECK_ACTIVE_SESSION",
-  async (
-    { subscriptionId, secondTime },
-    { fulfillWithValue, rejectWithValue, dispatch, getState }
-  ) => {
+export const dispatchGetSubscriptions = createAsyncThunk(
+  "DISPATCH_GET_SUBSCRIPTIONS",
+  async (walletAddress, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const walletAddress = getState().device.walletAddress;
-      const selectedNode = getState().device.selectedNode;
-      console.log("selectedNode", selectedNode);
-      const session = await APIService.getSession(walletAddress);
-      console.log("session", session);
-
-      if (
-        session &&
-        session.status === "STATUS_ACTIVE" &&
-        session.subscriptionId === String(subscriptionId) &&
-        session.nodeAddress === selectedNode.address
-      ) {
-        if (secondTime) {
-          dispatch(fetchCredentials());
-        } else {
-          dispatch(createASession());
-        }
-      } else {
-        dispatch(createASession());
+      const response = await APIService.getSubscriptions(walletAddress);
+      if (response && response.planSubscriptions) {
+        const subscription = response.planSubscriptions.find((subscription) => {
+          return subscription.planId === "6";
+        });
+        return fulfillWithValue(subscription);
       }
+      return rejectWithValue();
     } catch (e) {
-      dispatch(createASession(subscriptionId));
       return rejectWithValue();
     }
-  }
-);
-
-export const connectAction = createAsyncThunk(
-  "CONNECT",
-  async (_, { getState, fulfillWithValue, rejectWithValue, dispatch }) => {
-    const walletAddress = getState().device.walletAddress;
-    APIService.getSubscriptions(walletAddress)
-      .then((response) => {
-        console.log("CONNECT", response);
-        if (response && response.planSubscriptions) {
-          const subscription = response.planSubscriptions.find(
-            (subscription) => {
-              return subscription.planId === "6";
-            }
-          );
-          if (subscription) {
-            dispatch(
-              SET_LOADING_MESSAGE({
-                loadingMessage: "Looking for active sessions...",
-              })
-            );
-            dispatch(
-              checkActiveSession({
-                subscriptionId: Number(subscription.base.id),
-              })
-            );
-          } else {
-            dispatch(
-              checkActiveSession({
-                subscriptionId: Number(subscription.base.id),
-              })
-            );
-            dispatch(SHOW_RENEW_SUBSCRIPTION(true));
-          }
-        } else {
-          dispatch(SHOW_RENEW_SUBSCRIPTION(true));
-        }
-      })
-      .catch(() => {
-        dispatch(
-          SET_SHOW_ERROR_ALERT({
-            showErrorAlert: true,
-            message: "Failed to Connect",
-          })
-        );
-        return rejectWithValue();
-      });
   }
 );
 
@@ -187,7 +111,7 @@ export const subscribeToPlanAction = createAsyncThunk(
   async (payload, { dispatch, rejectWithValue, fulfillWithValue }) => {
     try {
       const response = await APIService.subscribeToPlan(6, payload);
-      console.log("response", response);
+      console.log("SUBSCRIBE_TO_A_PLAN response", response);
       return fulfillWithValue();
     } catch (e) {
       dispatch(

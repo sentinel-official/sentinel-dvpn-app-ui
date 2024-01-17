@@ -9,6 +9,7 @@ import {
   dispatchGetBalance,
   dispatchGetIpAddress,
   dispatchGetPlans,
+  dispatchGetSubscriptions,
 } from "../actions/user.actions";
 import { withLoader } from "../actions/loader.actions";
 import { fetchCountriesAction } from "../actions/nodes.actions";
@@ -36,6 +37,7 @@ const AppLayout = () => {
             dispatchFetchCurrentPrice(),
             dispatchGetBalance(walletAddress),
             dispatchGetIpAddress(deviceToken),
+            dispatchGetSubscriptions(walletAddress),
             SET_USER_DETAILS_FETCHED(true),
           ],
         })

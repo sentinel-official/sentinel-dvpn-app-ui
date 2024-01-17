@@ -5,36 +5,39 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 84px;
+  height: 80px;
+  width: 100%;
   z-index: 1000;
-  border-top-right-radius: 16px;
-  border-top-left-radius: 16px;
+  border-radius: 16px;
   background-color: $cardBackgroundColor;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
-  gap: 16px;
-  padding: 16px;
+  justify-content: center;
+  gap: 8px;
+  // padding: 16px;
   @media only screen and (max-width: 300px) {
     padding: 4px;
     gap: 4px;
   }
   .tab {
-    height: 100%;
+    height: inherit;
+    width: 100%;
     background-color: transparent;
     color: $textSecondaryColor;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    gap: 8px;
+    justify-content: center;
     font-size: 10px;
     font-weight: 500;
-
+    .icon {
+      width: auto;
+      height: 18px;
+    }
     img {
-      // width: 16px;
+      width: 100%;
       height: auto;
       aspect-ratio: 1/1;
     }

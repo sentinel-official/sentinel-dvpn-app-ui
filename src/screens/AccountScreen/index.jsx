@@ -30,6 +30,8 @@ const TokensAccepted = () => {
 
 const BalanceCard = () => {
   const { balance, price } = useSelector((state) => state.account);
+  let roundedBalance = Math.floor(balance * 100) / 100;
+  let formattedBalance = roundedBalance.toFixed(2);
 
   return (
     <Card variant="secondary">
@@ -38,7 +40,7 @@ const BalanceCard = () => {
         <section className={styles["balance-dvpn"]}>
           <img src={BalanceIcon} alt="" />
           <section className={styles.balance}>
-            <span className={styles.amount}>{balance} DVPN</span>
+            <span className={styles.amount}>{formattedBalance} DVPN</span>
           </section>
         </section>
         <span className={styles["balance-dollors"]}>~ ${price * balance}</span>

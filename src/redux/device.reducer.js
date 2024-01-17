@@ -5,6 +5,7 @@ import {
   createWalletMnemonic,
   fetchDeviceDetails,
 } from "../actions/device.actions";
+import { connectAction, disconnectAction } from "../actions/vpn.actions";
 
 const initialState = {
   deviceToken: null,
@@ -13,6 +14,7 @@ const initialState = {
   selectedDNS: dnsList.cloudflare,
   ip: "0.0.0.0",
   selectedNode: {},
+  isVPNConnected: false,
 };
 
 const deviceSlice = createSlice({
@@ -41,6 +43,14 @@ const deviceSlice = createSlice({
     builder.addCase(createWalletMnemonic.fulfilled, (state, { payload }) => ({
       ...state,
       mnemonic: payload,
+    }));
+    builder.addCase(connectAction.fulfilled, (state) => ({
+      ...state,
+      isVPNConnected: true,
+    }));
+    builder.addCase(disconnectAction.fulfilled, (state) => ({
+      ...state,
+      isVPNConnected: false,
     }));
   },
 });

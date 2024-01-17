@@ -4,6 +4,7 @@ import {
   dispatchGetBalance,
   dispatchGetIpAddress,
   dispatchGetPlans,
+  dispatchGetSubscriptions,
 } from "../actions/user.actions";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   price: 0,
   ip: "0.0.0.0",
   plan: {},
+  subscription: {},
 };
 
 const accountSlice = createSlice({
@@ -36,6 +38,13 @@ const accountSlice = createSlice({
       ...state,
       ip: payload.ip,
     }));
+    builder.addCase(
+      dispatchGetSubscriptions.fulfilled,
+      (state, { payload }) => ({
+        ...state,
+        subscription: payload,
+      })
+    );
   },
 });
 

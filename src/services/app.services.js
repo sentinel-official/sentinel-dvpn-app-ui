@@ -116,7 +116,6 @@ const getSubscriptions = (walletAddress) =>
     },
   })
     .then((response) => {
-      console.log("response", response);
       return response.data;
     })
     .catch((error) => {
@@ -146,12 +145,52 @@ const subscribeToPlan = (planId, data) =>
   });
 
 const getSession = (walletAddress) =>
-  Axios.post(`/blockchain/wallet/${walletAddress}/session`)
+  Axios.get(`/blockchain/wallet/${walletAddress}/session`)
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
       throw new Error(error);
+    });
+
+const createSession = (walletAddress, data) =>
+  Axios.post(`/blockchain/wallet/${walletAddress}/session`, data, {
+    headers: {
+      "x-chain-id": "sentinelhub-2",
+      "x-gas-prices": 1000000,
+    },
+  })
+    .then((response) => response.data)
+    .catch((e) => {
+      throw new Error(e);
+    });
+
+const fetchCredentials = (data) =>
+  Axios.post("/blockchain/wallet/connect", data, {
+    headers: {
+      "x-chain-id": "sentinelhub-2",
+      "x-gas-prices": 1000000,
+    },
+  })
+    .then((response) => response.data)
+    .catch((e) => {
+      console.log(e);
+      throw new Error(e);
+    });
+
+const connect = (data) =>
+  Axios.post("/connect", data)
+    .then((response) => response.data)
+    .catch((e) => {
+      console.log(e);
+      throw new Error(e);
+    });
+const disconnect = () =>
+  Axios.post("/disconnect")
+    .then((response) => response.data)
+    .catch((e) => {
+      console.log(e);
+      throw new Error(e);
     });
 
 const APIService = {
@@ -168,6 +207,10 @@ const APIService = {
   getPlans,
   subscribeToPlan,
   getSession,
+  createSession,
+  fetchCredentials,
+  connect,
+  disconnect,
 };
 
 export default APIService;
