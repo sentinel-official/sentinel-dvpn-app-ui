@@ -1,5 +1,4 @@
 export const isValidSession = (session, subscription, selectedNode) => {
-  console.log(session, subscription, selectedNode);
   if (
     session &&
     session.status === "STATUS_ACTIVE" &&

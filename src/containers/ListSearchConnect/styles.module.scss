@@ -22,12 +22,13 @@
     width: 100%;
     outline: none;
     padding-inline: 4px;
+    height: 48px;
 
     input {
       outline: none;
       color: $textPrimaryColor;
       background: none;
-      padding-block: 6px;
+      height: inherit;
       font-size: 16px;
       border: none;
       outline: none;

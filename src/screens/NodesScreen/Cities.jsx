@@ -52,7 +52,7 @@ const Cities = () => {
               description={description}
               key={city.id}
               navigateTo={`${city.id}/nodes`}
-              action={true}
+              // action={true}
               dispatcher={SET_SELECTED_CITY(city)}
             />
           );

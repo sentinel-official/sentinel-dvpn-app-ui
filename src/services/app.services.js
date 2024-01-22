@@ -174,7 +174,6 @@ const fetchCredentials = (data) =>
   })
     .then((response) => response.data)
     .catch((e) => {
-      console.log(e);
       throw new Error(e);
     });
 
@@ -182,14 +181,12 @@ const connect = (data) =>
   Axios.post("/connect", data)
     .then((response) => response.data)
     .catch((e) => {
-      console.log(e);
       throw new Error(e);
     });
 const disconnect = () =>
   Axios.post("/disconnect")
     .then((response) => response.data)
     .catch((e) => {
-      console.log(e);
       throw new Error(e);
     });
 

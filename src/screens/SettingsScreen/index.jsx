@@ -52,13 +52,11 @@ const DNSCard = () => {
             );
           })}
         </section>
-        <section className={styles.actions}>
-          <Button
-            onClick={() => setIsModalOpen(false)}
-            title={"OK"}
-            variant={variants.primary}
-          />
-        </section>
+        <Button
+          onClick={() => setIsModalOpen(false)}
+          title={"OK"}
+          variant={variants.primary}
+        />
       </div>
     </Modal>
   );

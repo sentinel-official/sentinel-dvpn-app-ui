@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import BalanceIcon from "../../assets/icons/balance-icon.svg";
 import AcceptedTokensIcon from "../../assets/icons/accepted-tokens-icon.svg";
 import QRCodeCard from "../../containers/QRCodeCard";
+import formatamount from "../../helpers/formatAmount";
 
 const TokensAccepted = () => {
   return (
@@ -30,8 +31,6 @@ const TokensAccepted = () => {
 
 const BalanceCard = () => {
   const { balance, price } = useSelector((state) => state.account);
-  let roundedBalance = Math.floor(balance * 100) / 100;
-  let formattedBalance = roundedBalance.toFixed(2);
 
   return (
     <Card variant="secondary">
@@ -40,10 +39,12 @@ const BalanceCard = () => {
         <section className={styles["balance-dvpn"]}>
           <img src={BalanceIcon} alt="" />
           <section className={styles.balance}>
-            <span className={styles.amount}>{formattedBalance} DVPN</span>
+            <span className={styles.amount}>{formatamount(balance)} DVPN</span>
           </section>
         </section>
-        <span className={styles["balance-dollors"]}>~ ${price * balance}</span>
+        <span className={styles["balance-dollors"]}>
+          ~ ${formatamount(price * balance)}
+        </span>
       </div>
     </Card>
   );

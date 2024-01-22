@@ -24,16 +24,15 @@ export const fetchDeviceDetails = createAsyncThunk(
   "FETCH_DEVICE_DETAILS",
   async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
-      const response = await Promise.all([
-        await APIService.getKey("deviceToken"),
-        await APIService.getWallet(),
-      ]);
-      const [token, address] = response;
+      const token = await APIService.getKey("deviceToken");
+      const address = await APIService.getWallet();
+      console.log(token, address);
       return fulfillWithValue({
-        deviceToken: token.value,
-        walletAddress: address.address,
+        deviceToken: token.value || null,
+        walletAddress: address.address || null,
       });
     } catch (e) {
+      console.log("error", e);
       dispatch(
         SET_SHOW_ERROR_ALERT({
           showErrorAlert: true,

@@ -40,6 +40,7 @@ const AppLayout = () => {
             dispatchGetSubscriptions(walletAddress),
             SET_USER_DETAILS_FETCHED(true),
           ],
+          message: "Fetching your details...",
         })
       );
     }
@@ -47,7 +48,7 @@ const AppLayout = () => {
 
   if (walletAddress && deviceToken) {
     return (
-      <div className={styles.root}>
+      <>
         {showRenewSubscription && <RenewSubscriptionModal />}
         {isShowNoBalance && (
           <NoBalanceModal
@@ -55,12 +56,13 @@ const AppLayout = () => {
             onCancel={() => dispatch(SHOW_NO_BALANCE(false))}
           />
         )}
-
-        <div className={styles.content}>
-          <Outlet />
+        <div className={styles.root}>
+          <div className={styles.outlet}>
+            <Outlet />
+          </div>
+          <BottomTabs />
         </div>
-        <BottomTabs />
-      </div>
+      </>
     );
   }
 

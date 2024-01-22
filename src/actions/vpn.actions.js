@@ -80,7 +80,6 @@ export const connectAction = createAsyncThunk(
           session: Number.parseInt(session.id),
         };
         const credentials = await APIService.fetchCredentials(payload);
-        console.log("credentials", credentials);
         if (credentials) {
           dispatch(SET_LOADING_MESSAGE("Connecting to VPN..."));
 

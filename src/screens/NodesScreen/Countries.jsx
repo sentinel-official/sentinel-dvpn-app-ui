@@ -37,7 +37,7 @@ const Countries = () => {
             key={country.id}
             navigateTo={`${country.id}/cities`}
             code={country.code}
-            action={true}
+            // action={true}
             dispatcher={SET_SELECTED_COUNTRY(country)}
           />
         );
