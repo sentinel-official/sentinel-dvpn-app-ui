@@ -1,6 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { SET_SHOW_ERROR_ALERT } from "../redux/alerts.reducer";
+import {
+  SET_SHOW_ERROR_ALERT,
+  SET_USER_DETAILS_FETCHED,
+} from "../redux/alerts.reducer";
 import APIService from "../services/app.services";
+import {
+  dispatchFetchCurrentPrice,
+  dispatchGetBalance,
+  dispatchGetIpAddress,
+  dispatchGetPlans,
+  dispatchGetSubscriptions,
+} from "./user.actions";
+import { fetchCountriesAction } from "./nodes.actions";
 
 export const createWalletMnemonic = createAsyncThunk(
   "CREATE_WALLET_MNEMONIC",
@@ -40,6 +51,28 @@ export const fetchDeviceDetails = createAsyncThunk(
         })
       );
       return rejectWithValue();
+    }
+  }
+);
+
+export const fetchUserDetails = createAsyncThunk(
+  "FETCH_USER_DETAILS",
+  async ({ walletAddress, deviceToken }, { dispatch }) => {
+    try {
+      await dispatch(dispatchGetPlans());
+      await dispatch(fetchCountriesAction());
+      await dispatch(dispatchFetchCurrentPrice());
+      await dispatch(dispatchGetBalance(walletAddress));
+      await dispatch(dispatchGetIpAddress(deviceToken));
+      await dispatch(dispatchGetSubscriptions(walletAddress));
+      dispatch(SET_USER_DETAILS_FETCHED(true));
+    } catch (error) {
+      dispatch(
+        SET_SHOW_ERROR_ALERT({
+          showErrorAlert: true,
+          message: "Error while fetching",
+        })
+      );
     }
   }
 );

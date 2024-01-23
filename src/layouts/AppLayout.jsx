@@ -4,21 +4,13 @@ import styles from "./styles/app-layout.module.scss";
 
 import { useDispatch, useSelector } from "react-redux";
 import RenewSubscriptionModal from "../containers/HomeScreen/RenewSubscriptionModal";
-import {
-  dispatchFetchCurrentPrice,
-  dispatchGetBalance,
-  dispatchGetIpAddress,
-  dispatchGetPlans,
-  dispatchGetSubscriptions,
-} from "../actions/user.actions";
+
 import { withLoader } from "../actions/loader.actions";
-import { fetchCountriesAction } from "../actions/nodes.actions";
-import {
-  SET_USER_DETAILS_FETCHED,
-  SHOW_NO_BALANCE,
-} from "../redux/alerts.reducer";
+
+import { SHOW_NO_BALANCE } from "../redux/alerts.reducer";
 import BottomTabs from "../containers/BottomTabs";
 import NoBalanceModal from "../components/NoBalanceModal";
+import { fetchUserDetails } from "../actions/device.actions";
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -31,15 +23,7 @@ const AppLayout = () => {
     if (walletAddress && deviceToken && !isUserDetailsFetched) {
       dispatch(
         withLoader({
-          dispatchers: [
-            dispatchGetPlans(),
-            fetchCountriesAction(),
-            dispatchFetchCurrentPrice(),
-            dispatchGetBalance(walletAddress),
-            dispatchGetIpAddress(deviceToken),
-            dispatchGetSubscriptions(walletAddress),
-            SET_USER_DETAILS_FETCHED(true),
-          ],
+          dispatchers: [fetchUserDetails({ deviceToken, walletAddress })],
           message: "Fetching your details...",
         })
       );
