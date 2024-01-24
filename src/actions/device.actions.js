@@ -37,17 +37,28 @@ export const fetchDeviceDetails = createAsyncThunk(
   async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
       const token = await APIService.getKey("deviceToken");
-      if (!token) {
-        dispatch(withLoader(registerDevice()));
-        return rejectWithValue();
-      }
-      const address = await APIService.getWallet();
+      console.log("token", token);
 
-      return fulfillWithValue({
-        deviceToken: token.value || null,
-        walletAddress: address.address || null,
-      });
+      if (token) {
+        const address = await APIService.getWallet();
+
+        return fulfillWithValue({
+          deviceToken: token.value || null,
+          walletAddress: address.address || null,
+        });
+      } else {
+        throw new Error({ noToken: true });
+      }
     } catch (e) {
+      dispatch(
+        SET_SHOW_ERROR_ALERT({
+          showErrorAlert: true,
+          message: "Error while fetching",
+        })
+      );
+      if (e.noToken) {
+        dispatch(withLoader(registerDevice()));
+      }
       return rejectWithValue();
     }
   }
@@ -79,7 +90,6 @@ export const registerDevice = createAsyncThunk(
   "REGISTER_USER_DEVICE",
   async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
-      console.log("HELLO");
       const device = await APIService.registerDevice();
       const token = device.data.token;
 

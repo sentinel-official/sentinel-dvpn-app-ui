@@ -7,6 +7,7 @@ import SelectedNode from "../../containers/HomeScreen/SelectedNode";
 import Balance from "../../containers/HomeScreen/Balance";
 import Protected from "../../containers/HomeScreen/Protected";
 import QuickConnect from "../../containers/HomeScreen/QuickConnect";
+import Map from "../../components/Map";
 
 const HomeScreenTop = () => {
   return (
@@ -31,12 +32,10 @@ const HomeScreenBottom = () => {
   );
 };
 
-const HomeScreen = ({ map }) => {
+const HomeScreen = () => {
   return (
     <div className={styles.root}>
-      <div style={{ width: "100%", height: "100%" }}>
-        {map}
-      </div>
+      <Map />
       <div className={styles.overlay}>
         <HomeScreenTop />
         <HomeScreenBottom />

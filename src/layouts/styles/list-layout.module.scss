@@ -2,12 +2,11 @@
 
 .header {
   background-color: $backgroundColor;
-  width: inherit;
+  width: 100%;
   position: sticky;
   top: 0;
   padding-inline: 16px;
   padding-block: 12px;
-
   text-align: center;
   display: flex;
   flex-direction: column;

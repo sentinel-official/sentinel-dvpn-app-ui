@@ -1,12 +1,12 @@
 @import "../../constants.scss";
 
 .tab-bar {
-  position: fixed;
-  bottom: 0;
-  height: 80px;
+  position: relative;
+  height: 100%;
   width: 100%;
   z-index: 1000;
-  border-radius: 16px;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
   background-color: $cardBackgroundColor;
   display: flex;
   flex-direction: row;

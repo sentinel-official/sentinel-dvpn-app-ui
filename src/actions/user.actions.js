@@ -85,7 +85,7 @@ export const dispatchGetIpAddress = createAsyncThunk(
       dispatch(SET_LOADING_MESSAGE("Fetching IP Address"));
 
       const resposnse = await APIService.getIpAddress(deviceToken);
-      const { ip = "0.0.0.0", latitude = 0.0, longitude = 0.0 } = resposnse;
+      const { ip = "0.0.0.0", latitude = 0.00, longitude = 0.00 } = resposnse;
       return fulfillWithValue({ ip, latitude, longitude });
     } catch (e) {
       dispatch(

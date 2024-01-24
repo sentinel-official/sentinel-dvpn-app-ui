@@ -3,8 +3,8 @@ import { dispatchGetIpAddress } from "../actions/user.actions";
 import { connectAction } from "../actions/vpn.actions";
 
 const initialState = {
-  latitude: 0,
-  longitude: 0,
+  latitude: 0.00,
+  longitude: 0.00,
 };
 
 const mapSlice = createSlice({

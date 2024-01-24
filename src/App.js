@@ -15,10 +15,8 @@ import AccountScreen from "./screens/AccountScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import LaunchingScreen from "./screens/LaunchingScreen";
 import ListLayout from "./layouts/ListLayout";
-import Map from "./components/Map";
 import Loader from "./components/Loader";
 import LaunchingLayout from "./layouts/LaunchingLayout";
-const map = <Map />;
 
 function App() {
   const { showSuccessAlert, showErrorAlert, isLoading } = useSelector(
@@ -38,7 +36,7 @@ function App() {
         </Route>
 
         <Route path="/app" element={<AppLayout />}>
-          <Route index element={<HomeScreen map={map} />} />
+          <Route index element={<HomeScreen />} />
           <Route path="countries" element={<ListLayout />}>
             <Route index element={<Countries />} />
             <Route path=":countryId/cities" element={<Cities />} />

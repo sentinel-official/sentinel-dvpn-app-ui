@@ -2,8 +2,8 @@
 
 .start {
   padding: 16px;
-  height: inherit;
-  width: inherit;
+  height: 100%;
+  width: 100%;
   background-image: url("../../assets/backgrounds/onboarding-screen-bg.png");
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -12,13 +12,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
 
   .top {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 100%;
+    justify-content: flex-start;
+    height: min(100%, 260px);
+    padding-top: 16px;
     gap: 16px;
     .title {
       max-width: 240px;
@@ -43,8 +43,7 @@
   .bottom {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 100%;
+    justify-content: flex-start;
     gap: 16px;
     img {
       width: 72px;

@@ -20,7 +20,7 @@ const setKey = (data) =>
     });
 
 const getKey = (key) =>
-  Axios.get("/registry", { params: { key } })
+  Axios.get(`/registry?key=${key}`)
     .then((response) => {
       return response.data;
     })
@@ -70,16 +70,9 @@ const getBalance = (walletAddress) =>
 
 const getCurrentPrice = () =>
   axios
-    .get("https://api.coingecko.com/api/v3/coins/sentinel", {
-      params: {
-        community_data: false,
-        developer_data: false,
-        localization: false,
-        sparkline: false,
-        tickers: false,
-        description: false,
-      },
-    })
+    .get(
+      `https://api.coingecko.com/api/v3/coins/sentinel?community_data=false&developer_data=false&localization=false&sparkline=false&tickers=false&description=false`
+    )
     .then((response) => {
       return response?.data?.market_data?.current_price?.usd;
     })
@@ -127,12 +120,9 @@ const getNodes = ({ countryId, cityId, deviceToken }) =>
     });
 
 const getSubscriptions = (walletAddress) =>
-  Axios.get(`/blockchain/wallet/${walletAddress}/subscriptions`, {
-    params: {
-      limit: 100000,
-      offset: 0,
-    },
-  })
+  Axios.get(
+    `/blockchain/wallet/${walletAddress}/subscriptions?limit=100000&offset=0`
+  )
     .then((response) => {
       return response.data;
     })
@@ -141,12 +131,7 @@ const getSubscriptions = (walletAddress) =>
     });
 
 const getPlans = () =>
-  Axios.get(`blockchain/plans`, {
-    params: {
-      limit: 100000,
-      offset: 0,
-    },
-  })
+  Axios.get(`blockchain/plans?limit=100000&offset=0`)
     .then((response) => {
       return response.data.plans;
     })
@@ -227,7 +212,7 @@ const APIService = {
   connect,
   disconnect,
   registerDevice,
-  setKey
+  setKey,
 };
 
 export default APIService;

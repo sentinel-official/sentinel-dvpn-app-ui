@@ -23,7 +23,7 @@ const zoom = [7];
 
 const Map = () => {
   const mapRef = useRef();
-  const { latitude, longitude } = useSelector((state) => state.map);
+  const { latitude = 0.0, longitude = 0.0 } = useSelector((state) => state.map);
 
   const handleFlyTo = (latitude, longitude) => {
     if (mapRef && mapRef?.current) {
@@ -57,7 +57,7 @@ const Map = () => {
         longitude: longitude,
         zoom: zoom,
       }}
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100vw", height: `${window.innerHeight - 80}px` }}
       cursor="default"
       zoom={zoom}
       mapboxAccessToken="pk.eyJ1IjoiYmFzZWRhcHBzIiwiYSI6ImNsbjMza2I0NjBmYjgycm5rODM4d2I4ODEifQ.Mr0qLSfbCOoChGbAHvOo8g"

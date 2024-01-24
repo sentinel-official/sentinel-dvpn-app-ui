@@ -1,12 +1,13 @@
 @import "../../constants.scss";
 
 .root {
-  height: inherit;
-  width: inherit;
-  display: flex;
-  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 80px;
   .outlet {
-    height: calc(100vh - 80px);
+    height: 100%;
     width: 100%;
     overflow-y: auto;
   }
