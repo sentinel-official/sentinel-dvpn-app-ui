@@ -27,6 +27,7 @@ const alertsSlice = createSlice({
     SET_LOADING_MESSAGE: (state, { payload }) => ({
       ...state,
       loadingMessage: payload,
+      isLoading: true,
     }),
     SHOW_RENEW_SUBSCRIPTION: (state, { payload }) => ({
       ...state,

@@ -1,53 +1,47 @@
 import React from "react";
 import styles from "./styles/launching-screen.module.scss";
 import Logo from "../assets/images/launching-screen-logo.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import APIService from "../services/app.services";
-import { SET_LOADING, SET_USER_DETAILS } from "../redux/user.reducer";
+import { withLoader } from "../actions/loader.actions";
+import { fetchDeviceDetails } from "../actions/device.actions";
 
 const LaunchingScreen = () => {
-  const navigate = useNavigate();
+  const { walletAddress, deviceToken, isRegistered } = useSelector(
+    (state) => state.device
+  );
+
   const dispatch = useDispatch();
 
-  const { walletAddress, deviceToken } = useSelector((state) => state.device);
-  const { isLoading } = useSelector((state) => state.user);
-
   React.useEffect(() => {
-    if (isLoading && [walletAddress, deviceToken].includes(null)) {
-      Promise.all([APIService.getKey("deviceToken"), APIService.getWallet()])
-        .then(([deviceToken, walletAddress]) => {
-          dispatch(
-            SET_USER_DETAILS({
-              value: deviceToken.value,
-              address: walletAddress.address,
-            })
-          );
+    if (!isRegistered) {
+      dispatch(
+        withLoader({
+          dispatchers: [fetchDeviceDetails()],
+          message: "Registering...",
         })
-        .catch(() => {})
-        .finally(() => dispatch(SET_LOADING(false)));
-      return;
+      );
     }
-  }, [walletAddress, deviceToken, navigate, isLoading, dispatch]);
+  }, [dispatch, isRegistered]);
 
-  if (isLoading && [walletAddress, deviceToken].includes(null)) {
-    return (
-      <div className={styles.root}>
-        <img src={Logo} alt="" />
-        <span className={styles.title}>Welcome to Sentinel VPN</span>
-        <span className={styles.subtitle}>
-          Join Sentinel and enjoy the unlimited possibilities of a decentralized
-          VPN
-        </span>
-      </div>
-    );
-  }
-
-  if (!isLoading && walletAddress && deviceToken) {
+  if (isRegistered && walletAddress && deviceToken) {
     return <Navigate to="/app" />;
   }
 
-  return <Navigate to="/onboarding" />;
+  if (!(isRegistered && walletAddress && deviceToken)) {
+    return <Navigate to="/onboarding" />;
+  }
+
+  return (
+    <div className={styles.root}>
+      <img src={Logo} alt="" />
+      <span className={styles.title}>Welcome to Sentinel VPN</span>
+      <span className={styles.subtitle}>
+        Join Sentinel and enjoy the unlimited possibilities of a decentralized
+        VPN
+      </span>
+    </div>
+  );
 };
 
 export default React.memo(LaunchingScreen);

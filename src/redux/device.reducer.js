@@ -3,6 +3,7 @@ import dnsList from "../constants/dns.constants";
 import {
   createWalletMnemonic,
   fetchDeviceDetails,
+  registerDevice,
 } from "../actions/device.actions";
 import { connectAction, disconnectAction } from "../actions/vpn.actions";
 
@@ -13,6 +14,7 @@ const initialState = {
   selectedDNS: dnsList.cloudflare,
   selectedNode: {},
   isVPNConnected: false,
+  isRegistered: false,
 };
 
 const deviceSlice = createSlice({
@@ -33,6 +35,13 @@ const deviceSlice = createSlice({
       ...state,
       deviceToken: payload.deviceToken,
       walletAddress: payload.walletAddress,
+      isRegistered: true,
+    }));
+    builder.addCase(registerDevice.fulfilled, (state, { payload }) => ({
+      ...state,
+      deviceToken: payload.deviceToken,
+      walletAddress: payload.walletAddress,
+      isRegistered: true,
     }));
 
     builder.addCase(createWalletMnemonic.fulfilled, (state, { payload }) => ({
@@ -49,7 +58,6 @@ const deviceSlice = createSlice({
       ...state,
       isVPNConnected: false,
     }));
-    
   },
 });
 

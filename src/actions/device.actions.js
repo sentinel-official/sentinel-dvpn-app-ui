@@ -12,6 +12,7 @@ import {
   dispatchGetSubscriptions,
 } from "./user.actions";
 import { fetchCountriesAction } from "./nodes.actions";
+import { withLoader } from "./loader.actions";
 
 export const createWalletMnemonic = createAsyncThunk(
   "CREATE_WALLET_MNEMONIC",
@@ -36,20 +37,17 @@ export const fetchDeviceDetails = createAsyncThunk(
   async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
       const token = await APIService.getKey("deviceToken");
+      if (!token) {
+        dispatch(withLoader(registerDevice()));
+        return rejectWithValue();
+      }
       const address = await APIService.getWallet();
-      console.log(token, address);
+
       return fulfillWithValue({
         deviceToken: token.value || null,
         walletAddress: address.address || null,
       });
     } catch (e) {
-      console.log("error", e);
-      dispatch(
-        SET_SHOW_ERROR_ALERT({
-          showErrorAlert: true,
-          message: "Error while fetching device details",
-        })
-      );
       return rejectWithValue();
     }
   }
@@ -73,6 +71,38 @@ export const fetchUserDetails = createAsyncThunk(
           message: "Error while fetching",
         })
       );
+    }
+  }
+);
+
+export const registerDevice = createAsyncThunk(
+  "REGISTER_USER_DEVICE",
+  async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
+    try {
+      console.log("HELLO");
+      const device = await APIService.registerDevice();
+      const token = device.data.token;
+
+      const payload = {
+        key: "deviceToken",
+        value: token,
+        is_secure: true,
+      };
+
+      await APIService.setKey(payload);
+      const address = await APIService.getWallet();
+      return fulfillWithValue({
+        deviceToken: token || null,
+        walletAddress: address.address || null,
+      });
+    } catch (e) {
+      dispatch(
+        SET_SHOW_ERROR_ALERT({
+          showErrorAlert: true,
+          message: "Error while fetching device details",
+        })
+      );
+      return rejectWithValue();
     }
   }
 );

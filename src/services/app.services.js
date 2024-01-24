@@ -1,6 +1,24 @@
 import axios from "axios";
 import Axios from "./Axios";
 
+const registerDevice = () =>
+  Axios.post(`/proxy/device`, { platform: "OTHER" })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
+const setKey = (data) =>
+  Axios.post("/registry", data)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
 const getKey = (key) =>
   Axios.get("/registry", { params: { key } })
     .then((response) => {
@@ -208,6 +226,8 @@ const APIService = {
   fetchCredentials,
   connect,
   disconnect,
+  registerDevice,
+  setKey
 };
 
 export default APIService;
