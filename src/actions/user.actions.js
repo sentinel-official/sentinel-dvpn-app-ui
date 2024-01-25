@@ -4,6 +4,7 @@ import {
   SET_LOADING_MESSAGE,
   SET_SHOW_ERROR_ALERT,
   SHOW_NO_BALANCE,
+  SHOW_RENEW_SUBSCRIPTION,
 } from "../redux/alerts.reducer";
 
 export const dispatchGetPlans = createAsyncThunk(
@@ -85,7 +86,7 @@ export const dispatchGetIpAddress = createAsyncThunk(
       dispatch(SET_LOADING_MESSAGE("Fetching IP Address"));
 
       const resposnse = await APIService.getIpAddress(deviceToken);
-      const { ip = "0.0.0.0", latitude = 0.00, longitude = 0.00 } = resposnse;
+      const { ip = "0.0.0.0", latitude = 0.0, longitude = 0.0 } = resposnse;
       return fulfillWithValue({ ip, latitude, longitude });
     } catch (e) {
       dispatch(
@@ -121,17 +122,23 @@ export const dispatchGetSubscriptions = createAsyncThunk(
 
 export const subscribeToPlanAction = createAsyncThunk(
   "SUBSCRIBE_TO_A_PLAN",
-  async (payload, { dispatch, rejectWithValue, fulfillWithValue }) => {
+  async (
+    payload,
+    { dispatch, rejectWithValue, fulfillWithValue, getState }
+  ) => {
+    const walletAddress = getState().device.walletAddress;
     try {
       const response = await APIService.subscribeToPlan(6, payload);
+      dispatch(SHOW_RENEW_SUBSCRIPTION(false));
       return fulfillWithValue(response);
     } catch (e) {
       dispatch(
         SET_SHOW_ERROR_ALERT({
           showErrorAlert: true,
-          message: "Failed to subscribe",
+          message: "Failed to subscribe" + e,
         })
       );
+      dispatch(dispatchGetBalance(walletAddress));
       return rejectWithValue();
     }
   }

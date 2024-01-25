@@ -5,6 +5,7 @@ import {
 } from "../redux/alerts.reducer";
 import APIService from "../services/app.services";
 import { dispatchGetBalance } from "./user.actions";
+import { withLoader } from "./loader.actions";
 
 export const disconnectAction = createAsyncThunk(
   "DISCONNECT_TO_VPN",
@@ -34,7 +35,9 @@ export const disconnectAction = createAsyncThunk(
           })
         );
       }
-      dispatch(dispatchGetBalance(walletAddress));
+      dispatch(
+        withLoader({ dispatchers: [dispatchGetBalance(walletAddress)] })
+      );
       return rejectWithValue();
     }
   }
@@ -48,29 +51,30 @@ export const connectAction = createAsyncThunk(
   ) => {
     const walletAddress = getState().device.walletAddress;
     try {
-      const session = await APIService.getSession(walletAddress);
+      const sessionGot = await APIService.getSession(walletAddress);
+      let session;
 
       if (
-        !(
-          session.nodeAddress === node.address &&
-          session.subscriptionId === subscription.base.id
-        )
+        sessionGot &&
+        sessionGot.nodeAddress === node.address &&
+        sessionGot.subscriptionId === subscription.base.id
       ) {
-        throw new Error({ msg: "Failed to get Session details" });
+        session = sessionGot;
+      } else {
+        const payload = {
+          activeSession: Number.parseInt(session?.id) || null,
+          subscriptionID: Number.parseInt(subscription.base.id),
+          node: subscription.base.address,
+        };
+        dispatch(SET_LOADING_MESSAGE("Creating Sessions..."));
+        const createdSession = await APIService.createSession(
+          walletAddress,
+          payload
+        );
+        session = createdSession;
       }
 
-      const payload = {
-        activeSession: Number.parseInt(session.id),
-        subscriptionID: Number.parseInt(session.subscriptionId),
-        node: session.nodeAddress,
-      };
-      dispatch(SET_LOADING_MESSAGE("Creating Sessions..."));
-      const createdSession = await APIService.createSession(
-        walletAddress,
-        payload
-      );
-
-      if (createdSession) {
+      if (session) {
         dispatch(SET_LOADING_MESSAGE("Fetching Credentials..."));
 
         const payload = {
@@ -83,19 +87,18 @@ export const connectAction = createAsyncThunk(
         if (credentials) {
           dispatch(SET_LOADING_MESSAGE("Connecting to VPN..."));
 
-          const connected = await APIService.connect({
-            data: credentials,
-          });
+          const connected = await APIService.connect({ data: credentials });
           if (connected) {
+            return fulfillWithValue();
           } else {
             throw new Error({ msg: "Failed to connect" });
           }
         } else {
           throw new Error({ msg: "Failed to fetch credentials" });
         }
+      } else {
+        throw new Error({ msg: "Failed to creating credentials" });
       }
-
-      return fulfillWithValue();
     } catch (e) {
       if (e && e.msg) {
         dispatch(
@@ -108,11 +111,13 @@ export const connectAction = createAsyncThunk(
         dispatch(
           SET_SHOW_ERROR_ALERT({
             showErrorAlert: true,
-            message: "Failed to Connect to VPN",
+            message: "Failed to Connect to VPN" + e,
           })
         );
       }
-      dispatch(dispatchGetBalance(walletAddress));
+      dispatch(
+        withLoader({ dispatchers: [dispatchGetBalance(walletAddress)] })
+      );
       return rejectWithValue();
     }
   }

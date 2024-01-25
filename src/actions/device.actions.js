@@ -38,27 +38,25 @@ export const fetchDeviceDetails = createAsyncThunk(
     try {
       const token = await APIService.getKey("deviceToken");
       console.log("token", token);
-
-      if (token) {
-        const address = await APIService.getWallet();
-
-        return fulfillWithValue({
-          deviceToken: token.value || null,
-          walletAddress: address.address || null,
-        });
-      } else {
-        throw new Error({ noToken: true });
-      }
+      const address = await APIService.getWallet();
+      return fulfillWithValue({
+        deviceToken: token.value || null,
+        walletAddress: address.address || null,
+      });
     } catch (e) {
+      console.log("EEEEEE", e);
       dispatch(
         SET_SHOW_ERROR_ALERT({
           showErrorAlert: true,
           message: "Error while fetching",
         })
       );
-      if (e.noToken) {
-        dispatch(withLoader(registerDevice()));
-      }
+      dispatch(
+        withLoader({
+          dispatchers: [registerDevice()],
+          message: "Registering Device",
+        })
+      );
       return rejectWithValue();
     }
   }

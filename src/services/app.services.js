@@ -153,7 +153,11 @@ const getSession = (walletAddress) =>
       return response.data;
     })
     .catch((error) => {
-      throw new Error(error);
+      if (error.response.status === 404) {
+        return null;
+      } else {
+        throw new Error({ msg: "Failed to Create Session" });
+      }
     });
 
 const createSession = (walletAddress, data) =>

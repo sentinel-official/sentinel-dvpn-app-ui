@@ -17,6 +17,7 @@ const OnboardingCreateScreen = () => {
   const [revealed, setRevealed] = React.useState(false);
 
   const createWallet = () => {
+    console.log("HELLOW ")
     dispatch(withLoader({ dispatchers: [createWalletMnemonic(mnemonic)] }));
   };
 

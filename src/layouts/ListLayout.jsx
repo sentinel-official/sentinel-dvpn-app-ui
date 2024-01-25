@@ -11,6 +11,10 @@ const ListLayout = () => {
   const navigate = useNavigate();
   const { pageTitle, shouldNavBack } = useSelector((state) => state.nodes);
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <div className={styles.header}>
