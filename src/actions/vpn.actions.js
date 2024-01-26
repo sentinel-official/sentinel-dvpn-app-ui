@@ -121,7 +121,7 @@ export const connectAction = createAsyncThunk(
         dispatch(
           SET_SHOW_ERROR_ALERT({
             showErrorAlert: true,
-            message: "Failed to Connect to VPN" + JSON.stringify(e),
+            message: "Failed to Connect to VPN",
           })
         );
       }
