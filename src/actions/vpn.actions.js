@@ -17,7 +17,7 @@ export const disconnectAction = createAsyncThunk(
     try {
       const response = await APIService.disconnect();
       if (response.isConnected === false) {
-        dispatch(
+        await dispatch(
           withLoader({ dispatchers: [dispatchGetIpAddress(deviceToken)] })
         );
         return fulfillWithValue();
@@ -40,7 +40,7 @@ export const disconnectAction = createAsyncThunk(
           })
         );
       }
-      dispatch(
+      await dispatch(
         withLoader({ dispatchers: [dispatchGetBalance(walletAddress)] })
       );
       return rejectWithValue();
@@ -95,7 +95,7 @@ export const connectAction = createAsyncThunk(
           const connected = await APIService.connect({ data: credentials });
 
           if (connected.isConnected) {
-            dispatch(
+            await dispatch(
               withLoader({ dispatchers: [dispatchGetIpAddress(deviceToken)] })
             );
             dispatch(SET_IS_VPN_CONNECTED(connected.isConnected));
@@ -125,7 +125,7 @@ export const connectAction = createAsyncThunk(
           })
         );
       }
-      dispatch(
+      await dispatch(
         withLoader({ dispatchers: [dispatchGetBalance(walletAddress)] })
       );
       return rejectWithValue();
