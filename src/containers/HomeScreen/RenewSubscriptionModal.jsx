@@ -6,7 +6,7 @@ import Button, { variants } from "../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { SHOW_RENEW_SUBSCRIPTION } from "../../redux/alerts.reducer";
 import { withLoader } from "../../actions/loader.actions";
-import { dispatchGetSubscriptions, subscribeToPlanAction } from "../../actions/user.actions";
+import { subscribeToPlanAction } from "../../actions/user.actions";
 
 const RenewSubscriptionModal = () => {
   const dispatch = useDispatch();
