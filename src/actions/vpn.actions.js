@@ -4,20 +4,25 @@ import {
   SET_SHOW_ERROR_ALERT,
 } from "../redux/alerts.reducer";
 import APIService from "../services/app.services";
-import { dispatchGetBalance } from "./user.actions";
+import { dispatchGetBalance, dispatchGetIpAddress } from "./user.actions";
 import { withLoader } from "./loader.actions";
+import { SET_IS_VPN_CONNECTED } from "../redux/device.reducer";
 
 export const disconnectAction = createAsyncThunk(
   "DISCONNECT_TO_VPN",
   async (_, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
     const walletAddress = getState().device.walletAddress;
+    const deviceToken = getState().device.deviceToken;
 
     try {
       const response = await APIService.disconnect();
       if (response.isConnected === false) {
-        throw new Error({ msg: "Failed to disconnect" });
-      } else {
+        dispatch(
+          withLoader({ dispatchers: [dispatchGetIpAddress(deviceToken)] })
+        );
         return fulfillWithValue();
+      } else {
+        throw new Error({ msg: "Failed to disconnect" });
       }
     } catch (e) {
       if (e && e.msg) {
@@ -43,6 +48,17 @@ export const disconnectAction = createAsyncThunk(
   }
 );
 
+const getSessionId = (sessionGot, node, subscription) => {
+  if (
+    sessionGot &&
+    sessionGot.nodeAddress === node.address &&
+    sessionGot.subscriptionId === subscription.base.id
+  ) {
+    return Number.parseInt(sessionGot.id);
+  }
+  return null;
+};
+
 export const connectAction = createAsyncThunk(
   "CONNECT_ACTION",
   async (
@@ -50,30 +66,19 @@ export const connectAction = createAsyncThunk(
     { fulfillWithValue, rejectWithValue, dispatch, getState }
   ) => {
     const walletAddress = getState().device.walletAddress;
+    const deviceToken = getState().device.deviceToken;
+
     try {
       const sessionGot = await APIService.getSession(walletAddress);
-      let session;
+      const payload = {
+        activeSession: getSessionId(sessionGot, node, subscription),
+        subscriptionID: Number.parseInt(subscription.base.id),
+        node: node.address,
+      };
+      dispatch(SET_LOADING_MESSAGE("Creating Sessions..."));
 
-      if (
-        sessionGot &&
-        sessionGot.nodeAddress === node.address &&
-        sessionGot.subscriptionId === subscription.base.id
-      ) {
-        session = sessionGot;
-      } else {
-        const payload = {
-          activeSession: Number.parseInt(session?.id) || null,
-          subscriptionID: Number.parseInt(subscription.base.id),
-          node: subscription.base.address,
-        };
-        dispatch(SET_LOADING_MESSAGE("Creating Sessions..."));
-        const createdSession = await APIService.createSession(
-          walletAddress,
-          payload
-        );
-        session = createdSession;
-      }
-
+      await APIService.createSession(walletAddress, payload);
+      const session = await APIService.getSession(walletAddress);
       if (session) {
         dispatch(SET_LOADING_MESSAGE("Fetching Credentials..."));
 
@@ -88,7 +93,12 @@ export const connectAction = createAsyncThunk(
           dispatch(SET_LOADING_MESSAGE("Connecting to VPN..."));
 
           const connected = await APIService.connect({ data: credentials });
-          if (connected) {
+
+          if (connected.isConnected) {
+            dispatch(
+              withLoader({ dispatchers: [dispatchGetIpAddress(deviceToken)] })
+            );
+            dispatch(SET_IS_VPN_CONNECTED(connected.isConnected));
             return fulfillWithValue();
           } else {
             throw new Error({ msg: "Failed to connect" });
@@ -111,7 +121,7 @@ export const connectAction = createAsyncThunk(
         dispatch(
           SET_SHOW_ERROR_ALERT({
             showErrorAlert: true,
-            message: "Failed to Connect to VPN" + e,
+            message: "Failed to Connect to VPN" + JSON.stringify(e),
           })
         );
       }

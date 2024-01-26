@@ -6,6 +6,7 @@ import {
   SHOW_NO_BALANCE,
   SHOW_RENEW_SUBSCRIPTION,
 } from "../redux/alerts.reducer";
+import { withLoader } from "./loader.actions";
 
 export const dispatchGetPlans = createAsyncThunk(
   "DISPATCH_GET_PLANS",
@@ -130,6 +131,9 @@ export const subscribeToPlanAction = createAsyncThunk(
     try {
       const response = await APIService.subscribeToPlan(6, payload);
       dispatch(SHOW_RENEW_SUBSCRIPTION(false));
+      await dispatch(
+        withLoader({ dispatchers: [dispatchGetSubscriptions(walletAddress)] })
+      );
       return fulfillWithValue(response);
     } catch (e) {
       dispatch(

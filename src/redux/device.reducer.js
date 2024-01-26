@@ -29,6 +29,10 @@ const deviceSlice = createSlice({
       ...state,
       selectedNode: payload,
     }),
+    SET_IS_VPN_CONNECTED: (state, { payload }) => ({
+      ...state,
+      isVPNConnected: payload,
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(fetchDeviceDetails.fulfilled, (state, { payload }) => ({
@@ -61,7 +65,10 @@ const deviceSlice = createSlice({
   },
 });
 
-export const { CHANGE_SELECTED_DNS, CHANGE_SELECTED_NODE } =
-  deviceSlice.actions;
+export const {
+  CHANGE_SELECTED_DNS,
+  CHANGE_SELECTED_NODE,
+  SET_IS_VPN_CONNECTED,
+} = deviceSlice.actions;
 
 export default deviceSlice.reducer;

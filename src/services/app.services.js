@@ -167,7 +167,7 @@ const createSession = (walletAddress, data) =>
       "x-gas-prices": 1000000,
     },
   })
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((e) => {
       throw new Error(e);
     });
@@ -197,6 +197,13 @@ const disconnect = () =>
       throw new Error(e);
     });
 
+const getStatus = () =>
+  Axios.get("/status")
+    .then((response) => response.data)
+    .catch((e) => {
+      return null;
+    });
+
 const APIService = {
   getKey,
   getWallet,
@@ -217,6 +224,7 @@ const APIService = {
   disconnect,
   registerDevice,
   setKey,
+  getStatus,
 };
 
 export default APIService;

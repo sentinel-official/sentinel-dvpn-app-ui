@@ -37,14 +37,12 @@ export const fetchDeviceDetails = createAsyncThunk(
   async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
       const token = await APIService.getKey("deviceToken");
-      console.log("token", token);
       const address = await APIService.getWallet();
       return fulfillWithValue({
         deviceToken: token.value || null,
         walletAddress: address.address || null,
       });
     } catch (e) {
-      console.log("EEEEEE", e);
       dispatch(
         SET_SHOW_ERROR_ALERT({
           showErrorAlert: true,
