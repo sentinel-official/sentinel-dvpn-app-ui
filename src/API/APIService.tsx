@@ -18,6 +18,9 @@ import POSTBlockchainWalletSessionRequest from "./requests/POSTBlockchainWalletS
 import POSTBlockchainFetchCredentialsResponse from "./responses/POSTBlockchainFetchCredentialsResponse";
 import POSTBlockchainFetchCredentialsRequest from "./requests/POSTBlockchainFetchCredentialsRequest";
 import APIStatus from "./models/APIStatus";
+import GETDNSCurrentResponse from "./responses/GETDNSCurrentResponse";
+import APIDNS from "./models/APIDNS";
+import PUTDNSRequest from "./requests/PUTDNSRequest";
 
 
 const setKey = (data: POSTRegistryRequest) => {
@@ -139,6 +142,19 @@ const disconnect = ()=> {
     return Http.post<APIStatus>("/disconnect")
 }
 
+const getAvailableDNS = () => {
+    return Http.get<GETDNSCurrentResponse>("/dns/list")
+}
+
+const getCurrentDNS = () => {
+    return Http.get<APIDNS>("/dns/current")
+}
+
+const setDNS = (data: PUTDNSRequest) => {
+    return Http.put("/dns", data)
+}
+
+
 const APIService = {
     setKey,
     getKey,
@@ -160,7 +176,10 @@ const APIService = {
     fetchCredentials,
     getStatus,
     connect,
-    disconnect
+    disconnect,
+    getAvailableDNS,
+    getCurrentDNS,
+    setDNS
 };
 
 export default APIService;
