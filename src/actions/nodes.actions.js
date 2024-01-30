@@ -5,7 +5,7 @@ import { segregateByKey } from "../helpers/parseData";
 export const fetchNodesAction = createAsyncThunk(
   "FETCH_NODES_LIST",
   async (
-    { countryId, cityId },
+    { countryId, cityId, city, country, countryCode },
     { fulfillWithValue, rejectWithValue, getState }
   ) => {
     try {
@@ -16,7 +16,13 @@ export const fetchNodesAction = createAsyncThunk(
       const deviceToken = getState().device.deviceToken;
       const params = { countryId, cityId, deviceToken };
       const response = await APIService.getNodes(params);
-      const nodes = segregateByKey(response, "city_id");
+      const nodes = segregateByKey(
+        response,
+        "city_id",
+        city,
+        country,
+        countryCode
+      );
       return fulfillWithValue({ nodes, cityId });
     } catch (e) {
       return rejectWithValue(e);

@@ -143,12 +143,10 @@ export const changeCurrentDNS = createAsyncThunk(
   "CHANGE_CURRENT_DNS",
   async (dns, { dispatch, rejectWithValue, fulfillWithValue }) => {
     try {
-      const response = await APIService.setDNS({ server: dns.name });
-      console.log(response);
+      await APIService.setDNS({ server: dns.name });
       dispatch(CHANGE_SELECTED_DNS(dns));
       return fulfillWithValue();
     } catch (e) {
-      console.log(e);
 
       dispatch(
         SET_SHOW_ERROR_ALERT({

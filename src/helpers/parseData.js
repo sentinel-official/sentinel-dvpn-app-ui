@@ -1,11 +1,17 @@
-export const segregateByKey = (list = [], key = "") => {
+export const segregateByKey = (
+  list = [],
+  key = "",
+  city,
+  country,
+  countryCode
+) => {
   const result = {};
 
   list.forEach((item) => {
     if (result[item[key]]) {
-      result[item[key]].push(item);
+      result[item[key]].push({ ...item, city, country, countryCode });
     } else {
-      result[item[key]] = [item];
+      result[item[key]] = [{ ...item, city, country, countryCode }];
     }
   });
   return result;

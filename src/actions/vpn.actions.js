@@ -48,12 +48,8 @@ export const disconnectAction = createAsyncThunk(
   }
 );
 
-const getSessionId = (sessionGot, node, subscription) => {
-  if (
-    sessionGot &&
-    sessionGot.nodeAddress === node.address &&
-    sessionGot.subscriptionId === subscription.base.id
-  ) {
+const getSessionId = (sessionGot) => {
+  if (sessionGot) {
     return Number.parseInt(sessionGot.id);
   }
   return null;
@@ -110,6 +106,7 @@ export const connectAction = createAsyncThunk(
         throw new Error({ msg: "Failed to creating credentials" });
       }
     } catch (e) {
+      console.log("ERROR", JSON.stringify(e, null, 4));
       if (e && e.msg) {
         dispatch(
           SET_SHOW_ERROR_ALERT({

@@ -14,7 +14,7 @@ const SelectedNode = () => {
             width: "24px",
             height: "100%",
           }}
-          countryCode={node.countryCode.toUpperCase()}
+          countryCode={node?.countryCode?.toUpperCase()}
           svg
         />
         <span>

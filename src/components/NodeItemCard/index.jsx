@@ -36,7 +36,7 @@ const NodeItemCard = ({
               width: "24px",
               height: "100%",
             }}
-            countryCode={code.toUpperCase()}
+            countryCode={code?.toUpperCase()}
             svg
           />
         )}

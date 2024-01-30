@@ -7,7 +7,10 @@ import NodeItemCard from "../../components/NodeItemCard";
 import { SET_PAGE_HEADER } from "../../redux/nodes.reducer";
 import { withLoader } from "../../actions/loader.actions";
 import { CHANGE_SELECTED_NODE } from "../../redux/device.reducer";
-import { SHOW_NO_BALANCE, SHOW_RENEW_SUBSCRIPTION } from "../../redux/alerts.reducer";
+import {
+  SHOW_NO_BALANCE,
+  SHOW_RENEW_SUBSCRIPTION,
+} from "../../redux/alerts.reducer";
 import { connectAction } from "../../actions/vpn.actions";
 
 const Nodes = () => {
@@ -25,7 +28,15 @@ const Nodes = () => {
   React.useLayoutEffect(() => {
     dispatch(
       withLoader({
-        dispatchers: [fetchNodesAction({ countryId, cityId })],
+        dispatchers: [
+          fetchNodesAction({
+            countryId,
+            cityId,
+            city: selected?.city?.name,
+            country: selected?.country?.name,
+            countryCode: selected?.country?.code,
+          }),
+        ],
         message: "Loading Nodes...",
       })
     );
@@ -46,6 +57,7 @@ const Nodes = () => {
     dispatch,
     selected?.city?.name,
     selected?.country?.code,
+    selected?.country?.name,
   ]);
 
   const connect = (node) => {
@@ -77,7 +89,7 @@ const Nodes = () => {
                 country: selected?.country?.name,
                 countryCode: selected?.country?.code,
               })}
-              onSelect={()=>connect(node)}
+              onSelect={() => connect(node)}
             />
           );
         })}
