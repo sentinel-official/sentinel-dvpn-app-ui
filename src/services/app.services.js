@@ -204,6 +204,27 @@ const getStatus = () =>
       return null;
     });
 
+const getAvailableDNS = () =>
+  Axios.get("/dns/list")
+    .then((response) => response.data)
+    .catch((e) => {
+      throw new Error(e);
+    });
+
+const getCurrentDNS = () =>
+  Axios.get("/dns/current")
+    .then((response) => response.data)
+    .catch((e) => {
+      throw new Error(e);
+    });
+
+const setDNS = (data) =>
+  Axios.put("/dns", data)
+    .then((response) => response.data)
+    .catch((e) => {
+      throw new Error(e);
+    });
+
 const APIService = {
   getKey,
   getWallet,
@@ -225,6 +246,9 @@ const APIService = {
   registerDevice,
   setKey,
   getStatus,
+  getAvailableDNS,
+  getCurrentDNS,
+  setDNS,
 };
 
 export default APIService;

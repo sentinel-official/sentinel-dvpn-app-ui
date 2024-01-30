@@ -7,6 +7,7 @@ import APIService from "../services/app.services";
 import {
   dispatchFetchCurrentPrice,
   dispatchGetBalance,
+  dispatchGetDNSTypes,
   dispatchGetIpAddress,
   dispatchGetPlans,
   dispatchGetSubscriptions,
@@ -70,6 +71,7 @@ export const fetchUserDetails = createAsyncThunk(
       await dispatch(dispatchGetBalance(walletAddress));
       await dispatch(dispatchGetIpAddress(deviceToken));
       await dispatch(dispatchGetSubscriptions(walletAddress));
+      await dispatch(dispatchGetDNSTypes());
       dispatch(SET_USER_DETAILS_FETCHED(true));
     } catch (error) {
       dispatch(

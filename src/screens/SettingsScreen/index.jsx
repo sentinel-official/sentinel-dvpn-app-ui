@@ -4,12 +4,13 @@ import LegalDocIcon from "../../assets/icons/legal-doc-icon.svg";
 import VersionIcon from "../../assets/icons/version-icon.svg";
 import DNSIcon from "../../assets/icons/dns-icon.svg";
 import Card from "../../components/Card";
-import dnsList from "../../constants/dns.constants";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/Modal";
 import Button, { variants } from "../../components/Button";
-import { CHANGE_SELECTED_DNS } from "../../redux/device.reducer";
 import RadioButton from "../../components/RadioButton";
+import { capitalizeFirstLetter } from "../../helpers/capitalizeFirstLetter";
+import { changeCurrentDNS } from "../../actions/user.actions";
+import { withLoader } from "../../actions/loader.actions";
 
 const legalDocs = [
   {
@@ -26,12 +27,16 @@ const legalDocs = [
 
 const DNSCard = () => {
   const dispatch = useDispatch();
-  const { selectedDNS } = useSelector((state) => state.device);
+  const { currentDNS, availableDNS, isVPNConnected } = useSelector(
+    (state) => state.device
+  );
+
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-  const handleOnChangeDNSValue = (event) => {
+  const handleOnChangeDNSValue = (event, dns) => {
     event.preventDefault();
-    dispatch(CHANGE_SELECTED_DNS(event.target.value));
+
+    dispatch(withLoader({ dispatchers: [changeCurrentDNS(dns)] }));
     setIsModalOpen(false);
   };
 
@@ -40,14 +45,14 @@ const DNSCard = () => {
       <div className={styles["dns-list"]}>
         <span className={styles.title}>Choose DNS</span>
         <section className={styles.list}>
-          {Object.entries(dnsList).map(([key, value]) => {
-            const isChecked = value === selectedDNS;
+          {availableDNS?.map((dns) => {
+            const isChecked = dns.name === currentDNS.name;
             return (
               <RadioButton
-                value={value}
+                value={capitalizeFirstLetter(dns.name)}
                 isChecked={isChecked}
-                onChange={handleOnChangeDNSValue}
-                key={key}
+                onChange={(event) => handleOnChangeDNSValue(event, dns)}
+                key={dns.name}
               />
             );
           })}
@@ -65,12 +70,18 @@ const DNSCard = () => {
     <div className={styles.container}>
       <span className={styles.title}>DVPN</span>
       <Card>
-        <button className={styles.dns} onClick={() => setIsModalOpen(true)}>
+        <button
+          disabled={isVPNConnected}
+          className={styles.dns}
+          onClick={() => setIsModalOpen(true)}
+        >
           <section>
             <img src={DNSIcon} alt="" />
             <span>DNS</span>
           </section>
-          <span className={styles.value}>{selectedDNS}</span>
+          <span className={styles.value}>
+            {capitalizeFirstLetter(currentDNS.name)}
+          </span>
         </button>
       </Card>
       {isModalOpen && DNSListModal}

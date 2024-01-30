@@ -11,6 +11,13 @@ export const segregateByKey = (list = [], key = "") => {
   return result;
 };
 
+export const sortObjArrByKey = (arr = [], key = "") => {
+  const sorted = arr.sort((a, b) => {
+    return b[key] - a[key];
+  });
+  return sorted;
+};
+
 export const filterCountries = (countries = [], key = "") => {
   if (key && key.length > 0) {
     return countries.filter((country) => {

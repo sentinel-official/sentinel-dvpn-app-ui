@@ -27,9 +27,15 @@ const RadioButton = ({ value, isChecked, onChange }) => {
           r="15"
           fill="none"
           stroke="#ffffff"
-          stroke-width="3"
+          strokeWidth="3"
         />
-        <circle class={styles.radioDot} cx="17" cy="17" r="8" fill="#0156FC" />
+        <circle
+          className={styles.radioDot}
+          cx="17"
+          cy="17"
+          r="8"
+          fill="#0156FC"
+        />
       </svg>
       <span>{value}</span>
     </label>

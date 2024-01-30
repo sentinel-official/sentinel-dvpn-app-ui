@@ -7,6 +7,8 @@ import {
   SHOW_RENEW_SUBSCRIPTION,
 } from "../redux/alerts.reducer";
 import { withLoader } from "./loader.actions";
+import { sortObjArrByKey } from "../helpers/parseData";
+import { CHANGE_SELECTED_DNS } from "../redux/device.reducer";
 
 export const dispatchGetPlans = createAsyncThunk(
   "DISPATCH_GET_PLANS",
@@ -121,6 +123,44 @@ export const dispatchGetSubscriptions = createAsyncThunk(
   }
 );
 
+export const dispatchGetDNSTypes = createAsyncThunk(
+  "GET_DNS_TYPES",
+  async (_, { rejectWithValue, fulfillWithValue, dispatch, getState }) => {
+    try {
+      const availableDNS = await APIService.getAvailableDNS();
+      const currentDNS = await APIService.getCurrentDNS();
+      return fulfillWithValue({
+        availableDNS: sortObjArrByKey(availableDNS?.servers, "name"),
+        currentDNS,
+      });
+    } catch (e) {
+      return rejectWithValue();
+    }
+  }
+);
+
+export const changeCurrentDNS = createAsyncThunk(
+  "CHANGE_CURRENT_DNS",
+  async (dns, { dispatch, rejectWithValue, fulfillWithValue }) => {
+    try {
+      const response = await APIService.setDNS({ server: dns.name });
+      console.log(response);
+      dispatch(CHANGE_SELECTED_DNS(dns));
+      return fulfillWithValue();
+    } catch (e) {
+      console.log(e);
+
+      dispatch(
+        SET_SHOW_ERROR_ALERT({
+          showErrorAlert: true,
+          message: "Failed to change dns",
+        })
+      );
+      return rejectWithValue();
+    }
+  }
+);
+
 export const subscribeToPlanAction = createAsyncThunk(
   "SUBSCRIBE_TO_A_PLAN",
   async (
@@ -139,7 +179,7 @@ export const subscribeToPlanAction = createAsyncThunk(
       dispatch(
         SET_SHOW_ERROR_ALERT({
           showErrorAlert: true,
-          message: "Failed to subscribe" + e,
+          message: "Failed to subscribe",
         })
       );
       dispatch(dispatchGetBalance(walletAddress));

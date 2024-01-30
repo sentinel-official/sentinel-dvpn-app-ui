@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import dnsList from "../constants/dns.constants";
 import {
   createWalletMnemonic,
   fetchDeviceDetails,
   registerDevice,
 } from "../actions/device.actions";
 import { connectAction, disconnectAction } from "../actions/vpn.actions";
+import { dispatchGetDNSTypes } from "../actions/user.actions";
 
 const initialState = {
   deviceToken: null,
   walletAddress: null,
   mnemonic: null,
-  selectedDNS: dnsList.cloudflare,
+  availableDNS: [],
+  currentDNS: {},
   selectedNode: {},
   isVPNConnected: false,
   isRegistered: false,
@@ -23,7 +24,7 @@ const deviceSlice = createSlice({
   reducers: {
     CHANGE_SELECTED_DNS: (state, { payload }) => ({
       ...state,
-      selectedDNS: payload,
+      currentDNS: payload,
     }),
     CHANGE_SELECTED_NODE: (state, { payload }) => ({
       ...state,
@@ -61,6 +62,10 @@ const deviceSlice = createSlice({
     builder.addCase(disconnectAction.fulfilled, (state) => ({
       ...state,
       isVPNConnected: false,
+    }));
+    builder.addCase(dispatchGetDNSTypes.fulfilled, (state, { payload }) => ({
+      ...state,
+      ...payload,
     }));
   },
 });
