@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d9be6572.css",
+    "main.js": "/static/js/main.41a83cb5.js",
+    "static/js/483.c21f92f4.chunk.js": "/static/js/483.c21f92f4.chunk.js",
+    "static/media/onboarding-screen-bg.png": "/static/media/onboarding-screen-bg.6113a53309e8c6ea3d2d.png",
+    "static/media/launching-screen-logo.png": "/static/media/launching-screen-logo.1c2ec062e4e36c327ab8.png",
+    "static/media/balance-icon.svg": "/static/media/balance-icon.57feba6f26c1ecc53e6d859778792d2c.svg",
+    "static/media/accepted-tokens-icon.svg": "/static/media/accepted-tokens-icon.b4d072b56851c476a3a213722ec28bf8.svg",
+    "static/media/tab-nodes-icon.svg": "/static/media/tab-nodes-icon.592e15f87bb9dba03228de45d6031221.svg",
+    "static/media/time-icon.svg": "/static/media/time-icon.3e3ea3d9832053d4663f1bb7384b35d7.svg",
+    "index.html": "/index.html",
+    "static/media/launching-screen-bg.svg": "/static/media/launching-screen-bg.b7c6066d125e7b3e4e1a.svg",
+    "static/media/tab-settings-icon.svg": "/static/media/tab-settings-icon.94c046f8f0588b999ea84c6301910ad5.svg",
+    "static/media/onboarding-screen-key-icon.svg": "/static/media/onboarding-screen-key-icon.c14da31a72e7d86e47252f277bd1d8b6.svg",
+    "static/media/back-icon.svg": "/static/media/back-icon.0ef99bced2a8dae7e7f084c920db587e.svg",
+    "static/media/info-icon.svg": "/static/media/info-icon.fc722fa28075a2802aa41b4f7a5970c9.svg",
+    "static/media/search-icon.svg": "/static/media/search-icon.7937e6f88c3dc1d39f260e6cceda6426.svg",
+    "static/media/tab-home-icon.svg": "/static/media/tab-home-icon.25a77b3947b69c11eec2cac9cd3ba6e2.svg",
+    "static/media/dns-icon.svg": "/static/media/dns-icon.b717861b639757f85ce429df2e7cd81a.svg",
+    "static/media/tab-account-icon.svg": "/static/media/tab-account-icon.aeb452870d769bbb58056ce73389e837.svg",
+    "static/media/version-icon.svg": "/static/media/version-icon.84a54c63fcaa7654683aef1eb3fbacda.svg",
+    "static/media/legal-doc-icon.svg": "/static/media/legal-doc-icon.accfc7a33b963faf912f39f9d6b9fac5.svg",
+    "static/media/quick-connect-icon.svg": "/static/media/quick-connect-icon.7900725eaba562894cf9f7308ec4549e.svg",
+    "main.d9be6572.css.map": "/static/css/main.d9be6572.css.map",
+    "main.41a83cb5.js.map": "/static/js/main.41a83cb5.js.map",
+    "483.c21f92f4.chunk.js.map": "/static/js/483.c21f92f4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d9be6572.css",
+    "static/js/main.41a83cb5.js"
+  ]
+}
