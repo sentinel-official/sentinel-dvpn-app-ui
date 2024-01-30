@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    
+
     .title {
       font-size: 12px;
       color: $textSecondaryColor;
@@ -96,11 +96,19 @@
   .title {
     color: $textPrimaryColor;
     font-size: 32px;
-    line-height:36px;
+    line-height: 36px;
   }
   .description {
     color: $textSecondaryColor;
     font-size: 16px;
     line-height: 20px;
   }
+}
+
+.quick-connect {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }

@@ -14,6 +14,7 @@ const NodeItemCard = ({
   code,
   action,
   dispatcher,
+  onSelect = () => {},
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const NodeItemCard = ({
           event.preventDefault();
           dispatcher && dispatch(dispatcher);
           navigate(navigateTo);
+          onSelect();
         }}
         className={`list-button ${styles["card-button"]}`}
       >

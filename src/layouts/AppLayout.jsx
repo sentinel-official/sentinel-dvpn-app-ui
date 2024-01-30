@@ -7,17 +7,22 @@ import RenewSubscriptionModal from "../containers/HomeScreen/RenewSubscriptionMo
 
 import { withLoader } from "../actions/loader.actions";
 
-import { SHOW_NO_BALANCE } from "../redux/alerts.reducer";
+import {
+  SHOW_NO_BALANCE,
+  SHOW_RENEW_SUBSCRIPTION,
+} from "../redux/alerts.reducer";
 import BottomTabs from "../containers/BottomTabs";
 import NoBalanceModal from "../components/NoBalanceModal";
 import { fetchUserDetails } from "../actions/device.actions";
+import { connectAction } from "../actions/vpn.actions";
 
 const AppLayout = () => {
   const dispatch = useDispatch();
   const { walletAddress, deviceToken } = useSelector((state) => state.device);
   const { showRenewSubscription, isUserDetailsFetched, isShowNoBalance } =
     useSelector((state) => state.alerts);
-  const { balance } = useSelector((state) => state.account);
+  const { balance, subscription } = useSelector((state) => state.account);
+  const node = useSelector((state) => state.device.selectedNode);
 
   React.useLayoutEffect(() => {
     if (walletAddress && deviceToken && !isUserDetailsFetched) {
