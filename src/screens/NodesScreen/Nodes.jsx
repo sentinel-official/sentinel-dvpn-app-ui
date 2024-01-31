@@ -83,6 +83,7 @@ const Nodes = () => {
               title={node.name}
               description={node.address}
               key={node.id}
+              logo={true}
               dispatcher={CHANGE_SELECTED_NODE({
                 ...node,
                 city: selected?.city?.name,

@@ -18,7 +18,7 @@ const QRCodeCard = () => {
     dispatch(
       SET_SHOW_SUCCESS_ALERT({
         showSuccessAlert: true,
-        message: "Copied Successfully!",
+        message: "Wallet address copied successfully!",
       })
     );
   };

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import APIService from "../services/app.services";
 import { segregateByKey } from "../helpers/parseData";
+import { SET_LOADING_MESSAGE } from "../redux/alerts.reducer";
 
 export const fetchNodesAction = createAsyncThunk(
   "FETCH_NODES_LIST",
@@ -50,8 +51,10 @@ export const fetchCitiesAction = createAsyncThunk(
 
 export const fetchCountriesAction = createAsyncThunk(
   "FETCH_COUNTRIES_LIST",
-  async (_, { fulfillWithValue, rejectWithValue, getState }) => {
+  async (_, { fulfillWithValue, rejectWithValue, getState, dispatch }) => {
     try {
+      dispatch(SET_LOADING_MESSAGE("Fetching Countries"));
+
       const deviceToken = getState().device.deviceToken;
       const countries = await APIService.getCountries(deviceToken);
       return fulfillWithValue({ countries: countries });

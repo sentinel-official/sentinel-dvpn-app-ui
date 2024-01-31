@@ -2,17 +2,16 @@ import React from "react";
 import Card from "../Card";
 import styles from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
-import Button, { variants } from "../Button";
-import QuickConnectIcon from "../../assets/icons/quick-connect-icon.svg";
 import ReactCountryFlag from "react-country-flag";
 import { useDispatch } from "react-redux";
+import SentinelNodeIcon from "../../assets/images/launching-screen-logo.png";
 
 const NodeItemCard = ({
   navigateTo = "/",
-  title,
-  description,
+  title = "asdd",
+  description = "asdd",
   code,
-  action,
+  logo,
   dispatcher,
   onSelect = () => {},
 }) => {
@@ -46,9 +45,7 @@ const NodeItemCard = ({
         </section>
       </button>
       <section className={styles["quick-connect"]}>
-        {action && (
-          <Button icon={QuickConnectIcon} variant={variants.primary} />
-        )}
+        {logo && <img src={SentinelNodeIcon} alt="" />}
       </section>
     </Card>
   );
