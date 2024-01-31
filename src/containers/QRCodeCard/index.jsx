@@ -25,11 +25,11 @@ const QRCodeCard = () => {
   return (
     <Card variant="secondary">
       <section className={styles["qr-code-card"]}>
-        <QRCode value={walletAddress} />
         <section className={styles["wallet-address"]}>
           <span className={styles.title}>Wallet Address</span>
           <span className={styles.address}>{walletAddress}</span>
         </section>
+        <QRCode value={walletAddress} />
         <Button
           onClick={copyWalletAddress}
           title={"Copy Address"}

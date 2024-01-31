@@ -3,7 +3,6 @@ import styles from "../styles/account-screen.module.scss";
 import Card from "../../components/Card";
 import { useSelector } from "react-redux";
 import BalanceIcon from "../../assets/icons/balance-icon.svg";
-import AcceptedTokensIcon from "../../assets/icons/accepted-tokens-icon.svg";
 import QRCodeCard from "../../containers/QRCodeCard";
 import formatamount from "../../helpers/formatAmount";
 
@@ -17,13 +16,6 @@ const TokensAccepted = () => {
           send them to your wallet address. You can copy your wallet address by
           clicking on the button below or by scanning the QR code.
         </span>
-      </section>
-      <section className={styles["tokens-accepted"]}>
-        <span className={styles.title}>Tokens Accepted</span>
-        <section className={styles.token}>
-          <img src={AcceptedTokensIcon} alt="" />
-          <span>DVPN</span>
-        </section>
       </section>
     </>
   );
@@ -39,7 +31,9 @@ const BalanceCard = () => {
         <section className={styles["balance-dvpn"]}>
           <img src={BalanceIcon} alt="" />
           <section className={styles.balance}>
-            <span className={styles.amount}>{formatamount(balance)} DVPN</span>
+            <span className={styles.amount}>
+              {formatamount(balance)} DVPN
+            </span>
           </section>
         </section>
         <span className={styles["balance-dollors"]}>
@@ -58,8 +52,8 @@ const AccountScreen = () => {
     <div className={styles.root}>
       <span className={styles.header}>Account</span>
       <BalanceCard />
-      <TokensAccepted />
       <QRCodeCard />
+      <TokensAccepted />
     </div>
   );
 };
