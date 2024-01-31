@@ -13,8 +13,9 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ScrollRestore />
-        <App />
+        <ScrollRestore>
+          <App />
+        </ScrollRestore>
       </PersistGate>
     </Provider>
   </BrowserRouter>

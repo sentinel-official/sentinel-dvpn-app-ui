@@ -9,7 +9,6 @@
   align-items: center;
   justify-content: space-between;
   padding-inline: 8px;
-  // padding-block: 8px;
 
   .card-button {
     width: 100%;
@@ -32,10 +31,13 @@
     font-size: 18px;
     color: $textPrimaryColor;
     text-overflow: ellipsis;
-    max-width: 75vw;
+    width: 100%;
+    max-width: 65vw;
     overflow: hidden;
     text-align: left;
     line-height: 22px;
+    white-space: nowrap;
+    height: 22px;
   }
   .description {
     font-size: 12px;
@@ -48,10 +50,18 @@
 }
 
 .quick-connect {
-  height: 32px;
-  width: auto;
+  height: auto;
+  width: 48px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   img {
-    height: 32px;
-    width: auto;
+    height: 100%;
+    width: 100%;
+    background-color: #191f31;
+    border: 1pt solid #0184fc;
+    border-radius: 6px;
+    padding: 6px;
   }
 }

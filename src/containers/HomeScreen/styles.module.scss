@@ -38,6 +38,10 @@
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
   .title {
     font-size: 14px;
     font-weight: 500;
@@ -47,6 +51,9 @@
     font-weight: 500;
     font-size: 14px;
     color: $textPrimaryColor;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
   }
 }
 
