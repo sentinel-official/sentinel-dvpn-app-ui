@@ -143,7 +143,7 @@ const subscribeToPlan = (planId, data) =>
   Axios.post(`/blockchain/plans/${planId}/subscription`, data, {
     headers: {
       "x-chain-id": "sentinelhub-2",
-      "x-gas-prices": 1000000,
+      "x-gas-prices": 150000,
     },
   });
 
@@ -164,7 +164,7 @@ const createSession = (walletAddress, data) =>
   Axios.post(`/blockchain/wallet/${walletAddress}/session`, data, {
     headers: {
       "x-chain-id": "sentinelhub-2",
-      "x-gas-prices": 1000000,
+      "x-gas-prices": 150000,
     },
   })
     .then((response) => response)
@@ -176,7 +176,7 @@ const fetchCredentials = (data) =>
   Axios.post("/blockchain/wallet/connect", data, {
     headers: {
       "x-chain-id": "sentinelhub-2",
-      "x-gas-prices": 1000000,
+      "x-gas-prices": 150000,
     },
   })
     .then((response) => response.data)
