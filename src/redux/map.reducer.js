@@ -3,8 +3,8 @@ import { dispatchGetIpAddress } from "../actions/user.actions";
 import { connectAction } from "../actions/vpn.actions";
 
 const initialState = {
-  latitude: 0.00,
-  longitude: 0.00,
+  latitude: 0.0,
+  longitude: 0.0,
 };
 
 const mapSlice = createSlice({
@@ -18,7 +18,6 @@ const mapSlice = createSlice({
     }));
     builder.addCase(connectAction.fulfilled, (state, { payload }) => ({
       ...state,
-      isVPNConnected: true,
       latitude: payload.selectedNode.latitude,
       longitude: payload.selectedNode.longitude,
     }));

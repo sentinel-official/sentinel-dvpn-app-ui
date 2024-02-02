@@ -18,7 +18,12 @@ export const disconnectAction = createAsyncThunk(
       const response = await APIService.disconnect();
       if (response.isConnected === false) {
         await dispatch(
-          withLoader({ dispatchers: [dispatchGetIpAddress(deviceToken)] })
+          withLoader({
+            dispatchers: [
+              dispatchGetIpAddress(deviceToken),
+              dispatchGetBalance(walletAddress),
+            ],
+          })
         );
         return fulfillWithValue();
       } else {
@@ -92,10 +97,15 @@ export const connectAction = createAsyncThunk(
 
           if (connected.isConnected) {
             await dispatch(
-              withLoader({ dispatchers: [dispatchGetIpAddress(deviceToken)] })
+              withLoader({
+                dispatchers: [
+                  dispatchGetIpAddress(deviceToken),
+                  dispatchGetBalance(walletAddress),
+                ],
+              })
             );
             dispatch(SET_IS_VPN_CONNECTED(connected.isConnected));
-            return fulfillWithValue();
+            return fulfillWithValue({ selectedNode: node });
           } else {
             throw new Error({ msg: "Failed to connect" });
           }

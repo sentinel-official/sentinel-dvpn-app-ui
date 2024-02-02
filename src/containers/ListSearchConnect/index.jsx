@@ -15,6 +15,8 @@ import {
 } from "../../redux/nodes.reducer";
 import SearchIcon from "../../assets/icons/search-icon.svg";
 import QuickConnectIcon from "../../assets/icons/quick-connect-icon.svg";
+import FilterIcon from "../../assets/icons/filter-icon.svg";
+import ProcolFilterModal from "./ProcolFilterModal";
 import Button, { variants } from "../../components/Button";
 import {
   SHOW_NO_BALANCE,
@@ -35,16 +37,25 @@ const ListSearchConnect = () => {
   const { cities, nodes, countries, searchText } = useSelector(
     (state) => state.nodes
   );
+  const { protocol } = useSelector((state) => state.device);
+
   const { balance, subscription } = useSelector((state) => state.account);
   const [nodesList, setNodesList] = React.useState([]);
+  const [showProtocolFilter, setShowProtocolFilter] = React.useState(false);
+  const [showProtocolFilterModal, setShowProtocolFilterModal] =
+    React.useState(false);
+
   React.useEffect(() => {
     if (params.countryId && params.cityId) {
+      setShowProtocolFilter(true);
       const filtered = filterNodes(nodes[params.cityId], searchText);
       dispatch(SET_FILTERED_NODES(filtered));
     } else if (params.countryId) {
+      setShowProtocolFilter(false);
       const filtered = filterCities(cities[params.countryId], searchText);
       dispatch(SET_FILTERED_CITIES(filtered));
     } else {
+      setShowProtocolFilter(false);
       const filtered = filterCountries(countries, searchText);
       dispatch(SET_FILTERED_COUNTRIES(filtered));
     }
@@ -111,23 +122,46 @@ const ListSearchConnect = () => {
   };
 
   return (
-    <div className={styles["search-connect"]}>
-      <div className={styles.input}>
-        <img src={SearchIcon} alt="" />
-        <input
-          placeholder="Search"
-          value={searchText}
-          onChange={(event) => onSearchTextChange(event.target.value)}
-        />
+    <>
+      <div className={styles["search-connect"]}>
+        <div className={styles.input}>
+          <img src={SearchIcon} alt="" />
+          <input
+            placeholder="Search"
+            value={searchText}
+            onChange={(event) => onSearchTextChange(event.target.value)}
+          />
+        </div>
+        <section
+          className={`${
+            showProtocolFilter ? styles["with-protocols-filter"] : ""
+          }`}
+        >
+          {showProtocolFilter && (
+            <Button
+              disabled={nodesList && nodesList.length === 0}
+              icon={FilterIcon}
+              variant={
+                protocol && protocol.length > 0
+                  ? variants.primary
+                  : variants.secondary
+              }
+              onClick={() => setShowProtocolFilterModal(true)}
+            />
+          )}
+          <Button
+            disabled={nodesList && nodesList.length === 0}
+            icon={QuickConnectIcon}
+            title={!showProtocolFilter && "Connect"}
+            variant={variants.primary}
+            onClick={connect}
+          />
+        </section>
       </div>
-      <Button
-        disabled={nodesList && nodesList.length === 0}
-        icon={QuickConnectIcon}
-        title={"Connect"}
-        variant={variants.primary}
-        onClick={connect}
-      />
-    </div>
+      {showProtocolFilterModal && (
+        <ProcolFilterModal onCancel={() => setShowProtocolFilterModal(false)} />
+      )}
+    </>
   );
 };
 

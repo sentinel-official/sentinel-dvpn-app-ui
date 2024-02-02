@@ -16,6 +16,7 @@ const initialState = {
   selectedNode: {},
   isVPNConnected: false,
   isRegistered: false,
+  protocol: "",
 };
 
 const deviceSlice = createSlice({
@@ -25,6 +26,10 @@ const deviceSlice = createSlice({
     CHANGE_SELECTED_DNS: (state, { payload }) => ({
       ...state,
       currentDNS: payload,
+    }),
+    CHANGE_PROTOCOL: (state, { payload }) => ({
+      ...state,
+      protocol: payload,
     }),
     CHANGE_SELECTED_NODE: (state, { payload }) => ({
       ...state,
@@ -74,6 +79,7 @@ export const {
   CHANGE_SELECTED_DNS,
   CHANGE_SELECTED_NODE,
   SET_IS_VPN_CONNECTED,
+  CHANGE_PROTOCOL,
 } = deviceSlice.actions;
 
 export default deviceSlice.reducer;

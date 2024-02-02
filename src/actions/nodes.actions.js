@@ -15,7 +15,12 @@ export const fetchNodesAction = createAsyncThunk(
         return;
       }
       const deviceToken = getState().device.deviceToken;
-      const params = { countryId, cityId, deviceToken };
+
+      const params = {
+        countryId,
+        cityId,
+        deviceToken,
+      };
       const response = await APIService.getNodes(params);
       const nodes = segregateByKey(
         response,

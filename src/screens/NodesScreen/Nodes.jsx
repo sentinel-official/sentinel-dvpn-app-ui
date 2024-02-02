@@ -19,11 +19,12 @@ const Nodes = () => {
   const countryId = params.countryId;
   const cityId = params.cityId;
 
-  const { filteredNodes: nodes, selected } = useSelector(
-    (state) => state.nodes
-  );
+  const { filteredNodes = [], selected } = useSelector((state) => state.nodes);
 
   const { balance, subscription } = useSelector((state) => state.account);
+  const { protocol } = useSelector((state) => state.device);
+
+  const [nodes, setNodes] = React.useState(filteredNodes);
 
   React.useLayoutEffect(() => {
     dispatch(
@@ -73,6 +74,15 @@ const Nodes = () => {
     }
     dispatch(SHOW_RENEW_SUBSCRIPTION(true));
   };
+
+  React.useEffect(() => {
+    if (protocol && protocol.length > 0) {
+      const filtered = filteredNodes.filter((n) => n.protocol === protocol);
+      setNodes(filtered);
+      return;
+    }
+    setNodes(filteredNodes);
+  }, [protocol, filteredNodes]);
 
   return (
     <div className={styles.list}>
