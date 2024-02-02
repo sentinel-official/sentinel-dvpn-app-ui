@@ -76,7 +76,7 @@ export const connectAction = createAsyncThunk(
         subscriptionID: Number.parseInt(subscription.base.id),
         node: node.address,
       };
-      dispatch(SET_LOADING_MESSAGE("Creating Sessions..."));
+      dispatch(SET_LOADING_MESSAGE("Creating a Session..."));
 
       await APIService.createSession(walletAddress, payload);
       const session = await APIService.getSession(walletAddress);
@@ -116,7 +116,6 @@ export const connectAction = createAsyncThunk(
         throw new Error({ msg: "Failed to creating credentials" });
       }
     } catch (e) {
-      console.log("ERROR", JSON.stringify(e, null, 4));
       if (e && e.msg) {
         dispatch(
           SET_SHOW_ERROR_ALERT({

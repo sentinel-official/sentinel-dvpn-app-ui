@@ -45,12 +45,6 @@ export const fetchDeviceDetails = createAsyncThunk(
       });
     } catch (e) {
       dispatch(
-        SET_SHOW_ERROR_ALERT({
-          showErrorAlert: true,
-          message: "Error while fetching",
-        })
-      );
-      dispatch(
         withLoader({
           dispatchers: [registerDevice()],
           message: "Registering Device",
@@ -73,14 +67,7 @@ export const fetchUserDetails = createAsyncThunk(
       await dispatch(dispatchGetSubscriptions(walletAddress));
       await dispatch(dispatchGetDNSTypes());
       dispatch(SET_USER_DETAILS_FETCHED(true));
-    } catch (error) {
-      dispatch(
-        SET_SHOW_ERROR_ALERT({
-          showErrorAlert: true,
-          message: "Error while fetching",
-        })
-      );
-    }
+    } catch (error) {}
   }
 );
 
@@ -104,12 +91,6 @@ export const registerDevice = createAsyncThunk(
         walletAddress: address.address || null,
       });
     } catch (e) {
-      dispatch(
-        SET_SHOW_ERROR_ALERT({
-          showErrorAlert: true,
-          message: "Error while fetching device details",
-        })
-      );
       return rejectWithValue();
     }
   }
