@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "../styles/account-screen.module.scss";
 import Card from "../../components/Card";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BalanceIcon from "../../assets/icons/balance-icon.svg";
 import QRCodeCard from "../../containers/QRCodeCard";
 import formatamount from "../../helpers/formatAmount";
+import Button, { variants } from "../../components/Button";
+import copy from "copy-to-clipboard";
+import { SET_SHOW_SUCCESS_ALERT } from "../../redux/alerts.reducer";
 
 const TokensAccepted = () => {
   return (
@@ -31,9 +34,7 @@ const BalanceCard = () => {
         <section className={styles["balance-dvpn"]}>
           <img src={BalanceIcon} alt="" />
           <section className={styles.balance}>
-            <span className={styles.amount}>
-              {formatamount(balance)} DVPN
-            </span>
+            <span className={styles.amount}>{formatamount(balance)} DVPN</span>
           </section>
         </section>
         <span className={styles["balance-dollors"]}>
@@ -41,6 +42,27 @@ const BalanceCard = () => {
         </span>
       </div>
     </Card>
+  );
+};
+
+const CopyPrivateKey = () => {
+  const dispatch = useDispatch();
+  const mnemonic = useSelector((state) => state.device.mnemonic);
+  const copyMnemonic = () => {
+    copy(mnemonic);
+    dispatch(
+      SET_SHOW_SUCCESS_ALERT({
+        showSuccessAlert: true,
+        message: "Mnemonic copied successfully!",
+      })
+    );
+  };
+  return (
+    <Button
+      variant={variants.primary}
+      title={"Copy Mnemonic"}
+      onClick={copyMnemonic}
+    />
   );
 };
 
@@ -53,6 +75,7 @@ const AccountScreen = () => {
       <span className={styles.header}>Account</span>
       <BalanceCard />
       <QRCodeCard />
+      <CopyPrivateKey />
       <TokensAccepted />
     </div>
   );
