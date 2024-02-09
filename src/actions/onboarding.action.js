@@ -15,6 +15,9 @@ export const createWalletWithMnemonic = createAsyncThunk(
       await blockchainServices.postWalletAddress({ mnemonic });
       return fulfillWithValue(mnemonic);
     } catch (e) {
+      dispatch(
+        CHANGE_ERROR_ALERT({ show: true, message: "Failed to Create Wallet" })
+      );
       return rejectWithValue(e);
     }
   }
@@ -43,7 +46,7 @@ export const getDeviceTokenAction = createAsyncThunk(
         dispatch(
           CHANGE_ERROR_ALERT({
             show: true,
-            message: "Failed to get device token",
+            message: "Failed to fetch device token",
           })
         );
         return rejectWithValue(e);
@@ -64,7 +67,7 @@ export const getWalletAddressAction = createAsyncThunk(
       dispatch(
         CHANGE_ERROR_ALERT({
           show: true,
-          message: "Failed to get wallet address",
+          message: "Failed to fetch wallet address",
         })
       );
       return rejectWithValue();
