@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-image: url("../assets/images/onboarding-screen-bg.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-attachment: fixed;
+}

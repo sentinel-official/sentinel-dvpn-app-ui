@@ -1,0 +1,12 @@
+.text {
+  font-size: 14px;
+  line-height: 115%;
+  font-weight: 500;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  .title {
+    color: #9cabc9;
+  }
+}

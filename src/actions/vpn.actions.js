@@ -1,140 +1,128 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import vpnServices from "../services/vpn.services";
 import {
-  SET_LOADING_MESSAGE,
-  SET_SHOW_ERROR_ALERT,
-} from "../redux/alerts.reducer";
-import APIService from "../services/app.services";
-import { dispatchGetBalance, dispatchGetIpAddress } from "./user.actions";
-import { withLoader } from "./loader.actions";
-import { SET_IS_VPN_CONNECTED } from "../redux/device.reducer";
+  CHANGE_ERROR_ALERT,
+  CHANGE_LOADER_STATE,
+} from "../redux/reducers/alerts.reducer";
+import { withLoader } from "./loader.action";
+import {
+  dispatchGetAccountBalance,
+  dispatchGetIPAddress,
+} from "./home.actions";
+import {
+  connectToVPN,
+  createCredentials,
+  createSession,
+  getSession,
+} from "./vpn.support";
 
-export const disconnectAction = createAsyncThunk(
-  "DISCONNECT_TO_VPN",
-  async (_, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
-    const walletAddress = getState().device.walletAddress;
-    const deviceToken = getState().device.deviceToken;
-
+export const dispatchGetVPNStatus = createAsyncThunk(
+  "GET_VPN_STATUS",
+  async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
-      const response = await APIService.disconnect();
-      if (response.isConnected === false) {
-        await dispatch(
-          withLoader({
-            dispatchers: [
-              dispatchGetIpAddress(deviceToken),
-              dispatchGetBalance(walletAddress),
-            ],
-          })
-        );
-        return fulfillWithValue();
-      } else {
-        throw new Error({ msg: "Failed to disconnect" });
-      }
+      const response = await vpnServices.getStatus();
+      return fulfillWithValue(response.isConnected);
     } catch (e) {
-      if (e && e.msg) {
-        dispatch(
-          SET_SHOW_ERROR_ALERT({
-            showErrorAlert: true,
-            message: e.msg,
-          })
-        );
-      } else {
-        dispatch(
-          SET_SHOW_ERROR_ALERT({
-            showErrorAlert: true,
-            message: "Failed to disconnect",
-          })
-        );
-      }
-      await dispatch(
-        withLoader({ dispatchers: [dispatchGetBalance(walletAddress)] })
+      dispatch(
+        CHANGE_ERROR_ALERT({
+          show: true,
+          message: "Failed to fetch VPN Status",
+        })
       );
       return rejectWithValue();
     }
   }
 );
 
-const getSessionId = (sessionGot) => {
-  if (sessionGot) {
-    return Number.parseInt(sessionGot.id);
+export const disconnectAction = createAsyncThunk(
+  "DISCONNECT_TO_VPN",
+  async (_, { dispatch, rejectWithValue, fulfillWithValue }) => {
+    try {
+      const response = await vpnServices.postDisconnect();
+      if (response.isConnected) {
+        throw new Error("Failed to Disconnect");
+      } else {
+        return fulfillWithValue(response.isConnected);
+      }
+    } catch (e) {
+      dispatch(
+        CHANGE_ERROR_ALERT({
+          show: true,
+          message: "Failed to disconnect to VPN",
+        })
+      );
+      return rejectWithValue();
+    } finally {
+      dispatch(
+        withLoader([
+          dispatchGetVPNStatus(),
+          dispatchGetIPAddress(),
+          dispatchGetAccountBalance(),
+        ])
+      );
+    }
   }
-  return null;
-};
+);
 
 export const connectAction = createAsyncThunk(
   "CONNECT_ACTION",
-  async (
-    { node, subscription },
-    { fulfillWithValue, rejectWithValue, dispatch, getState }
-  ) => {
+  async (node, { fulfillWithValue, rejectWithValue, dispatch, getState }) => {
     const walletAddress = getState().device.walletAddress;
-    const deviceToken = getState().device.deviceToken;
-
+    const subscription = getState().home.subscription;
     try {
-      const sessionGot = await APIService.getSession(walletAddress);
-      const payload = {
-        activeSession: getSessionId(sessionGot, node, subscription),
-        subscriptionID: Number.parseInt(subscription.base.id),
-        node: node.address,
-      };
-      dispatch(SET_LOADING_MESSAGE("Creating a Session..."));
+      dispatch(CHANGE_LOADER_STATE({ message: "Creating a Session..." }));
+      const isCreated = await createSession({
+        node,
+        subscription,
+        walletAddress,
+      });
 
-      await APIService.createSession(walletAddress, payload);
-      const session = await APIService.getSession(walletAddress);
-      if (session) {
-        dispatch(SET_LOADING_MESSAGE("Fetching Credentials..."));
-
-        const payload = {
-          url: node.remote_url,
-          nodeProtocol: node.protocol,
-          address: walletAddress,
-          session: Number.parseInt(session.id),
-        };
-        const credentials = await APIService.fetchCredentials(payload);
-        if (credentials) {
-          dispatch(SET_LOADING_MESSAGE("Connecting to VPN..."));
-
-          const connected = await APIService.connect({ data: credentials });
-
-          if (connected.isConnected) {
-            await dispatch(
-              withLoader({
-                dispatchers: [
-                  dispatchGetIpAddress(deviceToken),
-                  dispatchGetBalance(walletAddress),
-                ],
-              })
-            );
-            dispatch(SET_IS_VPN_CONNECTED(connected.isConnected));
-            return fulfillWithValue({ selectedNode: node });
+      if (isCreated) {
+        const session = await getSession(walletAddress);
+        if (session) {
+          dispatch(CHANGE_LOADER_STATE({ message: "Fetching Credentials..." }));
+          const credentials = await createCredentials({
+            session,
+            node,
+            walletAddress,
+          });
+          if (credentials) {
+            dispatch(CHANGE_LOADER_STATE({ message: "Connecting to VPN..." }));
+            const isConnected = await connectToVPN(credentials);
+            if (isConnected) {
+              return fulfillWithValue({ isConnected, node });
+            } else {
+              throw new Error({ msg: "Failed to connect to VPN" });
+            }
           } else {
-            throw new Error({ msg: "Failed to connect" });
+            throw new Error({ msg: "Failed to fetch credentials" });
           }
         } else {
-          throw new Error({ msg: "Failed to fetch credentials" });
+          throw new Error({ msg: "Failed to Create Session" });
         }
       } else {
-        throw new Error({ msg: "Failed to creating credentials" });
+        throw new Error({ msg: "Failed to Create Session" });
       }
     } catch (e) {
       if (e && e.msg) {
-        dispatch(
-          SET_SHOW_ERROR_ALERT({
-            showErrorAlert: true,
-            message: e.msg,
-          })
-        );
+        dispatch(CHANGE_ERROR_ALERT({ show: true, message: e.msg }));
       } else {
         dispatch(
-          SET_SHOW_ERROR_ALERT({
-            showErrorAlert: true,
-            message: "Failed to Connect to VPN",
+          CHANGE_ERROR_ALERT({
+            show: true,
+            message: "Failed to connect to VPN",
           })
         );
       }
-      await dispatch(
-        withLoader({ dispatchers: [dispatchGetBalance(walletAddress)] })
-      );
       return rejectWithValue();
+    } finally {
+      dispatch(
+        withLoader([
+          dispatchGetVPNStatus(),
+          dispatchGetIPAddress(),
+          dispatchGetAccountBalance(),
+        ])
+      );
     }
   }
 );

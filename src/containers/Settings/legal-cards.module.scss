@@ -1,0 +1,57 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-block: 32px;
+  button {
+    height: 56px;
+  }
+
+  .title {
+    color: #9cabc9;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  .doc-card {
+    background: transparent;
+    outline: none;
+    border: none;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 8px;
+    padding: 16px;
+  }
+  .version {
+    background: transparent;
+    outline: none;
+    border: none;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 8px;
+    padding: 16px;
+    section {
+      background: transparent;
+      outline: none;
+      border: none;
+      color: #ffffff;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left;
+      gap: 8px;
+    }
+    .value {
+      color: #9cabc9;
+      font-weight: 400;
+    }
+  }
+}

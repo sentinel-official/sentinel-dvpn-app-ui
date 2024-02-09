@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import userReducer from "./user.reducer";
-import alertsReducer from "./alerts.reducer";
-import mapReducer from "./map.reducer";
+import deviceReducer from "./reducers/device.reducer";
+import alertsReducer from "./reducers/alerts.reducer";
+import dnsReducer from "./reducers/dns.reducer";
 
 import {
   persistStore,
@@ -14,9 +14,8 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import accountReducer from "./account.reducer";
-import nodesReducer from "./nodes.reducer";
-import deviceReducer from "./device.reducer";
+import homeReducer from "./reducers/home.reducer";
+import nodesReducer from "./reducers/nodes.reducer";
 
 const persistConfig = {
   key: "root",
@@ -25,19 +24,18 @@ const persistConfig = {
   safelist: ["device"],
 };
 
-const persistedUserReducer = persistReducer(persistConfig, deviceReducer);
+const persistedReducer = persistReducer(persistConfig, deviceReducer);
 
-const rootReducer = combineReducers({
-  device: persistedUserReducer,
-  user: userReducer,
+const reducer = combineReducers({
   alerts: alertsReducer,
-  map: mapReducer,
-  account: accountReducer,
+  device: persistedReducer,
+  dns: dnsReducer,
+  home: homeReducer,
   nodes: nodesReducer,
 });
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

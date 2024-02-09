@@ -1,0 +1,27 @@
+.success {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 16px;
+  z-index: 2000;
+  background-color: #097969;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.error {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 16px;
+  z-index: 2000;
+  background-color: #b65138;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}

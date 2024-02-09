@@ -1,11 +1,11 @@
-@import "../../constants.scss";
-
 .root {
   border-radius: 8px;
+  min-height: 36px;
+  width: 100%;
 }
 
 .primary {
-  background-color: $cardBackgroundColor;
+  background-color: #191f31;
 }
 .secondary {
   background-color: #26304c;

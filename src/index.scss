@@ -1,31 +1,3 @@
-@import "./constants.scss";
-
-html {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  background-color: $backgroundColor;
-  color: $textPrimaryColor;
-  box-sizing: border-box;
-}
-
-#root {
-  width: 100%;
-  height: 100%;
-}
-
-span {
-  font: inherit;
-  vertical-align: baseline;
-  user-select: none;
-}
-
 * {
   box-sizing: border-box;
   -ms-overflow-style: none;
@@ -33,22 +5,35 @@ span {
   font-family: "Poppins", monospace, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  user-select: none;
 }
-
-.mapboxgl-ctrl-logo {
-  display: none !important;
-}
-
 img {
   user-select: none;
   pointer-events: none;
 }
+* ::-webkit-scrollbar {
+  display: none;
+}
+html {
+  width: 100%;
+  height: 100%;
+}
 
-.list-button {
-  background: none;
-  outline: none;
-  border: none;
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000610;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.mapboxgl-control-container {
+  display: none;
 }

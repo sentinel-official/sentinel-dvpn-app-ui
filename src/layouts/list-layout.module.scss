@@ -1,0 +1,28 @@
+.root {
+  height: inherit;
+  width: inherit;
+  padding-inline: 16px;
+  .details {
+    height: 140px;
+    width: 100%;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    .bottom {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+  }
+  .lists {
+    flex: 1;
+    height: calc(100% - 60px);
+    overflow: auto;
+  }
+}

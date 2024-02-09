@@ -1,0 +1,54 @@
+@import "../../constants.scss";
+
+.root {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 8px;
+  padding-inline: 8px;
+  background-color: #191f31;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  outline: none;
+  border: none;
+  & img {
+    height: 24px;
+    width: 24px;
+  }
+  span {
+    color: $textSecondaryColor;
+  }
+  &:active {
+    opacity: 0.8;
+  }
+  &.active {
+    img {
+      filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(152deg)
+        brightness(102%) contrast(102%);
+    }
+
+    span {
+      color: $textPrimaryColor;
+    }
+  }
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    background: none;
+  }
+  &:active {
+    outline: none;
+    box-shadow: none;
+    background: none;
+  }
+}

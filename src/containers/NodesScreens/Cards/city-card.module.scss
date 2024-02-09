@@ -1,0 +1,42 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-block: 12px;
+  padding-inline: 16px;
+  .left {
+    background: none;
+    outline: none;
+    border: none;
+    position: relative;
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    & .details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      & .name {
+        font-size: 18px;
+        font-weight: 500;
+        color: #ffffff;
+      }
+      & .value {
+        font-size: 12px;
+        font-weight: 500;
+        color: #9cabc9;
+      }
+    }
+  }
+  .quick-connect-btn {
+    width: 48px;
+    height: 36px;
+  }
+}
