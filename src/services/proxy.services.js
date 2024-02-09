@@ -16,7 +16,7 @@ const proxyServices = {
       },
     })
       .then((response) => {
-        return response.data.data;
+        return response.data;
       })
       .catch((error) => {
         throw new Error(error);

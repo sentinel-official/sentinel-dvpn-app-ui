@@ -4,6 +4,7 @@ import LegalDocIcon from "../../assets/icons/legal-doc-icon.svg";
 import VersionIcon from "../../assets/icons/version-icon.svg";
 
 import Card, { variants } from "../../components/Card";
+import { useSelector } from "react-redux";
 const legalDocs = [
   {
     title: "Terms of Service",
@@ -18,6 +19,7 @@ const legalDocs = [
 ];
 
 const LegalCards = () => {
+  const version = useSelector((state) => state.home.version);
   return (
     <div className={styles.root}>
       <span className={styles.title}>Legal</span>
@@ -39,7 +41,7 @@ const LegalCards = () => {
             <img src={VersionIcon} alt="" />
             <span>App Version</span>
           </section>
-          <span className={styles.value}>1.0</span>
+          <span className={styles.value}>{version}</span>
         </button>
       </Card>
     </div>

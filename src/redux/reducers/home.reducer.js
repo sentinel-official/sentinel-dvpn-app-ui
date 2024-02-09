@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   dispatchCurrentPrice,
   dispatchGetAccountBalance,
+  dispatchGetAppVersion,
   dispatchGetAvailablePlans,
   dispatchGetIPAddress,
   dispatchGetUserSubscriptions,
@@ -19,6 +20,7 @@ const initialState = {
     denom: "udvpn",
   },
   subscription: {},
+  version: "0.0.0",
 };
 
 const homeSlice = createSlice({
@@ -58,6 +60,10 @@ const homeSlice = createSlice({
     builder.addCase(dispatchCurrentPrice.fulfilled, (state, { payload }) => ({
       ...state,
       price: payload,
+    }));
+    builder.addCase(dispatchGetAppVersion.fulfilled, (state, { payload }) => ({
+      ...state,
+      version: payload.version,
     }));
   },
 });

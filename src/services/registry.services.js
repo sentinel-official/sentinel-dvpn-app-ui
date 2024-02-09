@@ -17,6 +17,14 @@ const registryServices = {
       .catch((error) => {
         throw new Error(error);
       }),
+  getVersion: () =>
+    Axios.get("/registry/version")
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw new Error(error);
+      }),
 };
 
 export default registryServices;

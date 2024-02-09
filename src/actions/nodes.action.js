@@ -93,7 +93,6 @@ export const dispatchGetAvailableNodes = createAsyncThunk(
         protocols
       );
       const nodes = parseServersList(response, city, protocols);
-      console.log(nodes);
       return fulfillWithValue({ all: [...list, ...nodes], current: nodes });
     } catch (e) {
       dispatch(

@@ -5,7 +5,6 @@ import ReactCountryFlag from "react-country-flag";
 
 const SelectedNode = () => {
   const node = useSelector((state) => state.device.selectedNode);
-  console.log(node);
   return (
     <>
       {node && node.address ? (

@@ -11,6 +11,8 @@ import {
   CHANGE_LOADER_STATE,
 } from "../redux/reducers/alerts.reducer";
 import otherServices from "../services/other.services";
+import { getDeviceTokenAction } from "./onboarding.action";
+import registryServices from "../services/registry.services";
 
 export const dispatchGetIPAddress = createAsyncThunk(
   "GET_IP_ADDRESS",
@@ -19,8 +21,13 @@ export const dispatchGetIPAddress = createAsyncThunk(
 
     try {
       const deviceToken = getState().device.deviceToken;
-      const response = await proxyServices.getIpAddress(deviceToken);
-      return fulfillWithValue(response);
+      let response;
+      response = await proxyServices.getIpAddress(deviceToken);
+      if (response.error === "unauthorizedDevice") {
+        const token = await dispatch(getDeviceTokenAction());
+        response = await proxyServices.getIpAddress(token.payload);
+      }
+      return fulfillWithValue(response.data);
     } catch (e) {
       dispatch(
         CHANGE_ERROR_ALERT({ show: true, message: "Failed to get IP Address" })
@@ -120,6 +127,19 @@ export const dispatchSubscribeToPlan = createAsyncThunk(
           message: "Failed to Subscribe",
         })
       );
+      return rejectWithValue();
+    }
+  }
+);
+
+export const dispatchGetAppVersion = createAsyncThunk(
+  "GET_APP_VERSION",
+  async (_, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const response = await registryServices.getVersion();
+      return fulfillWithValue(response);
+    } catch (e) {
+      console.error(e);
       return rejectWithValue();
     }
   }

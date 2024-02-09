@@ -7,6 +7,7 @@ import { withLoader } from "../actions/loader.action";
 import {
   dispatchCurrentPrice,
   dispatchGetAccountBalance,
+  dispatchGetAppVersion,
   dispatchGetAvailablePlans,
   dispatchGetIPAddress,
   dispatchGetUserSubscriptions,
@@ -30,6 +31,7 @@ const AppLayout = () => {
         dispatchGetAvailablePlans(),
         dispatchGetUserSubscriptions(),
         dispatchGetAvailableDNS(),
+        dispatchGetAppVersion(),
       ])
     );
   }, [dispatch]);
