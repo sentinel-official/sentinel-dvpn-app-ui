@@ -18,7 +18,9 @@ import { getServersByCity } from "../helpers/filterServers";
 export const dispatchGetAvailableCountries = createAsyncThunk(
   "GET_AVAILABLE_COUNTRIES",
   async (_, { fulfillWithValue, rejectWithValue, getState, dispatch }) => {
-    dispatch(CHANGE_LOADER_STATE({ message: "Fetching Countries..." }));
+    dispatch(
+      CHANGE_LOADER_STATE({ show: true, message: "Fetching Countries..." })
+    );
     try {
       const deviceToken = getState().device.deviceToken;
       const protocols = getState().device.protocols;
@@ -49,7 +51,9 @@ export const dispatchGetAvailableCities = createAsyncThunk(
     { fulfillWithValue, rejectWithValue, getState, dispatch }
   ) => {
     try {
-      dispatch(CHANGE_LOADER_STATE({ message: "Fetching Cities..." }));
+      dispatch(
+        CHANGE_LOADER_STATE({ show: true, message: "Fetching Cities..." })
+      );
       const deviceToken = getState().device.deviceToken;
       const protocols = getState().device.protocols;
       const list = getState().nodes.cities.all;
@@ -77,7 +81,9 @@ export const dispatchGetAvailableNodes = createAsyncThunk(
   "GET_AVAILABLE_NODES",
   async (city, { fulfillWithValue, rejectWithValue, getState, dispatch }) => {
     try {
-      dispatch(CHANGE_LOADER_STATE({ message: "Fetching Servers..." }));
+      dispatch(
+        CHANGE_LOADER_STATE({ show: true, message: "Fetching Servers..." })
+      );
 
       const deviceToken = getState().device.deviceToken;
       const protocols = String(getState().device.protocols).split(",");

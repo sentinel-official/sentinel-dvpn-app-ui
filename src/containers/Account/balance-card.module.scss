@@ -5,19 +5,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-block: 16px;
+  padding-block: 12px;
   .top {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 64px 1fr 64px;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    padding-inline: 8px;
+    justify-content: space-between;
     padding-block: 8px;
+    width: 100%;
+    gap: 4px;
     .left {
       width: 100%;
       height: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
 
       & img {
         height: 48px;
@@ -26,11 +29,11 @@
     }
     .middle {
       height: 100%;
-      width: 100%;
+      width: 50%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: center;
+      justify-content: flex-start;
       & .title {
         font-size: 14px;
         color: #9cabc9;
@@ -39,11 +42,10 @@
       }
       & .description {
         width: 100%;
-        max-width: 200px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 22px;
+        font-size: 20px;
         line-height: 110%;
         font-weight: 500;
       }

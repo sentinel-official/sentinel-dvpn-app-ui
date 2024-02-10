@@ -18,10 +18,12 @@ const ServerCard = ({ server }) => {
         dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
         return;
       }
-      if (Object.values(subscription).length === 0) {
+
+      if (!subscription || Object.values(subscription).length === 0) {
         dispatch(
           CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" })
         );
+        return;
       }
       const { payload } = await dispatch(
         withSingleDispatcherLoader(connectAction(node))

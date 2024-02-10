@@ -1,3 +1,4 @@
+import "mapbox-gl/dist/mapbox-gl.css";
 import React from "react";
 import ReactMapGl from "react-map-gl";
 import { useSelector } from "react-redux";

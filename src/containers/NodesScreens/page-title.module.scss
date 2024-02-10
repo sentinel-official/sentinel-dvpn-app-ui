@@ -7,12 +7,14 @@
   justify-content: center;
   .go-back-btn {
     position: absolute;
-    left: 28px;
+    left: 24px;
     width: 32px;
     height: 32px;
   }
   .title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
+    width: 100%;
+    text-align: center;
   }
 }

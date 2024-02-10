@@ -70,7 +70,9 @@ export const connectAction = createAsyncThunk(
     const walletAddress = getState().device.walletAddress;
     const subscription = getState().home.subscription;
     try {
-      dispatch(CHANGE_LOADER_STATE({ message: "Creating a Session..." }));
+      dispatch(
+        CHANGE_LOADER_STATE({ show: true, message: "Creating a Session..." })
+      );
       const isCreated = await createSession({
         node,
         subscription,
@@ -80,14 +82,24 @@ export const connectAction = createAsyncThunk(
       if (isCreated) {
         const session = await getSession(walletAddress);
         if (session) {
-          dispatch(CHANGE_LOADER_STATE({ message: "Fetching Credentials..." }));
+          dispatch(
+            CHANGE_LOADER_STATE({
+              show: true,
+              message: "Fetching Credentials...",
+            })
+          );
           const credentials = await createCredentials({
             session,
             node,
             walletAddress,
           });
           if (credentials) {
-            dispatch(CHANGE_LOADER_STATE({ message: "Connecting to VPN..." }));
+            dispatch(
+              CHANGE_LOADER_STATE({
+                show: true,
+                message: "Connecting to VPN...",
+              })
+            );
             const isConnected = await connectToVPN(credentials);
             if (isConnected) {
               return fulfillWithValue({ isConnected, node });
