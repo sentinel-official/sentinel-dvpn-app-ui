@@ -27,7 +27,10 @@ const LegalCards = () => {
       {legalDocs.map((doc) => (
         <Card key={doc.title} variant={variants.SECONDARY}>
           <button
-            onClick={() => window.open(doc.href, "_blank")}
+            onClick={(event) => {
+              event.preventDefault();
+              window.open(doc.href, "_blank", "noopener noreferrer");
+            }}
             className={styles["doc-card"]}
           >
             <img src={doc.icon} alt="" />

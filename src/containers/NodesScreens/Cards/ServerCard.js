@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./server-card.module.scss";
 import Card, { variants } from "../../../components/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { withSingleDispatcherLoader } from "../../../actions/loader.action";
 import { connectAction } from "../../../actions/vpn.actions";
 import { useNavigate } from "react-router-dom";
 import { CHANGE_MODAL_STATE } from "../../../redux/reducers/alerts.reducer";
@@ -13,25 +12,23 @@ const ServerCard = ({ server }) => {
   const { balance, subscription } = useSelector((state) => state.home);
 
   const connect = async (node) => {
-    try {
-      if (!balance) {
-        dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
-        return;
-      }
+    if (!balance) {
+      dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+      return;
+    }
 
-      if (!subscription || Object.values(subscription).length === 0) {
-        dispatch(
-          CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" })
-        );
-        return;
-      }
-      const { payload } = await dispatch(
-        withSingleDispatcherLoader(connectAction(node))
-      );
-      if (payload && payload.isConnected) {
-        navigate("/");
-      }
-    } catch (e) {}
+    if (!subscription || Object.values(subscription).length === 0) {
+      dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
+      return;
+    }
+    const dispatched = dispatch(connectAction(node));
+
+    try {
+      const { payload } = await dispatched;
+      if (payload) navigate("/");
+    } catch (e) {
+      console.length("CONSOLE FAILED TO CONNECT");
+    }
   };
 
   return (

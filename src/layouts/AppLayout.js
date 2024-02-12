@@ -14,6 +14,7 @@ import {
 } from "../actions/home.actions";
 import { dispatchGetVPNStatus } from "../actions/vpn.actions";
 import { dispatchGetAvailableDNS } from "../actions/settings.action";
+import { CHANGE_IS_HOME_LOADED } from "../redux/reducers/home.reducer";
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -21,20 +22,25 @@ const AppLayout = () => {
     (state) => state.device
   );
 
+  const { isHomeLoaded } = useSelector((state) => state.home);
+
   React.useEffect(() => {
-    dispatch(
-      withLoader([
-        dispatchGetVPNStatus(),
-        dispatchGetIPAddress(),
-        dispatchGetAccountBalance(),
-        dispatchCurrentPrice(),
-        dispatchGetAvailablePlans(),
-        dispatchGetUserSubscriptions(),
-        dispatchGetAvailableDNS(),
-        dispatchGetAppVersion(),
-      ])
-    );
-  }, [dispatch]);
+    if (!isHomeLoaded) {
+      dispatch(
+        withLoader([
+          dispatchGetVPNStatus(),
+          dispatchGetIPAddress(),
+          dispatchGetAccountBalance(),
+          dispatchCurrentPrice(),
+          dispatchGetAvailablePlans(),
+          dispatchGetUserSubscriptions(),
+          dispatchGetAvailableDNS(),
+          dispatchGetAppVersion(),
+          CHANGE_IS_HOME_LOADED(),
+        ])
+      );
+    }
+  }, [dispatch, isHomeLoaded]);
 
   if (!(isRegistered && isWalletCreated)) {
     return <Navigate to="/" />;

@@ -14,7 +14,6 @@ import {
   getServersByCountry,
 } from "../../../helpers/filterServers";
 import { CHANGE_MODAL_STATE } from "../../../redux/reducers/alerts.reducer";
-import { withSingleDispatcherLoader } from "../../../actions/loader.action";
 import { connectAction } from "../../../actions/vpn.actions";
 
 const CityQuickConnect = ({ country }) => {
@@ -35,17 +34,19 @@ const CityQuickConnect = ({ country }) => {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
       return;
     }
+
     if (!subscription || Object.values(subscription).length === 0) {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
       return;
     }
     const node = getRandomNode(servers);
-    const { payload } = await dispatch(
-      withSingleDispatcherLoader(connectAction(node))
-    );
+    const dispatched = dispatch(connectAction(node));
 
-    if (payload && payload.isConnected) {
-      navigate("/");
+    try {
+      const { payload } = await dispatched;
+      if (payload) navigate("/");
+    } catch (e) {
+      console.length("CONSOLE FAILED TO CONNECT");
     }
   };
 

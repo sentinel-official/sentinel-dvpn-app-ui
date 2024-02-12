@@ -3,6 +3,7 @@ import {
   withLoader,
   withSingleDispatcherLoader,
 } from "../../actions/loader.action";
+import { connectAction } from "../../actions/vpn.actions";
 
 const initialState = {
   success: {
@@ -81,6 +82,20 @@ const alertsSlice = createSlice({
         loader: { ...state.loader, show: false, message: null },
       }))
       .addCase(withSingleDispatcherLoader.fulfilled, (state) => ({
+        ...state,
+        loader: { ...state.loader, show: false, message: null },
+      }));
+
+    builder
+      .addCase(connectAction.pending, (state) => ({
+        ...state,
+        loader: { ...state.loader, show: true, message: "Loading..." },
+      }))
+      .addCase(connectAction.rejected, (state) => ({
+        ...state,
+        loader: { ...state.loader, show: false, message: null },
+      }))
+      .addCase(connectAction.fulfilled, (state) => ({
         ...state,
         loader: { ...state.loader, show: false, message: null },
       }));

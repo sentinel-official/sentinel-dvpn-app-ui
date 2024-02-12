@@ -49,8 +49,12 @@ export const createCredentials = async ({ session, node, walletAddress }) => {
 
 export const connectToVPN = async (credentials) => {
   try {
+    const status = await vpnServices.getStatus();
+    if (status.isConnected) {
+      await vpnServices.postDisconnect();
+    }
     const response = await vpnServices.postConnect({ data: credentials });
-    return response;
+    return response.isConnected;
   } catch (e) {
     return null;
   }

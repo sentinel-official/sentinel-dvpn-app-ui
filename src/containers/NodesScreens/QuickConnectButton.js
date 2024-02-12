@@ -41,26 +41,24 @@ const QuickConnectButton = () => {
   }, [nodes, params.cityId, params.countryId]);
 
   const connect = async () => {
-    try {
-      if (!balance) {
-        dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
-        return;
-      }
-      if (!subscription || Object.values(subscription).length === 0) {
-        dispatch(
-          CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" })
-        );
-        return;
-      }
-      const node = getRandomNode(servers);
-      const { payload } = await dispatch(
-        withSingleDispatcherLoader(connectAction(node))
-      );
+    if (!balance) {
+      dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+      return;
+    }
 
-      if (payload && payload.isConnected) {
-        navigate("/");
-      }
-    } catch (e) {}
+    if (!subscription || Object.values(subscription).length === 0) {
+      dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
+      return;
+    }
+    const node = getRandomNode(servers);
+    const dispatched = dispatch(connectAction(node));
+
+    try {
+      const { payload } = await dispatched;
+      if (payload) navigate("/");
+    } catch (e) {
+      console.length("CONSOLE FAILED TO CONNECT");
+    }
   };
 
   return (

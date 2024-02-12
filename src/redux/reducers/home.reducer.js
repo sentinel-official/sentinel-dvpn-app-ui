@@ -21,11 +21,18 @@ const initialState = {
   },
   subscription: {},
   version: "0.0.0",
+  isHomeLoaded: false,
 };
 
 const homeSlice = createSlice({
   name: "HOME",
   initialState,
+  reducers: {
+    CHANGE_IS_HOME_LOADED: (state) => ({
+      ...state,
+      isHomeLoaded: true,
+    }),
+  },
   extraReducers: (builder) => {
     builder.addCase(dispatchGetIPAddress.fulfilled, (state, { payload }) => ({
       ...state,
@@ -67,5 +74,7 @@ const homeSlice = createSlice({
     }));
   },
 });
+
+export const { CHANGE_IS_HOME_LOADED } = homeSlice.actions;
 
 export default homeSlice.reducer;

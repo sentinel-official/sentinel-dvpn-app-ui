@@ -67,9 +67,9 @@ export const disconnectAction = createAsyncThunk(
 export const connectAction = createAsyncThunk(
   "CONNECT_ACTION",
   async (node, { fulfillWithValue, rejectWithValue, dispatch, getState }) => {
-    const walletAddress = getState().device.walletAddress;
-    const subscription = getState().home.subscription;
     try {
+      const walletAddress = getState().device.walletAddress;
+      const subscription = getState().home.subscription;
       dispatch(
         CHANGE_LOADER_STATE({ show: true, message: "Creating a Session..." })
       );

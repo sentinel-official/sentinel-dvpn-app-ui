@@ -16,7 +16,6 @@ const initialState = {
   walletAddress: null,
   deviceToken: null,
   selectedNode: {},
-  isHomeLoaded: false,
   isVPNConnected: false,
   protocols: "V2RAY,WIREGUARD",
 };
@@ -25,10 +24,6 @@ const deviceSlice = createSlice({
   name: "DEVICE",
   initialState,
   reducers: {
-    CHANGE_IS_HOME_LOADED: (state) => ({
-      ...state,
-      isHomeLoaded: true,
-    }),
     CHANGE_IS_REGISTERED: (state, { payload }) => ({
       ...state,
       isRegistered: payload,
@@ -70,7 +65,6 @@ const deviceSlice = createSlice({
   },
 });
 
-export const { CHANGE_IS_HOME_LOADED, CHANGE_IS_REGISTERED, SET_PROTOCOL } =
-  deviceSlice.actions;
+export const { CHANGE_IS_REGISTERED, SET_PROTOCOL } = deviceSlice.actions;
 
 export default deviceSlice.reducer;
