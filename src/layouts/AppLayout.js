@@ -15,6 +15,7 @@ import {
 import { dispatchGetVPNStatus } from "../actions/vpn.actions";
 import { dispatchGetAvailableDNS } from "../actions/settings.action";
 import { CHANGE_IS_HOME_LOADED } from "../redux/reducers/home.reducer";
+import { getDeviceTokenAction, getWalletAddressAction } from "../actions/onboarding.action";
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,8 @@ const AppLayout = () => {
       dispatch(
         withLoader([
           dispatchGetVPNStatus(),
+          getDeviceTokenAction(),
+          getWalletAddressAction(),
           dispatchGetIPAddress(),
           dispatchGetAccountBalance(),
           dispatchCurrentPrice(),
