@@ -20,14 +20,13 @@ const ExternalLinksModal = ({ link, title, onClose }) => {
               onClick={onClose}
             />
           </section>
-          <section className={styles.embeded}>
-            <iframe
-              id="my-iframe"
-              src={link}
-              title={title}
-              onLoad={() => setShowLoader(false)}
-            />
-          </section>
+          <iframe
+            id="my-iframe"
+            src={link}
+            title={title}
+            onLoad={() => setShowLoader(false)}
+            allowfullscreen={true}
+          />
         </div>
       </div>
       {showLoader && <Loader />}
