@@ -25,7 +25,7 @@ const DNSCard = () => {
             <span>DNS</span>
           </section>
           <span className={styles.value}>
-            {capitalizeFirstLetter(current.name)}
+            {capitalizeFirstLetter(current?.name)}
           </span>
         </button>
       </Card>

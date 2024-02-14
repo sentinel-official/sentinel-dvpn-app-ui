@@ -25,6 +25,14 @@ const registryServices = {
       .catch((error) => {
         throw new Error(error);
       }),
+  getLogs: () =>
+    Axios.get("/registry/logs")
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw new Error(error);
+      }),
 };
 
 export default registryServices;
