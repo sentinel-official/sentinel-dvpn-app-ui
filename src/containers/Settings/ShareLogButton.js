@@ -1,21 +1,26 @@
 import React from "react";
-import Button, { variants } from "../../components/Button";
 import { useDispatch } from "react-redux";
-import { withSingleDispatcherLoader } from "../../actions/loader.action";
 import { dispatchGetLogs } from "../../actions/settings.action";
 import styles from "./share-log-button.module.scss";
+import Card, { variants } from "../../components/Card";
+import ShareIcon from "../../assets/icons/share-icon.svg";
 const ShareLogButton = () => {
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(withSingleDispatcherLoader(dispatchGetLogs()));
+    dispatch(dispatchGetLogs());
   };
   return (
-    <Button
-      className={styles.root}
-      variant={variants.SECONDARY}
-      title={"Share Logs"}
-      onClick={handleClick}
-    />
+    <div className={styles.root}>
+      <span className={styles.title}>Support</span>
+      <Card variant={variants.SECONDARY}>
+        <button className={styles.button} onClick={handleClick}>
+          <section>
+            <img src={ShareIcon} alt="" />
+            <span>Share Logs</span>
+          </section>
+        </button>
+      </Card>
+    </div>
   );
 };
 
