@@ -3,9 +3,7 @@ import styles from "./account.module.scss";
 import BalanceCard from "../../containers/Account/BalanceCard";
 import QRCodeCard from "../../containers/Account/QRCodeCard";
 import Button, { variants } from "../../components/Button";
-import { useDispatch, useSelector } from "react-redux";
-import copy from "copy-to-clipboard";
-import { CHANGE_SUCCESS_ALERT } from "../../redux/reducers/alerts.reducer";
+import { useNavigate } from "react-router-dom";
 
 const HowToDeposit = () => {
   return (
@@ -23,8 +21,7 @@ const HowToDeposit = () => {
 };
 
 const Account = () => {
-  const dispatch = useDispatch();
-  const mnemonic = useSelector((state) => state.device.mnemonic);
+  const navigate = useNavigate();
   return (
     <div className={styles.root}>
       <span className={styles.header}>Account</span>
@@ -32,16 +29,10 @@ const Account = () => {
       <QRCodeCard />
       <Button
         onClick={() => {
-          copy(mnemonic);
-          dispatch(
-            CHANGE_SUCCESS_ALERT({
-              show: true,
-              message: "Mnemonic Copied!",
-            })
-          );
+          navigate("/app/private-key");
         }}
         className={styles["copy-mnemonic"]}
-        title={"Copy Mnemonic"}
+        title={"Show Mnemonic"}
         variant={variants.PRIMARY}
       />
       <HowToDeposit />

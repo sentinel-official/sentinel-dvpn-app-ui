@@ -13,6 +13,7 @@ import ListLayout from "./layouts/ListLayout";
 import OnboardingLayout from "./layouts/OnboardingLayout";
 import { createBrowserRouter } from "react-router-dom";
 import IndexLayout from "./layouts/IndexLayout";
+import PrivateKey from "./Screens/App/PrivateKey";
 
 const routes = [
   {
@@ -48,6 +49,10 @@ const routes = [
       {
         path: "settings",
         element: <Settings />,
+      },
+      {
+        path: "private-key",
+        element: <PrivateKey />,
       },
     ],
   },

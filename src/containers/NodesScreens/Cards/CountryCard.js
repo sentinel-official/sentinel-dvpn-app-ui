@@ -13,8 +13,15 @@ import {
   getRandomNode,
   getServersByCountry,
 } from "../../../helpers/filterServers";
-import { CHANGE_MODAL_STATE } from "../../../redux/reducers/alerts.reducer";
+import {
+  CHANGE_ERROR_ALERT,
+  CHANGE_MODAL_STATE,
+} from "../../../redux/reducers/alerts.reducer";
 import { connectAction } from "../../../actions/vpn.actions";
+import {
+  dispatchGetAvailableCities,
+  dispatchGetAvailableNodes,
+} from "../../../actions/nodes.action";
 
 const CityQuickConnect = ({ country }) => {
   const navigate = useNavigate();
@@ -39,7 +46,27 @@ const CityQuickConnect = ({ country }) => {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
       return;
     }
-    const node = getRandomNode(servers);
+
+    let list = servers;
+
+    if (!(servers && servers.length > 0)) {
+      const { payload } = await dispatch(dispatchGetAvailableCities(country));
+      const currentCities = payload.current;
+      if (currentCities && currentCities.length > 0) {
+        const randomCity = getRandomNode(currentCities);
+        const nodes = await dispatch(dispatchGetAvailableNodes(randomCity));
+        list = nodes.payload.current;
+      } else {
+        dispatch(
+          CHANGE_ERROR_ALERT({
+            show: true,
+            message: `Failed fetch Cities of ${country.name}`,
+          })
+        );
+      }
+    }
+
+    const node = getRandomNode(list);
     const dispatched = dispatch(connectAction(node));
 
     try {
@@ -52,7 +79,6 @@ const CityQuickConnect = ({ country }) => {
 
   return (
     <Button
-      disabled={!(servers && servers.length > 0)}
       className={styles["quick-connect-btn"]}
       variant={variants.PRIMARY}
       icon={QuickConnectIcon}

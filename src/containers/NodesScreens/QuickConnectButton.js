@@ -4,41 +4,87 @@ import { variants } from "../../components/Card";
 import QuickConnectIcon from "../../assets/icons/quick-connect-icon.svg";
 import styles from "./quick-connect-button.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { withSingleDispatcherLoader } from "../../actions/loader.action";
 import { connectAction } from "../../actions/vpn.actions";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
+  getCitiesByCountry,
   getRandomNode,
   getServersByCityAndCountryId,
-  getServersByCountryId,
 } from "../../helpers/filterServers";
-import { CHANGE_MODAL_STATE } from "../../redux/reducers/alerts.reducer";
+import {
+  CHANGE_ERROR_ALERT,
+  CHANGE_MODAL_STATE,
+} from "../../redux/reducers/alerts.reducer";
+import {
+  dispatchGetAvailableCities,
+  dispatchGetAvailableNodes,
+} from "../../actions/nodes.action";
 const QuickConnectButton = () => {
-  const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [servers, setServers] = React.useState([]);
   const { balance, subscription } = useSelector((state) => state.home);
+  const { country, city } = useSelector((state) => state.nodes.selected);
+
+  const countries = useSelector((state) => state.nodes.countries);
+  const cities = useSelector((state) => state.nodes.cities.all);
   const nodes = useSelector((state) => state.nodes.servers.all);
 
-  React.useEffect(() => {
-    if (params.countryId && params.cityId) {
-      const servers = getServersByCityAndCountryId(
-        params.cityId,
-        params.countryId,
-        nodes
+  const getServers = async () => {
+    try {
+      if (countries && countries.length > 0) {
+        let currentCountry = country;
+        let currentCity = city;
+        if (!(currentCountry && currentCountry.name)) {
+          currentCountry = getRandomNode(countries);
+        }
+
+        const localCities = getCitiesByCountry(currentCountry, cities);
+
+        if (!(currentCity && currentCity.name)) {
+          if (localCities && localCities.length > 0) {
+            currentCity = getRandomNode(localCities);
+          } else {
+            const { payload } = await dispatch(
+              dispatchGetAvailableCities(currentCountry)
+            );
+            currentCity = getRandomNode(payload.current);
+          }
+        }
+
+        const servers = getServersByCityAndCountryId(
+          currentCity.id,
+          currentCountry.id,
+          nodes
+        );
+
+        if (servers && servers.length > 0) {
+          return servers;
+        } else {
+          const { payload } = await dispatch(
+            dispatchGetAvailableNodes(currentCity)
+          );
+
+          return payload.current;
+        }
+      } else {
+        dispatch(
+          CHANGE_ERROR_ALERT({
+            show: true,
+            message: `No Countries available`,
+          })
+        );
+        return [];
+      }
+    } catch (e) {
+      dispatch(
+        CHANGE_ERROR_ALERT({
+          show: true,
+          message: `Failed to fetch a server`,
+        })
       );
-      setServers(servers);
-      return;
+      return [];
     }
-    if (params.countryId) {
-      const servers = getServersByCountryId(params.countryId, nodes);
-      setServers(servers);
-      return;
-    }
-    setServers(nodes);
-    return;
-  }, [nodes, params.cityId, params.countryId]);
+  };
 
   const connect = async () => {
     if (!balance) {
@@ -50,14 +96,19 @@ const QuickConnectButton = () => {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
       return;
     }
-    const node = getRandomNode(servers);
-    const dispatched = dispatch(connectAction(node));
+    let list = await getServers();
 
-    try {
-      const { payload } = await dispatched;
-      if (payload) navigate("/");
-    } catch (e) {
-      console.length("CONSOLE FAILED TO CONNECT");
+    if (list && list.length > 0) {
+      const node = getRandomNode(list);
+
+      const dispatched = dispatch(connectAction(node));
+
+      try {
+        const { payload } = await dispatched;
+        if (payload) navigate("/");
+      } catch (e) {
+        console.length("CONSOLE FAILED TO CONNECT");
+      }
     }
   };
 
@@ -67,7 +118,6 @@ const QuickConnectButton = () => {
         event.preventDefault();
         connect();
       }}
-      disabled={!(servers && servers.length > 0)}
       variant={variants.PRIMARY}
       className={styles.root}
       icon={QuickConnectIcon}

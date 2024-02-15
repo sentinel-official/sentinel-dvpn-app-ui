@@ -52,7 +52,10 @@ export const dispatchGetAvailableCities = createAsyncThunk(
   ) => {
     try {
       dispatch(
-        CHANGE_LOADER_STATE({ show: true, message: "Fetching Cities..." })
+        CHANGE_LOADER_STATE({
+          show: true,
+          message: `Fetching Cities of ${country.name}`,
+        })
       );
       const deviceToken = getState().device.deviceToken;
       const protocols = getState().device.protocols;
@@ -82,7 +85,10 @@ export const dispatchGetAvailableNodes = createAsyncThunk(
   async (city, { fulfillWithValue, rejectWithValue, getState, dispatch }) => {
     try {
       dispatch(
-        CHANGE_LOADER_STATE({ show: true, message: "Fetching Servers..." })
+        CHANGE_LOADER_STATE({
+          show: true,
+          message: `Fetching Servers of ${city.name}`,
+        })
       );
 
       const deviceToken = getState().device.deviceToken;

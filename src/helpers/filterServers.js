@@ -55,3 +55,14 @@ export const getServersByCountryId = (countryId, list = []) => {
   });
   return arrayOfObjectsSort(result, "name");
 };
+
+export const getCitiesByCountry = (country = {}, cities = []) => {
+  const result = [];
+
+  cities.forEach((l) => {
+    if (l.country_id === country.id) {
+      result.push(l);
+    }
+  });
+  return result;
+};
