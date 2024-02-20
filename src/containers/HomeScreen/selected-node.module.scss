@@ -10,11 +10,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: 16px;
   .name {
     font-weight: 500;
     font-size: 18px;
     line-height: 115%;
     color: #ffffff;
+    margin-left: 16px;
   }
 }

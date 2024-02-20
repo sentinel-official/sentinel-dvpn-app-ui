@@ -16,8 +16,7 @@
       top: 0;
       width: 100%;
       height: 112px;
-      padding-block: 16px;
-      padding-inline: 16px;
+      padding: 16px;
     }
     & .bottom {
       position: relative;
@@ -29,22 +28,19 @@
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 0.8) 100%
       );
-      padding-inline: 16px;
-      padding-block: 16px;
+      padding: 16px;
       padding-top: 100px;
       display: flex;
       flex-direction: column;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      gap: 16px;
       flex: 1;
       @media only screen and (max-height: 599px) {
         padding-top: 0;
       }
       .connection-card {
-        padding-block: 16px;
-        padding-inline: 16px;
+        padding: 16px;
         width: 100%;
         height: 84px;
         display: flex;
@@ -54,6 +50,7 @@
         border-bottom-right-radius: 0;
       }
       .connect-button {
+        margin-top: 16px;
         height: 36px;
         width: 100%;
       }

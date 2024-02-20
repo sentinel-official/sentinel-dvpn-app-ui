@@ -6,6 +6,7 @@
   right: 0;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   display: flex;
   flex-direction: column;
@@ -14,7 +15,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  padding-inline: 16px;
+  padding: 0 16px;
   .container {
     display: flex;
     flex-direction: column;
@@ -27,6 +28,10 @@
     min-height: 200px;
     gap: 16px;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #0184fc;
+    box-shadow: 0px 0px 12px 0px rgba(1, 86, 252, 0.25),
+      0px 0px 24px 0px rgba(1, 86, 252, 0.25),
+      0px 0px 32px 0px rgba(1, 86, 252, 0.25),
+      0px 0px 8px 0px rgba(1, 86, 252, 0.25);
   }
 }

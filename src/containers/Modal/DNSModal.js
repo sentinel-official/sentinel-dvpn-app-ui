@@ -25,17 +25,20 @@ const DNSModal = () => {
     <div className={styles.root}>
       <span className={styles.title}>Select a DNS</span>
       <section className={styles.list}>
-        {available.map((dns) => {
-          const isChecked = dns.name === current.name;
-          return (
-            <RadioButton
-              value={capitalizeFirstLetter(dns.name)}
-              isChecked={isChecked}
-              onChange={() => handleOnChangeDNS(dns)}
-              key={dns.name}
-            />
-          );
-        })}
+        {available &&
+          available.length > 0 &&
+          available.map((dns) => {
+            const isChecked = dns.name === current.name;
+            return (
+              <RadioButton
+                className={styles["dns-item"]}
+                value={capitalizeFirstLetter(dns.name)}
+                isChecked={isChecked}
+                onChange={() => handleOnChangeDNS(dns)}
+                key={dns.name}
+              />
+            );
+          })}
       </section>
       <Button
         title={"OK"}

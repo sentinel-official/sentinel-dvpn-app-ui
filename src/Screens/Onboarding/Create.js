@@ -1,25 +1,62 @@
 import React from "react";
-import { generateMnemonic } from "@scure/bip39";
-import { wordlist } from "@scure/bip39/wordlists/english";
 import copyToClipboard from "copy-to-clipboard";
 import styles from "./create.module.scss";
 import Button, { variants } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { CHANGE_SUCCESS_ALERT } from "../../redux/reducers/alerts.reducer";
+import {
+  CHANGE_ERROR_ALERT,
+  CHANGE_LOADER_STATE,
+  CHANGE_SUCCESS_ALERT,
+} from "../../redux/reducers/alerts.reducer";
 import { withLoader } from "../../actions/loader.action";
 import { createWalletWithMnemonic } from "../../actions/onboarding.action";
-
-const mnemonic = generateMnemonic(wordlist, 256);
+import blockchainServices from "../../services/blockchain.services";
 
 const Create = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [revealed, setRevealed] = React.useState(false);
+  const [mnemonic, setMnemonic] = React.useState([]);
+
+  React.useLayoutEffect(() => {
+    const fetchMnemonic = async () => {
+      try {
+        dispatch(
+          CHANGE_LOADER_STATE({
+            show: true,
+            message: "Fetching Private Key...",
+          })
+        );
+        const response = await blockchainServices.getPrivateKey();
+        setMnemonic(response.keywords);
+        dispatch(
+          CHANGE_LOADER_STATE({
+            show: false,
+            message: "",
+          })
+        );
+      } catch (e) {
+        dispatch(
+          CHANGE_LOADER_STATE({
+            show: false,
+            message: "",
+          })
+        );
+        dispatch(
+          CHANGE_ERROR_ALERT({
+            show: true,
+            message: "Failed to get Private Key",
+          })
+        );
+      }
+    };
+    fetchMnemonic();
+  }, [dispatch]);
 
   const handleRevealCopy = () => {
     if (revealed) {
-      copyToClipboard(mnemonic);
+      copyToClipboard(mnemonic.join(" "));
       dispatch(
         CHANGE_SUCCESS_ALERT({ show: true, message: "Copied Successfully" })
       );
@@ -39,7 +76,7 @@ const Create = () => {
         </span>
       </section>
       <section className={styles.middle}>
-        {mnemonic.split(" ").map((v, index) => (
+        {mnemonic.map((v, index) => (
           <span
             key={`${v}-${index}`}
             className={`${styles["mnemonic-value"]} ${
@@ -57,14 +94,15 @@ const Create = () => {
           title={`${revealed ? "Copy private key" : "Reveal private key"}`}
           className={styles["primary-btn"]}
           onClick={handleRevealCopy}
+          disabled={!(mnemonic && mnemonic.length > 0)}
         />
         <Button
           disabled={!revealed}
-          variant={`${revealed ? variants.PRIMARY : variants.DISABLED}`}
+          variant={`${revealed ? variants.PRIMARY : variants.SECONDARY}`}
           title={"Create account"}
           className={styles["secondary-btn"]}
           onClick={() =>
-            dispatch(withLoader([createWalletWithMnemonic(mnemonic)]))
+            dispatch(withLoader([createWalletWithMnemonic(mnemonic.join(" "))]))
           }
         />
         <section className={styles.login}>

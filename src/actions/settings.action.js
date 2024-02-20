@@ -44,7 +44,7 @@ export const dispatchPutSelectedDNS = createAsyncThunk(
 );
 
 export const dispatchGetLogs = createAsyncThunk(
-  "PUT_SELECTED_DNS",
+  "SHARE_LOGS",
   async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
       await registryServices.getLogs();

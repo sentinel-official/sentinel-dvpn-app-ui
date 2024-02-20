@@ -103,7 +103,7 @@ const CountryCard = ({ country }) => {
         <ReactCountryFlag
           style={{
             width: "24px",
-            height: "100%",
+            height: "24px",
           }}
           countryCode={country.code?.toUpperCase()}
           svg

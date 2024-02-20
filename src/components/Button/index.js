@@ -6,7 +6,6 @@ export const variants = {
   PRIMARY: "primary",
   SECONDARY: "secondary",
   TRANSPARENT: "transparent",
-  DISABLED: "disabled",
 };
 
 const Button = ({
@@ -22,8 +21,7 @@ const Button = ({
       className={`${styles[variant]} ${
         disabled ? styles.disabled : ""
       } ${className}`}
-      disabled={disabled}
-      onClick={onClick}
+      onClick={disabled ? () => {} : onClick}
     >
       {icon && <img src={icon} alt="" />}
       {title && <span>{title}</span>}

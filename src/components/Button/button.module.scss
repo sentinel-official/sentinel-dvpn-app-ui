@@ -14,15 +14,22 @@ button {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  img {
+    margin: 0 2px;
+  }
+  span {
+    margin: 0 2px;
+  }
 }
 
 .primary {
   background-color: #0156fc;
   color: #ffffff;
   &.disabled {
-    opacity: 0.8;
-    filter: grayscale(1);
+    opacity: 0.6;
+    background-color: #26304c;
+    color: #aeaeae;
+    pointer-events: none;
   }
   &:active {
     opacity: 0.8;
@@ -33,8 +40,10 @@ button {
   background-color: #191f31;
   color: #0184fc;
   &.disabled {
-    opacity: 0.8;
-    filter: grayscale(1);
+    opacity: 0.6;
+    background-color: #26304c;
+    color: #aeaeae;
+    pointer-events: none;
   }
   &:active {
     opacity: 0.8;
@@ -45,8 +54,10 @@ button {
   background-color: transparent;
   color: #0184fc;
   &.disabled {
-    opacity: 0.8;
-    filter: grayscale(1);
+    opacity: 0.6;
+    background-color: transparent;
+    color: #aeaeae;
+    pointer-events: none;
   }
   &:active {
     opacity: 0.8;

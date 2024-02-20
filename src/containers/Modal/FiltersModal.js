@@ -23,6 +23,7 @@ const FiltersModal = () => {
           const isChecked = value === protocols;
           return (
             <RadioButton
+              className={styles["filter-item"]}
               value={key}
               key={key}
               isChecked={isChecked}

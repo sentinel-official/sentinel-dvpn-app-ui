@@ -54,7 +54,11 @@ const LegalCards = () => {
 
         {legalDocs.map((doc) => {
           return (
-            <Card key={doc.title} variant={variants.SECONDARY}>
+            <Card
+              key={doc.title}
+              className={styles["card"]}
+              variant={variants.SECONDARY}
+            >
               <button
                 className={styles["doc-card"]}
                 onClick={() =>
@@ -67,7 +71,8 @@ const LegalCards = () => {
             </Card>
           );
         })}
-        <Card variant={variants.SECONDARY}>
+
+        <Card variant={variants.SECONDARY} className={styles["card"]}>
           <button className={styles.version}>
             <section>
               <img src={VersionIcon} alt="" />

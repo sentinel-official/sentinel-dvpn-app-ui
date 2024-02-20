@@ -1,7 +1,6 @@
 .root {
   position: fixed;
   display: flex;
-  gap: 16px;
   z-index: 9999;
   top: 0;
   bottom: 0;
@@ -26,5 +25,6 @@
     display: block;
     font-size: 14px;
     color: #9cabc9;
+    margin-top: 16px;
   }
 }

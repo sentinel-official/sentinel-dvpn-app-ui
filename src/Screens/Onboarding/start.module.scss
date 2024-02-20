@@ -4,51 +4,56 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-inline: 16px;
-  padding-block: 48px;
-  gap: 32px;
+  padding-left: 16px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  padding-right: 16px;
 
   & .top {
     display: flex;
     flex-direction: column;
-    gap: 16px;
     width: min(100%, 240px);
     height: 100%;
+    margin-bottom: 32px;
 
     & .title {
       font-size: 40px;
       font-weight: 500;
       line-height: 110%;
+      margin-bottom: 16px;
     }
     & .description {
       font-size: 14px;
       font-weight: 400;
       line-height: 140%;
       color: #9cabc9;
+      margin-bottom: 16px;
     }
   }
   & .middle {
     display: flex;
     flex-direction: column;
-    gap: 8px;
     width: 100%;
     height: 100%;
 
     & img {
       width: 128px;
       height: 128px;
+      margin-bottom: 8px;
     }
 
     & .title {
       font-size: 28px;
       font-weight: 500;
       line-height: 110%;
+      margin-bottom: 8px;
     }
     & .description {
       font-size: 14px;
       font-weight: 400;
       line-height: 140%;
       color: #9cabc9;
+      margin-bottom: 8px;
     }
   }
   & .bottom {
@@ -58,9 +63,10 @@
     justify-content: center;
     height: 100%;
     width: 100%;
-    gap: 16px;
     .continue-btn {
       height: 42px;
+      margin-top: 8px;
+      margin-bottom: 8px;
     }
     .login {
       display: flex;
@@ -69,6 +75,8 @@
       justify-content: center;
       width: min(100%, 280px);
       height: 56px;
+      margin-top: 8px;
+      margin-bottom: 8px;
       &-text {
         word-spacing: nowrap;
         font-size: 14px;

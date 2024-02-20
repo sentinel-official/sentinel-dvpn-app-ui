@@ -6,13 +6,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: 16px;
 
   input {
     display: none;
+    margin: 0 8px;
   }
   span {
     color: $textPrimaryColor;
+    margin: 0 8px;
   }
 
   .svg {

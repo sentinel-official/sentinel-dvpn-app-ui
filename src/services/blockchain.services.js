@@ -1,6 +1,14 @@
 import Axios from "./Axios";
 
 const blockchainServices = {
+  getPrivateKey: () =>
+    Axios.get("/blockchain/keywords")
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw new Error(error);
+      }),
   getWalletAddress: () =>
     Axios.get("/blockchain/wallet")
       .then((response) => {

@@ -3,9 +3,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-block: 12px;
-  padding-inline: 16px;
+  margin: 12px 0;
+  padding: 0 8px;
   width: 100%;
   .left {
     background: none;
@@ -17,7 +16,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 12px;
     width: calc(100% - 68px);
     & .details {
       display: flex;
@@ -26,7 +24,6 @@
       justify-content: space-between;
       text-align: left;
       width: 100%;
-      gap: 8px;
       & .name {
         font-size: 16px;
         line-height: 22px;

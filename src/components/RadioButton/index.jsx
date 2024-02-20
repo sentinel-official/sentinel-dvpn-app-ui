@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./radio-icon.module.scss";
 
-const RadioButton = ({ value, isChecked, onChange }) => {
+const RadioButton = ({ value, isChecked, onChange, className }) => {
   return (
-    <label className={styles.radioBtn} htmlFor={`dns-value-${value}`}>
+    <label
+      className={`${styles.radioBtn} ${className}`}
+      htmlFor={`dns-value-${value}`}
+    >
       <input
         name={value}
         value={value}

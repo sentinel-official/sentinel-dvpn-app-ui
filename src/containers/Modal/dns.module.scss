@@ -1,15 +1,18 @@
 .root {
   display: flex;
   flex-direction: column;
-  gap: 36px;
   .title {
     font-size: 18px;
     font-weight: 500;
+    margin-bottom: 32px;
   }
   .list {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    margin-bottom: 32px;
+    .dns-item {
+      margin: 12px 0;
+    }
   }
   .ok-btn {
     height: 36px;

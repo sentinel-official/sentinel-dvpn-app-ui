@@ -10,11 +10,13 @@ const DNSCard = () => {
   const dispatch = useDispatch();
 
   const current = useSelector((state) => state.dns.current);
+
   return (
     <div className={styles.root}>
       <span className={styles.title}>DVPN</span>
       <Card variant={variants.SECONDARY}>
         <button
+          disabled={!(current && current.name)}
           className={styles.dns}
           onClick={() => {
             dispatch(CHANGE_MODAL_STATE({ show: true, type: "dns" }));

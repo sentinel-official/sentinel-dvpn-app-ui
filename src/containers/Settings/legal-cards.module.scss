@@ -1,8 +1,7 @@
 .root {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-block: 32px;
+  margin: 32px 0;
   button {
     height: 56px;
   }
@@ -11,6 +10,13 @@
     color: #9cabc9;
     font-weight: 500;
     font-size: 18px;
+    margin: 8px 0;
+  }
+  .card {
+    margin: 4px 0;
+    img {
+      margin-right: 8px;
+    }
   }
   .doc-card {
     background: transparent;
@@ -22,7 +28,6 @@
     align-items: center;
     justify-content: flex-start;
     text-align: left;
-    gap: 8px;
     padding: 16px;
     text-decoration: none;
     user-select: none;
@@ -37,7 +42,6 @@
     align-items: center;
     justify-content: space-between;
     text-align: left;
-    gap: 8px;
     padding: 16px;
     section {
       background: transparent;

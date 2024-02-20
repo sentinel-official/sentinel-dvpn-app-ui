@@ -4,8 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
-  margin-block: 16px;
-  gap: 24px;
+  margin: 16px 0;
   height: 360px;
   width: 100%;
   svg {
@@ -16,6 +15,7 @@
     padding: 8px;
     background: #ffffff;
     border-radius: 8px;
+    margin: 24px 0;
   }
   .wallet-address {
     display: grid;
@@ -23,7 +23,6 @@
     grid-template-rows: 1fr;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
     font-size: 14px;
     font-weight: 500;
     width: 100%;

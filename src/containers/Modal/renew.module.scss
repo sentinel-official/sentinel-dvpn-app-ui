@@ -4,24 +4,26 @@
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  gap: 16px;
   img {
     width: 64px;
     height: auto;
     aspect-ratio: 1/1;
-    margin-block: 32px;
+    margin: 32px 0;
   }
   .title {
     color: #ffffff;
     font-size: 32px;
     line-height: 36px;
+    margin: 8px 0;
   }
   .description {
     color: #9cabc9;
     font-size: 16px;
     line-height: 20px;
+    margin: 8px 0;
   }
   .btn {
     height: 36px;
+    margin: 8px 0;
   }
 }
