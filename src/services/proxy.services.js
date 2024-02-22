@@ -36,15 +36,23 @@ const proxyServices = {
       );
     });
     const responses = [];
+    let isAuthorised = true;
     for (const promise of promises) {
       try {
         const resp = await promise;
         responses.push(resp.data.data);
       } catch (error) {
-        responses.push([]);
+        if (error.response.status === 401) {
+          isAuthorised = false;
+        } else {
+          responses.push([]);
+        }
       }
     }
-    return responses.flat(1);
+    if (isAuthorised) {
+      return responses.flat(1);
+    }
+    return { error: "unauthorizedDevice" };
   },
   getCitiesList: async (countryId, deviceToken, protocols = []) => {
     const promises = [];
@@ -61,15 +69,24 @@ const proxyServices = {
       );
     });
     const responses = [];
+    let isAuthorised = true;
+
     for (const promise of promises) {
       try {
         const resp = await promise;
         responses.push(resp.data.data);
       } catch (error) {
-        responses.push([]);
+        if (error.response.status === 401) {
+          isAuthorised = false;
+        } else {
+          responses.push([]);
+        }
       }
     }
-    return responses.flat(1);
+    if (isAuthorised) {
+      return responses.flat(1);
+    }
+    return { error: "unauthorizedDevice" };
   },
   getServersList: async (countryId, cityId, deviceToken, protocols = []) => {
     const promises = [];
@@ -86,15 +103,24 @@ const proxyServices = {
       );
     });
     const responses = [];
+    let isAuthorised = true;
+
     for (const promise of promises) {
       try {
         const resp = await promise;
         responses.push(resp.data.data);
       } catch (error) {
-        responses.push([]);
+        if (error.response.status === 401) {
+          isAuthorised = false;
+        } else {
+          responses.push([]);
+        }
       }
     }
-    return responses.flat(1);
+    if (isAuthorised) {
+      return responses.flat(1);
+    }
+    return { error: "unauthorizedDevice" };
   },
 };
 
