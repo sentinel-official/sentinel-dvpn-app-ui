@@ -4,17 +4,18 @@ import {
   CitiesList,
   CountriesList,
   Home,
+  PrivateKey,
   ServersList,
   Settings,
 } from "./Screens/App";
 import { Create, Import, Start } from "./Screens/Onboarding";
-import AppLayout from "./layouts/AppLayout";
-import ListLayout from "./layouts/ListLayout";
-import OnboardingLayout from "./layouts/OnboardingLayout";
 import { createBrowserRouter } from "react-router-dom";
-import IndexLayout from "./layouts/IndexLayout";
-import PrivateKey from "./Screens/App/PrivateKey";
-
+import {
+  AppLayout,
+  IndexLayout,
+  ListLayout,
+  OnboardingLayout,
+} from "./layouts";
 const routes = [
   {
     path: "/app",

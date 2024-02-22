@@ -9,4 +9,22 @@ const Axios = axios.create({
   timeout: 30000,
 });
 
+// Axios.interceptors.response.use(
+//   (response) => {
+//     console.log(
+//       "CONSOLE RESPONSE",
+//       JSON.stringify({
+//         URL: response.request.responseURL,
+//         STATUS: response.status,
+//         DATA: response.data,
+//       })
+//     );
+//     return response;
+//   },
+//   (error) => {
+//     console.log("CONSOLE ERROR", JSON.stringify(error, null, 4));
+//     return error;
+//   }
+// );
+
 export default Axios;

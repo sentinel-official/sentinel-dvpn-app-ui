@@ -26,8 +26,8 @@ export const dispatchGetIPAddress = createAsyncThunk(
 
     try {
       const deviceToken = getState().device.deviceToken;
-      let response;
-      response = await proxyServices.getIpAddress(deviceToken);
+      let response = await proxyServices.getIpAddress(deviceToken);
+
       if (response.error === "unauthorizedDevice") {
         const token = await dispatch(getRefreshedToken());
         response = await proxyServices.getIpAddress(token.payload);

@@ -42,7 +42,7 @@ export const getRefreshedToken = createAsyncThunk(
       dispatch(
         CHANGE_ERROR_ALERT({
           show: true,
-          message: "Failed to fetch device token",
+          message: "Failed to refresh device token",
         })
       );
       return rejectWithValue(e);

@@ -9,18 +9,25 @@ const proxyServices = {
       .catch((error) => {
         throw new Error(error);
       }),
-  getIpAddress: (deviceToken) =>
-    Axios.get("/proxy/ip", {
+  getIpAddress: async (deviceToken) => {
+    let resp;
+    await Axios.get("/proxy/ip", {
       headers: {
         "x-device-token": deviceToken,
       },
     })
       .then((response) => {
-        return response.data;
+        resp = response.data;
       })
       .catch((error) => {
-        throw new Error(error);
-      }),
+        if (error.response.status === 401) {
+          resp = { error: "unauthorizedDevice" };
+        } else {
+          resp = error;
+        }
+      });
+    return resp;
+  },
   getCountriesList: async (deviceToken, protocols = []) => {
     const promises = [];
     protocols.forEach((protocol) => {
