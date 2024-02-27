@@ -3,15 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "./start.module.scss";
 import KeyIcon from "../../assets/icons/key-icon.svg";
 import Button, { variants } from "../../components/Button";
-import { useDispatch } from "react-redux";
-import { getRefreshedToken } from "../../actions/onboarding.action";
+
 const Start = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    dispatch(getRefreshedToken());
-  }, [dispatch]);
+
   return (
     <div className={styles.root}>
       <section className={styles.top}>

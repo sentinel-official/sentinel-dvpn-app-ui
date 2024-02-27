@@ -11,12 +11,11 @@ import {
   CHANGE_LOADER_STATE,
 } from "../redux/reducers/alerts.reducer";
 import otherServices from "../services/other.services";
-import { getRefreshedToken } from "./onboarding.action";
 import registryServices from "../services/registry.services";
 
 export const dispatchGetIPAddress = createAsyncThunk(
   "GET_IP_ADDRESS",
-  async (_, { fulfillWithValue, rejectWithValue, getState, dispatch }) => {
+  async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     dispatch(
       CHANGE_LOADER_STATE({
         show: true,
@@ -25,13 +24,7 @@ export const dispatchGetIPAddress = createAsyncThunk(
     );
 
     try {
-      const deviceToken = getState().device.deviceToken;
-      let response = await proxyServices.getIpAddress(deviceToken);
-
-      if (response.error === "unauthorizedDevice") {
-        const token = await dispatch(getRefreshedToken());
-        response = await proxyServices.getIpAddress(token.payload);
-      }
+      let response = await proxyServices.getIpAddress();
       return fulfillWithValue(response.data);
     } catch (e) {
       dispatch(

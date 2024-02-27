@@ -29,13 +29,13 @@ const AppLayout = () => {
       dispatch(
         withLoader([
           dispatchGetVPNStatus(),
-          dispatchGetIPAddress(),
-          dispatchGetAccountBalance(),
+          dispatchGetAppVersion(),
           dispatchCurrentPrice(),
+          dispatchGetAccountBalance(),
           dispatchGetAvailablePlans(),
           dispatchGetUserSubscriptions(),
           dispatchGetAvailableDNS(),
-          dispatchGetAppVersion(),
+          dispatchGetIPAddress(),
           CHANGE_IS_HOME_LOADED(),
         ])
       );

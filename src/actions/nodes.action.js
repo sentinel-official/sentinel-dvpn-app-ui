@@ -14,7 +14,6 @@ import {
   getCountriesByProtocol,
 } from "../helpers/getCitiesByCountryId";
 import { getServersByCity } from "../helpers/filterServers";
-import { getRefreshedToken } from "./onboarding.action";
 
 export const dispatchGetAvailableCountries = createAsyncThunk(
   "GET_AVAILABLE_COUNTRIES",
@@ -23,7 +22,6 @@ export const dispatchGetAvailableCountries = createAsyncThunk(
       CHANGE_LOADER_STATE({ show: true, message: "Fetching Countries..." })
     );
     try {
-      const deviceToken = getState().device.deviceToken;
       const protocols = getState().device.protocols;
       const list = getState().nodes.countries;
 
@@ -32,16 +30,8 @@ export const dispatchGetAvailableCountries = createAsyncThunk(
         return fulfillWithValue(current);
       }
       let response = await proxyServices.getCountriesList(
-        deviceToken,
         String(protocols).split(",")
       );
-      if (response.error === "unauthorizedDevice") {
-        const token = await dispatch(getRefreshedToken());
-        response = await proxyServices.getCountriesList(
-          token.payload,
-          String(protocols).split(",")
-        );
-      }
       const countries = parseCountriesList(response, protocols);
       return fulfillWithValue(countries);
     } catch (e) {
@@ -65,7 +55,7 @@ export const dispatchGetAvailableCities = createAsyncThunk(
           message: `Fetching Cities of ${country.name}`,
         })
       );
-      const deviceToken = getState().device.deviceToken;
+
       const protocols = getState().device.protocols;
       const list = getState().nodes.cities.all;
       const current = getCitiesByCountryId(country.id, list, protocols);
@@ -74,17 +64,8 @@ export const dispatchGetAvailableCities = createAsyncThunk(
       }
       let response = await proxyServices.getCitiesList(
         country.id,
-        deviceToken,
         String(protocols).split(",")
       );
-      if (response.error === "unauthorizedDevice") {
-        const token = await dispatch(getRefreshedToken());
-        response = await proxyServices.getCitiesList(
-          country.id,
-          token.payload,
-          String(protocols).split(",")
-        );
-      }
       const cities = parseCitiesList(response, country, protocols);
       return fulfillWithValue({ all: [...list, ...cities], current: cities });
     } catch (e) {
@@ -107,7 +88,6 @@ export const dispatchGetAvailableNodes = createAsyncThunk(
         })
       );
 
-      const deviceToken = getState().device.deviceToken;
       const protocols = String(getState().device.protocols).split(",");
       const list = getState().nodes.servers.all;
       const current = getServersByCity(city, list, protocols);
@@ -117,19 +97,8 @@ export const dispatchGetAvailableNodes = createAsyncThunk(
       let response = await proxyServices.getServersList(
         city.country_id,
         city.id,
-        deviceToken,
         protocols
       );
-      if (response.error === "unauthorizedDevice") {
-        const token = await dispatch(getRefreshedToken());
-        response = await proxyServices.getServersList(
-          city.country_id,
-          city.id,
-          token.payload,
-          protocols
-        );
-      }
-
       const nodes = parseServersList(response, city, protocols);
       return fulfillWithValue({ all: [...list, ...nodes], current: nodes });
     } catch (e) {

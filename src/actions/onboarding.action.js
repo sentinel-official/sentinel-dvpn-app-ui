@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import registryServices from "../services/registry.services";
 import blockchainServices from "../services/blockchain.services";
-import proxyServices from "../services/proxy.services";
+
 import {
   CHANGE_ERROR_ALERT,
   CHANGE_LOADER_STATE,
@@ -19,31 +19,6 @@ export const createWalletWithMnemonic = createAsyncThunk(
     } catch (e) {
       dispatch(
         CHANGE_ERROR_ALERT({ show: true, message: "Failed to Create Wallet" })
-      );
-      return rejectWithValue(e);
-    }
-  }
-);
-
-export const getRefreshedToken = createAsyncThunk(
-  "REFRESH_TOKEN",
-  async (_, { rejectWithValue, fulfillWithValue, dispatch }) => {
-    try {
-      const device = await proxyServices.postDevice();
-      const token = device.data.token;
-      const payload = {
-        key: "deviceToken",
-        value: token,
-        is_secure: true,
-      };
-      await registryServices.setKey(payload);
-      return fulfillWithValue(token);
-    } catch (e) {
-      dispatch(
-        CHANGE_ERROR_ALERT({
-          show: true,
-          message: "Failed to refresh device token",
-        })
       );
       return rejectWithValue(e);
     }

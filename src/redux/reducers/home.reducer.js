@@ -36,9 +36,7 @@ const homeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(dispatchGetIPAddress.fulfilled, (state, { payload }) => ({
       ...state,
-      ip: payload.ip,
-      latitude: payload.latitude,
-      longitude: payload.longitude,
+      ...payload,
     }));
     builder.addCase(
       dispatchGetAccountBalance.fulfilled,
