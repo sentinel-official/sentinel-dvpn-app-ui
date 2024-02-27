@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createWalletWithMnemonic,
-  getDeviceTokenAction,
   getWalletAddressAction,
 } from "../../actions/onboarding.action";
 import {
@@ -14,7 +13,6 @@ const initialState = {
   isWalletCreated: false,
   isRegistered: false,
   walletAddress: null,
-  deviceToken: null,
   selectedNode: {},
   isVPNConnected: false,
   protocols: "V2RAY,WIREGUARD",
@@ -45,10 +43,6 @@ const deviceSlice = createSlice({
     builder.addCase(dispatchGetVPNStatus.fulfilled, (state, { payload }) => ({
       ...state,
       isVPNConnected: payload,
-    }));
-    builder.addCase(getDeviceTokenAction.fulfilled, (state, { payload }) => ({
-      ...state,
-      deviceToken: payload,
     }));
     builder.addCase(getWalletAddressAction.fulfilled, (state, { payload }) => ({
       ...state,

@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import registryServices from "../services/registry.services";
 import blockchainServices from "../services/blockchain.services";
 
 import {
@@ -25,27 +24,6 @@ export const createWalletWithMnemonic = createAsyncThunk(
   }
 );
 
-export const getDeviceTokenAction = createAsyncThunk(
-  "FETCH_DEVICE_TOKEN",
-  async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
-    dispatch(
-      CHANGE_LOADER_STATE({ show: true, message: "Fetching Device Token..." })
-    );
-
-    try {
-      const token = await registryServices.getKey("deviceToken");
-      return fulfillWithValue(token.value);
-    } catch (e) {
-      dispatch(
-        CHANGE_ERROR_ALERT({
-          show: true,
-          message: "Failed to fetch device token",
-        })
-      );
-      return rejectWithValue(e);
-    }
-  }
-);
 
 export const getWalletAddressAction = createAsyncThunk(
   "FETCH_WALLET_ADDRESS",
