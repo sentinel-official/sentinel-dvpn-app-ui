@@ -4,9 +4,11 @@ import BalanceIcon from "../../assets/icons/balance-icon.svg";
 import Button, { variants } from "../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_MODAL_STATE } from "../../redux/reducers/alerts.reducer";
+import { useNavigate } from "react-router-dom";
 
 const NoBalanceModal = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { balance } = useSelector((state) => state.home);
 
   return (
@@ -24,8 +26,9 @@ const NoBalanceModal = () => {
         className={styles["ok-btn"]}
         onClick={() => {
           dispatch(CHANGE_MODAL_STATE({ show: false, type: "" }));
+          navigate("/app/account");
         }}
-        title={"OK"}
+        title={"Add Balance"}
       />
     </div>
   );

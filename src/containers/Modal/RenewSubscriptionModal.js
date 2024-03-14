@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CHANGE_ERROR_ALERT,
   CHANGE_MODAL_STATE,
+  CHANGE_SUCCESS_ALERT,
 } from "../../redux/reducers/alerts.reducer";
 import { withLoader } from "../../actions/loader.action";
 import {
@@ -35,6 +36,12 @@ const RenewSubscriptionModal = () => {
         withLoader([
           CHANGE_MODAL_STATE({ show: false, type: "" }),
           dispatchSubscribeToPlan(payload),
+          dispatch(
+            CHANGE_SUCCESS_ALERT({
+              show: true,
+              message: "You have subscribed successfully!",
+            })
+          ),
           dispatchGetUserSubscriptions(),
         ])
       );
@@ -51,9 +58,11 @@ const RenewSubscriptionModal = () => {
   return (
     <div className={styles["renew-subscription-modal"]}>
       <img src={TimeIcon} alt="" />
-      <span className={styles.title}>Your subscription has expired</span>
+      <span className={styles.title}>
+        You do not have an active subscription
+      </span>
       <span className={styles.description}>
-        Renew your on-chain subscription to enjoy Sentinel dVPN.
+        Purchase one month of subscription to enjoy Sentinel dVPN
       </span>
       <Button
         className={styles.btn}

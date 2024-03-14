@@ -21,7 +21,11 @@ const BalanceCard = () => {
     (state) => state.home
   );
   const handleReloader = () => {
-    const dispatchers = [dispatchGetAccountBalance(), dispatchGetIPAddress(), dispatchCurrentPrice()];
+    const dispatchers = [
+      dispatchGetAccountBalance(),
+      dispatchGetIPAddress(),
+      dispatchCurrentPrice(),
+    ];
     if (plan && plan.providerAddress === null) {
       dispatchers.push(dispatchGetAvailablePlans());
     }
@@ -31,29 +35,27 @@ const BalanceCard = () => {
     dispatch(withLoader(dispatchers));
   };
   return (
-    <Card className={styles.root} variant={variants.SECONDARY}>
-      <section className={styles.top}>
-        <section className={styles.left}>
+    <Card className={styles.root} variant={variants.PRIMARY}>
+      <section className={styles.left}>
+        <span className={styles.title}>Your Balance</span>
+        <section className={styles.bottom}>
           <img src={BalanceIcon} alt="" />
-        </section>
-        <section className={styles.middle}>
-          <span className={styles.title}>Your Balance</span>
           <span className={styles.description}>
             {`${formatAmount(balance / 1e6)}`} DVPN
           </span>
         </section>
-        <section className={styles.right}>
-          <Button
-            variant={variants.TRANSPARENT}
-            icon={ReloadIcon}
-            onClick={handleReloader}
-            className={`${styles["reload-btn"]}`}
-          />
-        </section>
       </section>
-      <section className={styles.bottom}>
+
+      <section className={styles.right}>
+        <Button
+          variant={variants.TRANSPARENT}
+          icon={ReloadIcon}
+          onClick={handleReloader}
+          className={`${styles["reload-btn"]}`}
+        />
+
         <span className={styles["current-value"]}>
-          ~ ${formatAmount(price * (balance / 1e6))}
+          ${formatAmount(price * (balance / 1e6))}
         </span>
       </section>
     </Card>

@@ -11,7 +11,7 @@ const QRCodeCard = () => {
   const dispatch = useDispatch();
   const walletAddress = useSelector((state) => state.device.walletAddress);
   return (
-    <Card className={styles.root} variant={variants.SECONDARY}>
+    <Card className={styles.root} variant={variants.PRIMARY}>
       <section className={styles["wallet-address"]}>
         <span className={styles.title}>Wallet Address</span>
         <span className={styles.address}>{walletAddress}</span>

@@ -17,8 +17,10 @@ const CountriesList = () => {
   const [filtered, setFiltered] = React.useState([]);
 
   React.useEffect(() => {
-    dispatch(withSingleDispatcherLoader(dispatchGetAvailableCountries()));
-  }, [protocols, dispatch]);
+    if (filtered && filtered.length === 0) {
+      dispatch(withSingleDispatcherLoader(dispatchGetAvailableCountries()));
+    }
+  }, [protocols, dispatch, filtered]);
 
   React.useEffect(() => {
     if (searchText && searchText.length > 0) {

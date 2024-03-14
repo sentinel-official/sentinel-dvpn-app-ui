@@ -4,6 +4,7 @@ import BalanceCard from "../../containers/Account/BalanceCard";
 import QRCodeCard from "../../containers/Account/QRCodeCard";
 import Button, { variants } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
+import SubscriptionsCard from "../../containers/Account/SubscriptionsCard";
 
 const HowToDeposit = () => {
   return (
@@ -25,6 +26,7 @@ const Account = () => {
   return (
     <div className={styles.root}>
       <span className={styles.header}>Account</span>
+      <SubscriptionsCard />
       <BalanceCard />
       <QRCodeCard />
       <Button

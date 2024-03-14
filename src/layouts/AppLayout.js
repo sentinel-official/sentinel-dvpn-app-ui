@@ -15,6 +15,8 @@ import {
 import { dispatchGetVPNStatus } from "../actions/vpn.actions";
 import { dispatchGetAvailableDNS } from "../actions/settings.action";
 import { CHANGE_IS_HOME_LOADED } from "../redux/reducers/home.reducer";
+import Modal from "../containers/Modal";
+import { dispatchGetAvailableCountries } from "../actions/nodes.action";
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,7 @@ const AppLayout = () => {
     (state) => state.device
   );
 
+  const { modal } = useSelector((state) => state.alerts);
   const { isHomeLoaded } = useSelector((state) => state.home);
 
   React.useEffect(() => {
@@ -36,6 +39,7 @@ const AppLayout = () => {
           dispatchGetUserSubscriptions(),
           dispatchGetAvailableDNS(),
           dispatchGetIPAddress(),
+          dispatchGetAvailableCountries(),
           CHANGE_IS_HOME_LOADED(),
         ])
       );
@@ -47,14 +51,17 @@ const AppLayout = () => {
   }
 
   return (
-    <div className={styles.root}>
-      <section className={styles.outlet}>
-        <Outlet />
-      </section>
-      <section className={styles.nav}>
-        <BottomTabs />
-      </section>
-    </div>
+    <>
+      <div className={styles.root}>
+        <section className={styles.outlet}>
+          <Outlet />
+        </section>
+        <section className={styles.nav}>
+          <BottomTabs />
+        </section>
+      </div>
+      {modal.show && <Modal type={modal.type} />}
+    </>
   );
 };
 

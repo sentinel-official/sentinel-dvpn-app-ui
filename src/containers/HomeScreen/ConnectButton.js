@@ -6,15 +6,84 @@ import { withLoader } from "../../actions/loader.action";
 import { connectAction, disconnectAction } from "../../actions/vpn.actions";
 import styles from "./connect-button.module.scss";
 import { useNavigate } from "react-router-dom";
-import { CHANGE_MODAL_STATE } from "../../redux/reducers/alerts.reducer";
+import {
+  CHANGE_ERROR_ALERT,
+  CHANGE_MODAL_STATE,
+} from "../../redux/reducers/alerts.reducer";
+import {
+  getCitiesByCountry,
+  getRandomNode,
+  getServersByCityAndCountryId,
+} from "../../helpers/filterServers";
+import {
+  dispatchGetAvailableCities,
+  dispatchGetAvailableNodes,
+} from "../../actions/nodes.action";
 const ConnectButton = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const node = useSelector((state) => state.device.selectedNode);
   const isVPNConnected = useSelector((state) => state.device.isVPNConnected);
   const { balance, subscription } = useSelector((state) => state.home);
+  const countries = useSelector((state) => state.nodes.countries);
+  const cities = useSelector((state) => state.nodes.cities.all);
+  const nodes = useSelector((state) => state.nodes.servers.all);
 
-  const handleConnect = () => {
+  const getServers = async () => {
+    try {
+      if (countries && countries.length > 0) {
+        let currentCountry;
+        let currentCity;
+
+        currentCountry = getRandomNode(countries);
+
+        const localCities = getCitiesByCountry(currentCountry, cities);
+
+        if (localCities && localCities.length > 0) {
+          currentCity = getRandomNode(localCities);
+        } else {
+          const { payload } = await dispatch(
+            dispatchGetAvailableCities(currentCountry)
+          );
+          currentCity = getRandomNode(payload.current);
+        }
+
+        const servers = getServersByCityAndCountryId(
+          currentCity.id,
+          currentCountry.id,
+          nodes
+        );
+
+        if (servers && servers.length > 0) {
+          return servers;
+        } else {
+          const { payload } = await dispatch(
+            dispatchGetAvailableNodes(currentCity)
+          );
+
+          return payload.current;
+        }
+      } else {
+        dispatch(
+          CHANGE_ERROR_ALERT({
+            show: true,
+            message: `No Countries available`,
+          })
+        );
+        return [];
+      }
+    } catch (e) {
+      dispatch(
+        CHANGE_ERROR_ALERT({
+          show: true,
+          message: `Failed to fetch a server`,
+        })
+      );
+      return [];
+    }
+  };
+
+  const handleConnect = async () => {
     if (!balance) {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
       return;
@@ -23,7 +92,23 @@ const ConnectButton = () => {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
       return;
     }
-    dispatch(withLoader([connectAction(node)]));
+    if (node && node.address) {
+      dispatch(withLoader([connectAction(node)]));
+      return;
+    }
+    let list = await getServers();
+
+    if (list && list.length > 0) {
+      const node = getRandomNode(list);
+
+      const dispatched = dispatch(connectAction(node));
+
+      try {
+        await dispatched;
+      } catch (e) {
+        console.length("CONSOLE FAILED TO CONNECT");
+      }
+    }
   };
 
   const handleDisconnect = () => {
@@ -52,10 +137,10 @@ const ConnectButton = () => {
   return (
     <Button
       onClick={handleConnect}
-      disabled={!(node && node.address)}
+      disabled={countries && countries.length === 0}
       icon={QuickConnectIcon}
       variant={variants.PRIMARY}
-      title={"CONNECT"}
+      title={"Quick Connect"}
     />
   );
 };

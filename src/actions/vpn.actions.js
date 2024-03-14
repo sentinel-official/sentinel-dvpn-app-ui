@@ -20,6 +20,12 @@ export const dispatchGetVPNStatus = createAsyncThunk(
   "GET_VPN_STATUS",
   async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
+      dispatch(
+        CHANGE_LOADER_STATE({
+          show: true,
+          message: "Fetching VPN connection status...",
+        })
+      );
       const response = await vpnServices.getStatus();
       return fulfillWithValue(response.isConnected);
     } catch (e) {
