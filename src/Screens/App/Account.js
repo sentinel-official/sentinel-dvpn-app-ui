@@ -31,7 +31,7 @@ const Account = () => {
       <QRCodeCard />
       <Button
         onClick={() => {
-          navigate("/app/private-key");
+          navigate("/private-key");
         }}
         className={styles["copy-mnemonic"]}
         title={"Show Mnemonic"}

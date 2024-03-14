@@ -7,7 +7,6 @@ import Button, { variants } from "../../components/Button";
 const Start = () => {
   const navigate = useNavigate();
 
-
   return (
     <div className={styles.root}>
       <section className={styles.top}>
@@ -31,7 +30,7 @@ const Start = () => {
           title={"Continue"}
           className={styles["continue-btn"]}
           onClick={() => {
-            navigate("/onboarding/create");
+            navigate("/create", { replace: true });
           }}
         />
         <section className={styles.login}>
@@ -39,7 +38,7 @@ const Start = () => {
           <button
             className={styles["login-btn"]}
             onClick={() => {
-              navigate("/onboarding/import");
+              navigate("/import", { replace: true });
             }}
           >
             Login

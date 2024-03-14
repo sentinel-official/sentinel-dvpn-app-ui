@@ -3,7 +3,7 @@ import styles from "./import.module.scss";
 import Button, { variants } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { withLoader } from "../../actions/loader.action";
+import { withSingleDispatcherLoader } from "../../actions/loader.action";
 import { createWalletWithMnemonic } from "../../actions/onboarding.action";
 const Import = () => {
   const navigate = useNavigate();
@@ -33,9 +33,21 @@ const Import = () => {
           title={"Log in"}
           disabled={!isValidMnemonic}
           className={styles["primary-btn"]}
-          onClick={() =>
-            dispatch(withLoader([createWalletWithMnemonic(mnemonic)]))
-          }
+          onClick={async (event) => {
+            event.preventDefault();
+            const { payload } = await dispatch(
+              withSingleDispatcherLoader(createWalletWithMnemonic(mnemonic))
+            );
+            if (
+              payload &&
+              payload.error &&
+              payload.error.message &&
+              payload.error.message === "Rejected"
+            ) {
+              return;
+            }
+            navigate("/", { replace: true });
+          }}
         />
         <section className={styles.signup}>
           <span className={styles["signup-text"]}>
@@ -44,7 +56,7 @@ const Import = () => {
           <button
             className={styles["signup-btn"]}
             onClick={() => {
-              navigate("/onboarding/create");
+              navigate("/create");
             }}
           >
             Sign up

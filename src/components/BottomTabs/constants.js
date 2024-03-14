@@ -7,21 +7,21 @@ export const tabs = [
   {
     icon: HomeIcon,
     title: "Home",
-    href: "/app",
+    href: "/",
   },
   {
     icon: NodesIcon,
     title: "Nodes",
-    href: "/app/countries",
+    href: "/countries",
   },
   {
     icon: AccountIcon,
     title: "Account",
-    href: "/app/account",
+    href: "/account",
   },
   {
     icon: SettingsIcon,
     title: "Settings",
-    href: "/app/settings",
+    href: "/settings",
   },
 ];

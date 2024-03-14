@@ -26,7 +26,7 @@ const NoBalanceModal = () => {
         className={styles["ok-btn"]}
         onClick={() => {
           dispatch(CHANGE_MODAL_STATE({ show: false, type: "" }));
-          navigate("/app/account");
+          navigate("/account");
         }}
         title={"Add Balance"}
       />

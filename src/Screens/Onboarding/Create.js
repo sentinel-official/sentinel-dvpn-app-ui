@@ -9,7 +9,7 @@ import {
   CHANGE_LOADER_STATE,
   CHANGE_SUCCESS_ALERT,
 } from "../../redux/reducers/alerts.reducer";
-import { withLoader } from "../../actions/loader.action";
+import { withSingleDispatcherLoader } from "../../actions/loader.action";
 import { createWalletWithMnemonic } from "../../actions/onboarding.action";
 import blockchainServices from "../../services/blockchain.services";
 
@@ -101,16 +101,30 @@ const Create = () => {
           variant={`${revealed ? variants.PRIMARY : variants.SECONDARY}`}
           title={"Create account"}
           className={styles["secondary-btn"]}
-          onClick={() =>
-            dispatch(withLoader([createWalletWithMnemonic(mnemonic.join(" "))]))
-          }
+          onClick={async (event) => {
+            event.preventDefault();
+            const { payload } = await dispatch(
+              withSingleDispatcherLoader(
+                createWalletWithMnemonic(mnemonic.join(" "))
+              )
+            );
+            if (
+              payload &&
+              payload.error &&
+              payload.error.message &&
+              payload.error.message === "Rejected"
+            ) {
+              return;
+            }
+            navigate("/", { replace: true });
+          }}
         />
         <section className={styles.login}>
           <span className={styles["login-text"]}>Already have an account?</span>
           <button
             className={styles["login-btn"]}
             onClick={() => {
-              navigate("/onboarding/import");
+              navigate("/import");
             }}
           >
             Login

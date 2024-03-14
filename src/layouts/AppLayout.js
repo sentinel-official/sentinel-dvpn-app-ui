@@ -47,7 +47,7 @@ const AppLayout = () => {
   }, [dispatch, isHomeLoaded]);
 
   if (!(isRegistered && isWalletCreated)) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace={true} />;
   }
 
   return (
