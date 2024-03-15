@@ -27,6 +27,7 @@ export const dispatchGetVPNStatus = createAsyncThunk(
         })
       );
       const response = await vpnServices.getStatus();
+      console.log("CONSOLE ", JSON.stringify(response, null, 4));
       return fulfillWithValue(response.isConnected);
     } catch (e) {
       dispatch(

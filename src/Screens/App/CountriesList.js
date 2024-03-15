@@ -15,18 +15,11 @@ const CountriesList = () => {
   const searchText = useSelector((state) => state.nodes.searchText);
   const protocols = useSelector((state) => state.device.protocols);
   const [filtered, setFiltered] = React.useState([]);
-  const [attempts, setAttempts] = React.useState(0);
 
   React.useEffect(() => {
-    if (filtered && filtered.length === 0 && attempts === 0) {
-      dispatch(withSingleDispatcherLoader(dispatchGetAvailableCountries()));
-    }
-    if (attempts === 0) {
-      setAttempts(1);
-      return;
-    }
+    dispatch(withSingleDispatcherLoader(dispatchGetAvailableCountries()));
     return;
-  }, [protocols, dispatch, filtered, attempts]);
+  }, [protocols, dispatch]);
 
   React.useEffect(() => {
     if (searchText && searchText.length > 0) {
