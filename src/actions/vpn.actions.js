@@ -85,6 +85,10 @@ export const connectAction = createAsyncThunk(
         walletAddress,
       });
 
+      if (isCreated && isCreated === 500) {
+        throw new Error({ msg: "Failed to Create Session" });
+      }
+
       if (isCreated) {
         const session = await getSession(walletAddress);
         if (session) {

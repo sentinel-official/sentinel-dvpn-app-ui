@@ -51,6 +51,8 @@ const blockchainServices = {
       .catch((error) => {
         if (error.response.status === 404) {
           return null;
+        } else if (error.response.status === 500) {
+          return 500;
         } else {
           throw new Error({ msg: "Failed to Create Session" });
         }

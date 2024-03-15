@@ -4,6 +4,9 @@ import vpnServices from "../services/vpn.services";
 export const getSession = async (walletAddress) => {
   try {
     const session = await blockchainServices.getSession(walletAddress);
+    if (session && session === 500) {
+      return 500;
+    }
     return session;
   } catch (e) {
     return null;
@@ -20,6 +23,9 @@ const getSessionId = (sessionGot) => {
 export const createSession = async ({ node, subscription, walletAddress }) => {
   try {
     const sessionGot = await getSession(walletAddress);
+    if (sessionGot && sessionGot === 500) {
+      return 500;
+    }
     const payload = {
       activeSession: getSessionId(sessionGot, node, subscription),
       subscriptionID: Number.parseInt(subscription.id),
