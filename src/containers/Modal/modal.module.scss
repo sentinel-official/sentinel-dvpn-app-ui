@@ -16,6 +16,14 @@
   height: 100vh;
   overflow: hidden;
   padding: 0 16px;
+  .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    height: 100%;
+    width: 100%;
+  }
   .container {
     display: flex;
     flex-direction: column;
@@ -33,5 +41,6 @@
       0px 0px 24px 0px rgba(1, 86, 252, 0.25),
       0px 0px 32px 0px rgba(1, 86, 252, 0.25),
       0px 0px 8px 0px rgba(1, 86, 252, 0.25);
+    z-index: inherit;
   }
 }
