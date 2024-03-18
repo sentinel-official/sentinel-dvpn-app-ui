@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import BottomTabs from "../components/BottomTabs";
+import Modal from "../containers/Modal";
 import styles from "./app-layout.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { withLoader } from "../actions/loader.action";
@@ -15,7 +16,6 @@ import {
 import { dispatchGetVPNStatus } from "../actions/vpn.actions";
 import { dispatchGetAvailableDNS } from "../actions/settings.action";
 import { CHANGE_IS_HOME_LOADED } from "../redux/reducers/home.reducer";
-import Modal from "../containers/Modal";
 import { dispatchGetAvailableCountries } from "../actions/nodes.action";
 
 const AppLayout = () => {
@@ -60,7 +60,7 @@ const AppLayout = () => {
           <BottomTabs />
         </section>
       </div>
-      {modal.show && <Modal type={modal.type} />}
+      <Modal type={modal.type} show={modal.show} />
     </>
   );
 };
