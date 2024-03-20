@@ -5,6 +5,7 @@ import Button, { variants } from "../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_MODAL_STATE } from "../../redux/reducers/alerts.reducer";
 import { useNavigate } from "react-router-dom";
+import { formatAmount } from "../../helpers/data.format";
 
 const NoBalanceModal = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,9 @@ const NoBalanceModal = () => {
       </span>
       <section className={styles.balance}>
         <img src={BalanceIcon} alt="" />
-        <span className={styles.amount}>{balance} DVPN</span>
+        <span className={styles.amount}>
+          {`${formatAmount(balance / 1e6)} DVPN`}
+        </span>
       </section>
       <Button
         variant={variants.PRIMARY}

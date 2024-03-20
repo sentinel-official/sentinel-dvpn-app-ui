@@ -17,6 +17,8 @@ import {
 const RenewSubscriptionModal = () => {
   const dispatch = useDispatch();
   const plan = useSelector((state) => state.home.plan);
+  const { balance } = useSelector((state) => state.home);
+
   const [price, setPrice] = React.useState(0.0);
 
   React.useEffect(() => {
@@ -27,6 +29,10 @@ const RenewSubscriptionModal = () => {
   }, [dispatch, plan]);
 
   const handleRenewSubcription = async () => {
+    if (balance < plan.amount) {
+      dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+      return;
+    }
     try {
       const payload = {
         denom: "udvpn",
@@ -36,13 +42,13 @@ const RenewSubscriptionModal = () => {
         withLoader([
           CHANGE_MODAL_STATE({ show: false, type: "" }),
           dispatchSubscribeToPlan(payload),
+          dispatchGetUserSubscriptions(),
           dispatch(
             CHANGE_SUCCESS_ALERT({
               show: true,
               message: "You have subscribed successfully!",
             })
           ),
-          dispatchGetUserSubscriptions(),
         ])
       );
     } catch (e) {
