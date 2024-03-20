@@ -11,12 +11,14 @@ import Card from "../../components/Card";
 import styles from "./home.module.scss";
 import { useSelector } from "react-redux";
 
+const map = <Map />;
+
 const Home = () => {
   const isVPNConnected = useSelector((state) => state.device.isVPNConnected);
 
   return (
     <div className={styles.root}>
-      <Map />
+      {map}
       <div className={styles.overlay}>
         <section className={styles.top}>
           <BalanceCard />

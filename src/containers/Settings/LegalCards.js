@@ -65,8 +65,10 @@ const LegalCards = () => {
                   handleExternalLinkModal({ link: doc.href, title: doc.title })
                 }
               >
-                <img src={doc.icon} alt="" />
-                <span>{doc.title}</span>
+                <section>
+                  <img src={doc.icon} alt="" />
+                  <span>{doc.title}</span>
+                </section>
               </button>
             </Card>
           );

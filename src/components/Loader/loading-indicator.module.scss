@@ -3,6 +3,8 @@
   position: relative;
   width: 80px;
   height: 80px;
+  pointer-events: none;
+  touch-action: none;
 }
 
 .lds-ripple div {
@@ -11,10 +13,14 @@
   opacity: 1;
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  pointer-events: none;
+  touch-action: none;
 }
 
 .lds-ripple div:nth-child(2) {
   animation-delay: -0.5s;
+  pointer-events: none;
+  touch-action: none;
 }
 
 @keyframes lds-ripple {

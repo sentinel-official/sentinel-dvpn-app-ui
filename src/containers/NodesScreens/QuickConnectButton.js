@@ -24,7 +24,6 @@ const QuickConnectButton = () => {
   const dispatch = useDispatch();
   const { balance, subscription } = useSelector((state) => state.home);
   const { country, city } = useSelector((state) => state.nodes.selected);
-
   const countries = useSelector((state) => state.nodes.countries);
   const cities = useSelector((state) => state.nodes.cities.all);
   const nodes = useSelector((state) => state.nodes.servers.all);

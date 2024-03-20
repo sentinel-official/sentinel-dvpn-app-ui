@@ -1,7 +1,9 @@
 .root {
+  pointer-events: none !important;
+  touch-action: none !important;
   position: fixed;
   display: flex;
-  z-index: 9999;
+  z-index: 9998;
   top: 0;
   bottom: 0;
   right: 0;
@@ -15,10 +17,14 @@
   &.blocking {
     bottom: 0 !important;
     z-index: 1001 !important;
+    pointer-events: none;
+    touch-action: none;
   }
 
   &.hidden {
     display: none !important;
+    pointer-events: none;
+    touch-action: none;
   }
 
   span {
@@ -26,5 +32,7 @@
     font-size: 14px;
     color: #9cabc9;
     margin-top: 16px;
+    pointer-events: none;
+    touch-action: none;
   }
 }

@@ -63,7 +63,11 @@ const Map = () => {
         longitude: longitude,
         zoom: zoom,
       }}
-      style={{ width: "100%", height: `${window.innerHeight - 80}px` }}
+      style={{
+        width: window.innerWidth,
+        height: `${window.innerHeight - 80}px`,
+        overflow: "hidden",
+      }}
       cursor="default"
       zoom={zoom}
       mapboxAccessToken={REACT_APP_MAPBOX_ACCESS_TOKEN}

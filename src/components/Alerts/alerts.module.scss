@@ -6,7 +6,7 @@
   right: 0;
   box-sizing: border-box;
   padding: 16px;
-  z-index: 2000;
+  z-index: 9999 !important;
   background-color: #097969;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
