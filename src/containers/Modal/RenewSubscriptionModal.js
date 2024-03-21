@@ -8,8 +8,12 @@ import {
   CHANGE_MODAL_STATE,
   CHANGE_SUCCESS_ALERT,
 } from "../../redux/reducers/alerts.reducer";
-import { withLoader } from "../../actions/loader.action";
 import {
+  withLoader,
+  withSingleDispatcherLoader,
+} from "../../actions/loader.action";
+import {
+  dispatchGetAvailablePlans,
   dispatchGetUserSubscriptions,
   dispatchSubscribeToPlan,
 } from "../../actions/home.actions";
@@ -22,9 +26,27 @@ const RenewSubscriptionModal = () => {
   const [price, setPrice] = React.useState(0.0);
 
   React.useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        await dispatch(withSingleDispatcherLoader(dispatchGetAvailablePlans()));
+        if (plan && plan.amount === 0) {
+          dispatch(CHANGE_MODAL_STATE({ show: false, type: "" }));
+          dispatch(
+            CHANGE_ERROR_ALERT({ show: true, message: "No Plans available" })
+          );
+        }
+      } catch (e) {
+        dispatch(CHANGE_MODAL_STATE({ show: false, type: "" }));
+        dispatch(
+          CHANGE_ERROR_ALERT({ show: true, message: "Failed to fetch Plans" })
+        );
+      }
+    };
     if (plan && plan.providerAddress) {
       const amount = Number.parseFloat(Number.parseInt(plan.amount) / 1e6);
       setPrice(amount);
+    } else {
+      fetchPlans();
     }
   }, [dispatch, plan]);
 
