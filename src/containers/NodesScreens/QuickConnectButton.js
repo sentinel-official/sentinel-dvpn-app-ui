@@ -86,11 +86,17 @@ const QuickConnectButton = () => {
   };
 
   const connect = async () => {
-    if (balance <= plan.amount) {
-      dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
-      return;
+    if (plan.amount === 0) {
+      if (balance <= 15000) {
+        dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+        return;
+      }
+    } else {
+      if (balance <= plan.amount) {
+        dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+        return;
+      }
     }
-
     if (!subscription || Object.values(subscription).length === 0) {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
       return;
