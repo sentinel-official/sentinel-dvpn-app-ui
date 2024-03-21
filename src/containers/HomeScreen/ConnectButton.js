@@ -24,11 +24,10 @@ const ConnectButton = () => {
   const dispatch = useDispatch();
   const node = useSelector((state) => state.device.selectedNode);
   const isVPNConnected = useSelector((state) => state.device.isVPNConnected);
-  const { balance, subscription } = useSelector((state) => state.home);
+  const { balance, subscription, plan } = useSelector((state) => state.home);
   const countries = useSelector((state) => state.nodes.countries);
   const cities = useSelector((state) => state.nodes.cities.all);
   const nodes = useSelector((state) => state.nodes.servers.all);
-
   const getServers = async () => {
     try {
       if (countries && countries.length > 0) {
@@ -84,7 +83,7 @@ const ConnectButton = () => {
   };
 
   const handleConnect = async () => {
-    if (!balance) {
+    if (balance <= plan.amount) {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
       return;
     }

@@ -27,7 +27,7 @@ const CityQuickConnect = ({ country }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const nodes = useSelector((state) => state.nodes.servers.all);
-  const { balance, subscription } = useSelector((state) => state.home);
+  const { balance, subscription, plan } = useSelector((state) => state.home);
   const [servers, setServers] = React.useState([]);
 
   React.useEffect(() => {
@@ -37,7 +37,7 @@ const CityQuickConnect = ({ country }) => {
   }, [country, nodes]);
 
   const connect = async () => {
-    if (!balance) {
+    if (balance <= plan.amount) {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
       return;
     }

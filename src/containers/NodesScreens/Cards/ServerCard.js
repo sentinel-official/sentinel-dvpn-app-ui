@@ -9,10 +9,10 @@ import { CHANGE_MODAL_STATE } from "../../../redux/reducers/alerts.reducer";
 const ServerCard = ({ server }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { balance, subscription } = useSelector((state) => state.home);
+  const { balance, subscription, plan } = useSelector((state) => state.home);
 
   const connect = async (node) => {
-    if (!balance) {
+    if (balance <= plan.amount) {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
       return;
     }

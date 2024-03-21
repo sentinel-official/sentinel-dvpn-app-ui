@@ -22,7 +22,7 @@ import {
 const QuickConnectButton = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { balance, subscription } = useSelector((state) => state.home);
+  const { balance, subscription, plan } = useSelector((state) => state.home);
   const { country, city } = useSelector((state) => state.nodes.selected);
   const countries = useSelector((state) => state.nodes.countries);
   const cities = useSelector((state) => state.nodes.cities.all);
@@ -86,7 +86,7 @@ const QuickConnectButton = () => {
   };
 
   const connect = async () => {
-    if (!balance) {
+    if (balance <= plan.amount) {
       dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
       return;
     }
