@@ -11,12 +11,12 @@ const legalDocs = [
   {
     title: "Terms of Service",
     icon: LegalDocIcon,
-    href: "https://www.sentinel.co/terms-of-service.html",
+    href: "https://www.sentinel.co/terms-of-service",
   },
   {
     title: "Privacy Policy",
     icon: LegalDocIcon,
-    href: "https://www.sentinel.co/privacy-policy.html",
+    href: "https://www.sentinel.co/privacy-policy",
   },
 ];
 
