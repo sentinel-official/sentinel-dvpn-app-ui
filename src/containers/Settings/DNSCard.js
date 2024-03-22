@@ -5,6 +5,7 @@ import DNSIcon from "../../assets/icons/dns-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { capitalizeFirstLetter } from "../../helpers/capitalizeFirstLetter";
 import { CHANGE_MODAL_STATE } from "../../redux/reducers/alerts.reducer";
+import { MODAL_VARIANTS } from "../Modal/modal-types";
 
 const DNSCard = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,13 @@ const DNSCard = () => {
           disabled={!(current && current.name)}
           className={styles.dns}
           onClick={() => {
-            dispatch(CHANGE_MODAL_STATE({ show: true, type: "dns" }));
+            dispatch(
+              CHANGE_MODAL_STATE({
+                show: true,
+                type: "dns",
+                variant: MODAL_VARIANTS.SECONDARY,
+              })
+            );
           }}
         >
           <section>

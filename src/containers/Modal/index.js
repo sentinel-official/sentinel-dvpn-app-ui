@@ -1,11 +1,11 @@
 import React from "react";
-import types from "./modal-types";
+import types, { MODAL_VARIANTS } from "./modal-types";
 import styles from "./modal.module.scss";
 import { useDispatch } from "react-redux";
 import { CHANGE_MODAL_STATE } from "../../redux/reducers/alerts.reducer";
 import { useLocation } from "react-router-dom";
 
-const Modal = ({ show, type, ...rest }) => {
+const Modal = ({ show, type, variant = MODAL_VARIANTS.PRIMARY, ...rest }) => {
   const Component = types[type];
   const dispatch = useDispatch();
   const location = useLocation();
@@ -25,15 +25,15 @@ const Modal = ({ show, type, ...rest }) => {
 
   if (show) {
     return (
-      <div className={styles.root}>
+      <div className={styles[variant]}>
         <div
-          className={styles["modal-backdrop"]}
+          className={styles[`${variant}-modal-backdrop`]}
           onClick={() =>
             dispatch(CHANGE_MODAL_STATE({ show: false, type: null }))
           }
-        ></div>
+        />
 
-        <div className={styles.container}>
+        <div className={styles[`${variant}-container`]}>
           <Component {...rest} />
         </div>
       </div>

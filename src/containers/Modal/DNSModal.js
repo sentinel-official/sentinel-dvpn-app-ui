@@ -2,11 +2,11 @@ import React from "react";
 import styles from "./dns.module.scss";
 import { CHANGE_MODAL_STATE } from "../../redux/reducers/alerts.reducer";
 import { useDispatch, useSelector } from "react-redux";
-import RadioButton from "../../components/RadioButton";
-import Button, { variants } from "../../components/Button";
 import { capitalizeFirstLetter } from "../../helpers/capitalizeFirstLetter";
 import { dispatchPutSelectedDNS } from "../../actions/settings.action";
 import { withLoader } from "../../actions/loader.action";
+import CheckIcon from "../../assets/icons/check-icon.svg";
+
 const DNSModal = () => {
   const dispatch = useDispatch();
   const available = useSelector((state) => state.dns.available);
@@ -30,24 +30,26 @@ const DNSModal = () => {
           available.map((dns) => {
             const isChecked = dns.name === current.name;
             return (
-              <RadioButton
+              <button
                 className={styles["dns-item"]}
-                value={capitalizeFirstLetter(dns.name)}
-                isChecked={isChecked}
-                onChange={() => handleOnChangeDNS(dns)}
-                key={dns.name}
-              />
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  handleOnChangeDNS(dns);
+                }}
+              >
+                <span
+                  className={`${
+                    isChecked ? styles["text-selected"] : styles.text
+                  }`}
+                >
+                  {capitalizeFirstLetter(dns.name)}
+                </span>
+                {isChecked && <img src={CheckIcon} alt="" />}
+              </button>
             );
           })}
       </section>
-      <Button
-        title={"OK"}
-        variant={variants.PRIMARY}
-        className={styles["ok-btn"]}
-        onClick={() => {
-          dispatch(CHANGE_MODAL_STATE({ show: false, type: null }));
-        }}
-      />
     </div>
   );
 };

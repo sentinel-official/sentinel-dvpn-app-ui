@@ -4,6 +4,7 @@ import {
   withSingleDispatcherLoader,
 } from "../../actions/loader.action";
 import { connectAction } from "../../actions/vpn.actions";
+import { MODAL_VARIANTS } from "../../containers/Modal/modal-types";
 
 const initialState = {
   success: {
@@ -21,6 +22,7 @@ const initialState = {
   modal: {
     show: false,
     type: null,
+    variant: MODAL_VARIANTS.PRIMARY,
   },
 };
 

@@ -10,4 +10,9 @@ const types = {
   dns: DNSModal,
 };
 
+export const MODAL_VARIANTS = {
+  PRIMARY: "primary",
+  SECONDARY: "secondary",
+};
+
 export default types;

@@ -60,7 +60,7 @@ const AppLayout = () => {
           <BottomTabs />
         </section>
       </div>
-      <Modal type={modal.type} show={modal.show} />
+      <Modal type={modal.type} show={modal.show} variant={modal.variant} />
     </>
   );
 };

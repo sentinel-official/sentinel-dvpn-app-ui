@@ -19,6 +19,7 @@ import {
   dispatchGetAvailableCities,
   dispatchGetAvailableNodes,
 } from "../../actions/nodes.action";
+import { MODAL_VARIANTS } from "../Modal/modal-types";
 const ConnectButton = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -85,18 +86,36 @@ const ConnectButton = () => {
   const handleConnect = async () => {
     if (plan.amount === 0) {
       if (balance <= 15000) {
-        dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+        dispatch(
+          CHANGE_MODAL_STATE({
+            show: true,
+            type: "no-balance",
+            variant: MODAL_VARIANTS.PRIMARY,
+          })
+        );
         return;
       }
     } else {
       if (balance <= plan.amount) {
-        dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+        dispatch(
+          CHANGE_MODAL_STATE({
+            show: true,
+            type: "no-balance",
+            variant: MODAL_VARIANTS.PRIMARY,
+          })
+        );
         return;
       }
     }
 
     if (!subscription || Object.values(subscription).length === 0) {
-      dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
+      dispatch(
+        CHANGE_MODAL_STATE({
+          show: true,
+          type: "renew-subscription",
+          variant: MODAL_VARIANTS.PRIMARY,
+        })
+      );
       return;
     }
     if (node && node.address) {

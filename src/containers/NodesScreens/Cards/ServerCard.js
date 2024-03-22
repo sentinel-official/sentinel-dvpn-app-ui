@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { connectAction } from "../../../actions/vpn.actions";
 import { useNavigate } from "react-router-dom";
 import { CHANGE_MODAL_STATE } from "../../../redux/reducers/alerts.reducer";
+import { MODAL_VARIANTS } from "../../Modal/modal-types";
 
 const ServerCard = ({ server }) => {
   const dispatch = useDispatch();
@@ -14,18 +15,36 @@ const ServerCard = ({ server }) => {
   const connect = async (node) => {
     if (plan.amount === 0) {
       if (balance <= 15000) {
-        dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+        dispatch(
+          CHANGE_MODAL_STATE({
+            show: true,
+            type: "no-balance",
+            variant: MODAL_VARIANTS.PRIMARY,
+          })
+        );
         return;
       }
     } else {
       if (balance <= plan.amount) {
-        dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+        dispatch(
+          CHANGE_MODAL_STATE({
+            show: true,
+            type: "no-balance",
+            variant: MODAL_VARIANTS.PRIMARY,
+          })
+        );
         return;
       }
     }
 
     if (!subscription || Object.values(subscription).length === 0) {
-      dispatch(CHANGE_MODAL_STATE({ show: true, type: "renew-subscription" }));
+      dispatch(
+        CHANGE_MODAL_STATE({
+          show: true,
+          type: "renew-subscription",
+          variant: MODAL_VARIANTS.PRIMARY,
+        })
+      );
       return;
     }
     const dispatched = dispatch(connectAction(node));

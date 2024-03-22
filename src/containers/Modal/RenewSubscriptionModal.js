@@ -17,6 +17,7 @@ import {
   dispatchGetUserSubscriptions,
   dispatchSubscribeToPlan,
 } from "../../actions/home.actions";
+import { MODAL_VARIANTS } from "./modal-types";
 
 const RenewSubscriptionModal = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,13 @@ const RenewSubscriptionModal = () => {
 
   const handleRenewSubcription = async () => {
     if (balance < plan.amount) {
-      dispatch(CHANGE_MODAL_STATE({ show: true, type: "no-balance" }));
+      dispatch(
+        CHANGE_MODAL_STATE({
+          show: true,
+          type: "no-balance",
+          variant: MODAL_VARIANTS.PRIMARY,
+        })
+      );
       return;
     }
     try {
