@@ -9,7 +9,6 @@ const read = readline.createInterface({
 read.question(
   "Select a version type: patch | minor | major: ",
   async (type) => {
-    console.log("type: ", type);
     if (type && ["patch", "minor", "major"].includes(type)) {
       await exec(`yarn version --${type}`);
       await exec(`git add .`);
