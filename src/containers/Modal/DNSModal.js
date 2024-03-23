@@ -31,6 +31,7 @@ const DNSModal = () => {
             const isChecked = dns.name === current.name;
             return (
               <button
+                key={dns.name}
                 className={styles["dns-item"]}
                 onClick={(event) => {
                   event.preventDefault();
