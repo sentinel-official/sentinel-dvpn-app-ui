@@ -31,10 +31,24 @@ export const createSession = async ({ node, subscription, walletAddress }) => {
       subscriptionID: Number.parseInt(subscription.id),
       node: node.address,
     };
-    await blockchainServices.postSession(walletAddress, payload);
-    return true;
+    const response = await blockchainServices.postSession(
+      walletAddress,
+      payload
+    );
+    if (response.code) {
+      if (response.code === 5) {
+        return {
+          success: false,
+          message: "Failed to Create a Session since insufficient balance",
+        };
+      }
+      if (response.code !== 0) {
+        return { success: false, message: "Failed to create a Session" };
+      }
+    }
+    return { success: true };
   } catch (e) {
-    return false;
+    return { success: false, message: "Failed to create a Session" };
   }
 };
 

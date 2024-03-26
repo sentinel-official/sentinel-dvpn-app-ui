@@ -133,13 +133,33 @@ export const dispatchSubscribeToPlan = createAsyncThunk(
           message: "Renewing your Subscription",
         })
       );
-      await blockchainServices.postSubscription(6, payload);
+      const response = await blockchainServices.postSubscription(6, payload);
+      if (response.code) {
+        if (response.code === 5) {
+          dispatch(
+            CHANGE_ERROR_ALERT({
+              show: true,
+              message: "Failed to subscribe due to insufficient balance",
+            })
+          );
+          return;
+        }
+        if (response.code !== 0) {
+          dispatch(
+            CHANGE_ERROR_ALERT({
+              show: true,
+              message: "Failed to subscribe",
+            })
+          );
+          return;
+        }
+      }
       return fulfillWithValue();
     } catch (e) {
       dispatch(
         CHANGE_ERROR_ALERT({
           show: true,
-          message: "Failed to Subscribe",
+          message: "Error while Subscribing",
         })
       );
       return rejectWithValue();

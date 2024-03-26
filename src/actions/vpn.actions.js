@@ -79,18 +79,21 @@ export const connectAction = createAsyncThunk(
       dispatch(
         CHANGE_LOADER_STATE({ show: true, message: "Creating a Session..." })
       );
-      const isCreated = await createSession({
+      const { success, message } = await createSession({
         node,
         subscription,
         walletAddress,
       });
 
-      if (isCreated && isCreated === 500) {
-        throw new Error({ msg: "Failed to Create a Session" });
+      if (!success) {
+        throw new Error({ msg: message });
       }
 
-      if (isCreated) {
+      if (success) {
         const session = await getSession(walletAddress);
+        if (session && session === 500) {
+          throw new Error({ msg: "Failed to Create a Session" });
+        }
         if (session) {
           dispatch(
             CHANGE_LOADER_STATE({
