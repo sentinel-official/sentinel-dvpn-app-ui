@@ -22,9 +22,9 @@ const PrivateKey = () => {
       <section className={styles.top}>
         <span className={styles.title}>Your unique private key</span>
         <span className={styles.description}>
-          Copy down this unique 24 word key somewhere safe. This key will be
-          needed to access your wallet incase you get logged out or need to use
-          your wallet outside this application.
+          Copy down this unique {mnemonic.split(" ").length} word key somewhere
+          safe. This key will be needed to access your wallet incase you get
+          logged out or need to use your wallet outside this application.
         </span>
       </section>
       <section className={styles.middle}>
