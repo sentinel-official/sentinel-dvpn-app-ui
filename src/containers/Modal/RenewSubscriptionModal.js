@@ -21,8 +21,7 @@ import { MODAL_VARIANTS } from "./modal-types";
 
 const RenewSubscriptionModal = () => {
   const dispatch = useDispatch();
-  const plan = useSelector((state) => state.home.plan);
-  const { balance } = useSelector((state) => state.home);
+  const { balance, subscription, plan } = useSelector((state) => state.home);
 
   const [price, setPrice] = React.useState(0.0);
 
@@ -67,18 +66,27 @@ const RenewSubscriptionModal = () => {
         denom: "udvpn",
         address: plan.providerAddress,
       };
-      dispatch(
+      await dispatch(
         withLoader([
           CHANGE_MODAL_STATE({ show: false, type: "" }),
           dispatchSubscribeToPlan(payload),
           dispatchGetUserSubscriptions(),
-          dispatch(
-            CHANGE_SUCCESS_ALERT({
-              show: true,
-              message: "You have subscribed successfully!",
-            })
-          ),
         ])
+      );
+      if (subscription && Object.values(subscription).length > 0) {
+        dispatch(
+          CHANGE_SUCCESS_ALERT({
+            show: true,
+            message: "You have subscribed successfully!",
+          })
+        );
+        return;
+      }
+      dispatch(
+        CHANGE_ERROR_ALERT({
+          show: true,
+          message: "Failed to Subscribe",
+        })
       );
     } catch (e) {
       dispatch(
