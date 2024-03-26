@@ -16,7 +16,7 @@ const NoBalanceModal = () => {
     <div className={styles["no-balance-modal"]}>
       <span className={styles.title}>No Balance</span>
       <span className={styles.description}>
-        You have no balance in your account!
+        You have insufficient balance in your account!
       </span>
       <section className={styles.balance}>
         <img src={BalanceIcon} alt="" />

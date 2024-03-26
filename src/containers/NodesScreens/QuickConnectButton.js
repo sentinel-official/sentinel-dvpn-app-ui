@@ -87,28 +87,15 @@ const QuickConnectButton = () => {
   };
 
   const connect = async () => {
-    if (plan.amount === 0) {
-      if (balance <= 150000) {
-        dispatch(
-          CHANGE_MODAL_STATE({
-            show: true,
-            type: "no-balance",
-            variant: MODAL_VARIANTS.PRIMARY,
-          })
-        );
-        return;
-      }
-    } else {
-      if (balance <= plan.amount) {
-        dispatch(
-          CHANGE_MODAL_STATE({
-            show: true,
-            type: "no-balance",
-            variant: MODAL_VARIANTS.PRIMARY,
-          })
-        );
-        return;
-      }
+    if (balance <= plan.amount || balance <= 150000) {
+      dispatch(
+        CHANGE_MODAL_STATE({
+          show: true,
+          type: "no-balance",
+          variant: MODAL_VARIANTS.PRIMARY,
+        })
+      );
+      return;
     }
     if (!subscription || Object.values(subscription).length === 0) {
       dispatch(
