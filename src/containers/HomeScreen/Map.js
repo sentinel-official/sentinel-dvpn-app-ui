@@ -27,9 +27,7 @@ const zoom = [7];
 
 const Map = () => {
   const mapRef = React.useRef();
-  const { latitude = 0.0, longitude = 0.0 } = useSelector(
-    (state) => state.home
-  );
+  const { latitude, longitude } = useSelector((state) => state.home);
 
   const handleFlyTo = (latitude, longitude) => {
     if (mapRef && mapRef?.current) {
@@ -47,9 +45,11 @@ const Map = () => {
   }, [longitude, latitude]);
 
   const onLoad = React.useCallback(() => {
-    const map = mapRef.current.getMap();
-    map.keyboard.disableRotation();
-    map.touchZoomRotate.disableRotation();
+    if (mapRef) {
+      const map = mapRef.current.getMap();
+      map.keyboard.disableRotation();
+      map.touchZoomRotate.disableRotation();
+    }
   }, []);
 
   return (
