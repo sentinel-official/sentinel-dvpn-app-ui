@@ -148,7 +148,7 @@ export const dispatchSubscribeToPlan = createAsyncThunk(
           dispatch(
             CHANGE_ERROR_ALERT({
               show: true,
-              message: "Failed to subscribe",
+              message: `Failed to subscribe [CODE: ${response.code}]`,
             })
           );
           return;

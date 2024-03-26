@@ -12,19 +12,19 @@ const Axios = axios.create({
 Axios.interceptors.response.use(
   (response) => {
     if (process.env.NODE_ENV === "development") {
-      console.log(
-        "CONSOLE RESPONSE",
-        JSON.stringify(
-          {
-            URL: response.request.responseURL,
-            METHOD: String(response.config.method).toUpperCase(),
-            STATUS: response.status,
-            DATA: response.data,
-          },
-          null,
-          2
-        )
-      );
+    console.log(
+      "CONSOLE RESPONSE",
+      JSON.stringify(
+        {
+          URL: response.request.responseURL,
+          METHOD: String(response.config.method).toUpperCase(),
+          STATUS: response.status,
+          DATA: response.data,
+        },
+        null,
+        2
+      )
+    );
     }
     return response;
   },
