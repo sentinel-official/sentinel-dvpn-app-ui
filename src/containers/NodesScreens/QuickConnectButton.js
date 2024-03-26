@@ -88,7 +88,7 @@ const QuickConnectButton = () => {
 
   const connect = async () => {
     if (plan.amount === 0) {
-      if (balance <= 15000) {
+      if (balance <= 150000) {
         dispatch(
           CHANGE_MODAL_STATE({
             show: true,

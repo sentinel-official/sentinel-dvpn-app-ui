@@ -54,7 +54,7 @@ export const disconnectAction = createAsyncThunk(
       dispatch(
         CHANGE_ERROR_ALERT({
           show: true,
-          message: "Failed to disconnect to VPN",
+          message: "Failed to disconnect from VPN",
         })
       );
       return rejectWithValue();
@@ -86,7 +86,7 @@ export const connectAction = createAsyncThunk(
       });
 
       if (isCreated && isCreated === 500) {
-        throw new Error({ msg: "Failed to Create Session" });
+        throw new Error({ msg: "Failed to Create a Session" });
       }
 
       if (isCreated) {
@@ -114,16 +114,16 @@ export const connectAction = createAsyncThunk(
             if (isConnected) {
               return fulfillWithValue({ isConnected, node });
             } else {
-              throw new Error({ msg: "Failed to connect to VPN" });
+              throw new Error({ msg: "Failed to connect the VPN" });
             }
           } else {
             throw new Error({ msg: "Failed to fetch credentials" });
           }
         } else {
-          throw new Error({ msg: "Failed to Create Session" });
+          throw new Error({ msg: "Failed to Create a Session" });
         }
       } else {
-        throw new Error({ msg: "Failed to Create Session" });
+        throw new Error({ msg: "Failed to Create a Session" });
       }
     } catch (e) {
       if (e && e.msg) {

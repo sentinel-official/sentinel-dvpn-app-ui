@@ -17,7 +17,7 @@ export const dispatchGetAvailableDNS = createAsyncThunk(
       dispatch(
         CHANGE_ERROR_ALERT({
           show: true,
-          message: "Failed to fetch DNS",
+          message: "Failed to fetch available DNS",
         })
       );
       return rejectWithValue();
