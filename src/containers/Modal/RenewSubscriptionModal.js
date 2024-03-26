@@ -32,7 +32,10 @@ const RenewSubscriptionModal = () => {
         if (plan && plan.amount === 0) {
           dispatch(CHANGE_MODAL_STATE({ show: false, type: "" }));
           dispatch(
-            CHANGE_ERROR_ALERT({ show: true, message: "No Plans available" })
+            CHANGE_ERROR_ALERT({
+              show: true,
+              message: "No Plans available to subscribe",
+            })
           );
         }
       } catch (e) {
@@ -82,12 +85,6 @@ const RenewSubscriptionModal = () => {
         );
         return;
       }
-      dispatch(
-        CHANGE_ERROR_ALERT({
-          show: true,
-          message: "Failed to Subscribe",
-        })
-      );
     } catch (e) {
       dispatch(
         CHANGE_ERROR_ALERT({

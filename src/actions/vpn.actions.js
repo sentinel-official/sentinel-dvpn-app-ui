@@ -54,7 +54,7 @@ export const disconnectAction = createAsyncThunk(
       dispatch(
         CHANGE_ERROR_ALERT({
           show: true,
-          message: "Failed to disconnect to VPN",
+          message: "Failed to disconnect from VPN",
         })
       );
       return rejectWithValue();
@@ -79,18 +79,21 @@ export const connectAction = createAsyncThunk(
       dispatch(
         CHANGE_LOADER_STATE({ show: true, message: "Creating a Session..." })
       );
-      const isCreated = await createSession({
+      const { success, message } = await createSession({
         node,
         subscription,
         walletAddress,
       });
 
-      if (isCreated && isCreated === 500) {
-        throw new Error({ msg: "Failed to Create Session" });
+      if (!success) {
+        throw new Error({ msg: message });
       }
 
-      if (isCreated) {
+      if (success) {
         const session = await getSession(walletAddress);
+        if (session && session === 500) {
+          throw new Error({ msg: "Failed to Create a Session" });
+        }
         if (session) {
           dispatch(
             CHANGE_LOADER_STATE({
@@ -114,16 +117,16 @@ export const connectAction = createAsyncThunk(
             if (isConnected) {
               return fulfillWithValue({ isConnected, node });
             } else {
-              throw new Error({ msg: "Failed to connect to VPN" });
+              throw new Error({ msg: "Failed to connect the VPN" });
             }
           } else {
             throw new Error({ msg: "Failed to fetch credentials" });
           }
         } else {
-          throw new Error({ msg: "Failed to Create Session" });
+          throw new Error({ msg: "Failed to Create a Session" });
         }
       } else {
-        throw new Error({ msg: "Failed to Create Session" });
+        throw new Error({ msg: "Failed to Create a Session" });
       }
     } catch (e) {
       if (e && e.msg) {
