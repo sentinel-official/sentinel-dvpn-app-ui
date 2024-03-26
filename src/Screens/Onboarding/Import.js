@@ -9,14 +9,16 @@ const Import = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [mnemonic, setMnemonic] = React.useState("");
-  const isValidMnemonic = mnemonic.trim().split(" ").length === 24;
+  const isValidMnemonic =
+    mnemonic.trim().split(" ").length === 24 ||
+    mnemonic.trim().split(" ").length === 12;
 
   return (
     <div className={styles.root}>
       <section className={styles.top}>
         <span className={styles.title}>Log in with the key</span>
         <span className={styles.description}>
-          Provide your unique 24 word key
+          Provide your unique 12 / 24 word key
         </span>
       </section>
       <section className={styles.middle}>
