@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { withLoader } from "../../actions/loader.action";
 import { connectAction, disconnectAction } from "../../actions/vpn.actions";
 import styles from "./connect-button.module.scss";
-import { useNavigate } from "react-router-dom";
 import {
   CHANGE_ERROR_ALERT,
   CHANGE_MODAL_STATE,
@@ -21,7 +20,6 @@ import {
 } from "../../actions/nodes.action";
 import { MODAL_VARIANTS } from "../Modal/modal-types";
 const ConnectButton = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const node = useSelector((state) => state.device.selectedNode);
   const isVPNConnected = useSelector((state) => state.device.isVPNConnected);
@@ -136,12 +134,6 @@ const ConnectButton = () => {
           title={"Disconnect"}
           className={styles.btn}
           onClick={handleDisconnect}
-        />
-        <Button
-          title={"Switch Node"}
-          variant={variants.PRIMARY}
-          onClick={() => navigate("countries")}
-          className={styles.btn}
         />
       </section>
     );

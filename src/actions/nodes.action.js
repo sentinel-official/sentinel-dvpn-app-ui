@@ -35,9 +35,9 @@ export const dispatchGetAvailableCountries = createAsyncThunk(
       const countries = parseCountriesList(response, protocols);
       return fulfillWithValue(countries);
     } catch (e) {
-      dispatch(
-        CHANGE_ERROR_ALERT({ show: true, message: "Failed fetch Countries" })
-      );
+      // dispatch(
+      //   CHANGE_ERROR_ALERT({ show: true, message: "Failed fetch Countries" })
+      // );
       return rejectWithValue();
     }
   }

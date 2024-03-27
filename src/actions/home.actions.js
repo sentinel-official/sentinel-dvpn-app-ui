@@ -28,7 +28,10 @@ export const dispatchGetIPAddress = createAsyncThunk(
       return fulfillWithValue(response.data);
     } catch (e) {
       dispatch(
-        CHANGE_ERROR_ALERT({ show: true, message: "Failed to get IP Address" })
+        CHANGE_ERROR_ALERT({
+          show: true,
+          message: "Connection Error, Try again.",
+        })
       );
 
       return rejectWithValue();
