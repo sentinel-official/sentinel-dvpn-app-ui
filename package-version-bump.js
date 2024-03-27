@@ -7,7 +7,6 @@ async function bumpVersion(type) {
     await exec(`yarn build`);
     await exec(`git add .`);
     await exec(`git commit -m "chore: package version bumped"`);
-    await exec(`git push`);
   } else {
     console.log("Invalid version type provided!");
   }
