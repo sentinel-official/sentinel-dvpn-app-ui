@@ -1,6 +1,6 @@
 {
   "name": "sentinel-dvpn-ui",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.2",
