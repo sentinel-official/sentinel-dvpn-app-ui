@@ -50,29 +50,34 @@ const Map = () => {
     map.touchZoomRotate.disableRotation();
   }, []);
 
-  return (
-    <ReactMapGl
-      ref={mapRef}
-      onLoad={onLoad}
-      initialViewState={{
-        bearing: 0,
-        pitch: 0,
-        latitude: latitude,
-        longitude: longitude,
-        zoom: zoom,
-      }}
-      style={{
-        width: window.innerWidth,
-        height: `${window.innerHeight - 80}px`,
-        overflow: "hidden",
-      }}
-      cursor="default"
-      zoom={zoom}
-      mapboxAccessToken={REACT_APP_MAPBOX_ACCESS_TOKEN}
-      mapStyle={REACT_APP_MAP_STYLE}
-      {...mapSettings}
-    />
-  );
+  const reactMapGl = React.useMemo(() => {
+    return (
+      <ReactMapGl
+        mapLib={import("mapbox-gl")}
+        ref={mapRef}
+        onLoad={onLoad}
+        initialViewState={{
+          bearing: 0,
+          pitch: 0,
+          latitude: latitude,
+          longitude: longitude,
+          zoom: zoom,
+        }}
+        style={{
+          width: "100vw",
+          height: `${window.innerHeight - 80}px`,
+          overflow: "hidden",
+        }}
+        cursor="default"
+        zoom={zoom}
+        mapboxAccessToken={REACT_APP_MAPBOX_ACCESS_TOKEN}
+        mapStyle={REACT_APP_MAP_STYLE}
+        {...mapSettings}
+      />
+    );
+  }, [latitude, longitude, onLoad]);
+
+  return <>{reactMapGl}</>;
 };
 
 export default Map;
