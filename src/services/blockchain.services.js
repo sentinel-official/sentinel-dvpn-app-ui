@@ -85,7 +85,7 @@ const blockchainServices = {
         "x-gas-prices": 150000,
       },
     })
-      .then((response) => response)
+      .then((response) => response.data)
       .catch((e) => {
         throw new Error(e);
       }),

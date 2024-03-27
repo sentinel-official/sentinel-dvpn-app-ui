@@ -86,7 +86,13 @@ export const connectAction = createAsyncThunk(
       });
 
       if (!success) {
-        throw new Error({ msg: message });
+        dispatch(
+          CHANGE_ERROR_ALERT({
+            show: true,
+            message: message,
+          })
+        );
+        return rejectWithValue();
       }
 
       if (success) {
@@ -125,12 +131,11 @@ export const connectAction = createAsyncThunk(
         } else {
           throw new Error({ msg: "Failed to Create a Session" });
         }
-      } else {
-        throw new Error({ msg: "Failed to Create a Session" });
       }
     } catch (e) {
       if (e && e.msg) {
         dispatch(CHANGE_ERROR_ALERT({ show: true, message: e.msg }));
+        return rejectWithValue();
       } else {
         dispatch(
           CHANGE_ERROR_ALERT({
@@ -138,8 +143,8 @@ export const connectAction = createAsyncThunk(
             message: "Failed to connect to VPN",
           })
         );
+        return rejectWithValue();
       }
-      return rejectWithValue();
     } finally {
       dispatch(
         withLoader([
