@@ -45,11 +45,9 @@ const Map = () => {
   }, [longitude, latitude]);
 
   const onLoad = React.useCallback(() => {
-    if (mapRef) {
-      const map = mapRef.current.getMap();
-      map.keyboard.disableRotation();
-      map.touchZoomRotate.disableRotation();
-    }
+    const map = mapRef.current.getMap();
+    map.keyboard.disableRotation();
+    map.touchZoomRotate.disableRotation();
   }, []);
 
   return (
