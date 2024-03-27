@@ -1,8 +1,6 @@
 const { exec } = require("child_process");
 
 async function bumpVersion(type) {
-  console.log("BUilding...");
-  await exec(`yarn build`);
   if (type && ["patch", "minor", "major"].includes(type)) {
     await exec(`yarn version --${type}`);
     await exec(`git add .`);
@@ -13,6 +11,7 @@ async function bumpVersion(type) {
 }
 
 async function run() {
+  await exec("yarn build");
   const readline = require("readline").createInterface({
     input: process.stdin,
     output: process.stdout,
