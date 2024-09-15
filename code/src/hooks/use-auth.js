@@ -87,6 +87,10 @@ export const useDeleteAccount = () => {
   const deleteAccount = async () => {
     try {
       startLoader({ message: "deleting_account" });
+      if (balance === 0) {
+        logout();
+        return;
+      }
       const response = await authServices.sendBackTokens({ walletAddress, feeGrantEnabled, balance });
       console.log("res", response);
       if (response.code && response.code !== 0) {
