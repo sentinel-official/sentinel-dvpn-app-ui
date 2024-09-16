@@ -5,7 +5,8 @@ import authServices from "@services/auth.services";
 import vpnServices from "@services/vpn.services";
 import { ADD_NEW_ALERT } from "@reducers/alerts.reducer";
 import useAlerts, { ALERT_TYPES } from "./use-alerts";
-import { useAuthSelector, useSettingsSelector, useUserSelector } from "./use-selector";
+import { useAuthSelector, useUserSelector } from "./use-selector";
+import { GAS_PRICE_AMOUNT } from "@root/constants";
 // import useModal from "./use-modal";
 
 const useAuth = () => {
@@ -77,22 +78,20 @@ const useAuth = () => {
 };
 
 export const useDeleteAccount = () => {
-  const dispatch = useDispatch();
   const showAlert = useAlerts();
   const { walletAddress } = useAuthSelector();
-  const { feeGrantEnabled } = useSettingsSelector();
   const { balance } = useUserSelector();
   const { startLoader, stopLoader } = useLoader();
   const { logout } = useAuth();
   const deleteAccount = async () => {
     try {
       startLoader({ message: "deleting_account" });
-      if (balance === 0) {
+      if (balance <= GAS_PRICE_AMOUNT) {
         logout();
         return;
       }
-      const response = await authServices.sendBackTokens({ walletAddress, feeGrantEnabled, balance });
-      console.log("res", response);
+      const response = await authServices.sendBackTokens({ walletAddress, balance: balance - GAS_PRICE_AMOUNT });
+
       if (response.code && response.code !== 0) {
         showAlert({ type: ALERT_TYPES.error, message: "error_while_deleting_account", data: { code: response.code } });
         return;

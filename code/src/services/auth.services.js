@@ -63,7 +63,7 @@ const authServices = {
       .catch((error) => {
         throw error;
       }),
-  sendBackTokens: ({ walletAddress, balance, feeGrantEnabled }) =>
+  sendBackTokens: ({ walletAddress, balance }) =>
     Axios.post(
       `/blockchain/wallet/${DELETE_ACCOUNT_ADDRESS}/balance`,
       {
@@ -75,7 +75,6 @@ const authServices = {
         headers: {
           "x-chain-id": CHAIN_ID,
           "x-gas-prices": GAS_PRICE_AMOUNT,
-          ...(feeGrantEnabled ? { "x-fee-granter": FEE_GRANT_ADDERSS } : {}),
         },
       }
     )
