@@ -8,7 +8,7 @@ export const FEE_GRANT_ADDERSS = "sent1vtakcr67ejvknr00vmq8vh6dm9mn5hr6gzu27m";
 export const DELETE_ACCOUNT_ADDRESS = "sent1nwmxl7pa7mq5n7s9rfmzljhrxngppg8y0svzve";
 export const PAYMENT_KEY = getMobileOS() === "ios" ? process.env.REACT_APP_APPLE_PAY_KEY : process.env.REACT_APP_ANDROID_KEY;
 export const PRODUCT_IDENTIFIER = "sentinel.dvpn";
-export const CHAIN_ID= "sentinelhub-2"
+export const CHAIN_ID = "sentinelhub-2";
 
 export const links = {
   RENEW_FIND_MORE: "https://medium.com/sentinel/introduction-of-on-chain-subscriptions-and-time-based-payments-sentinels-biggest-dvpn-protocol-a2b240199f18",
