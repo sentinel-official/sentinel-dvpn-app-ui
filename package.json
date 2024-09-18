@@ -1,6 +1,6 @@
 {
   "name": "sentinel-dvpn-ui",
-  "version": "1.12.3",
+  "version": "1.12.4",
   "main": "ui/",
   "license": "MIT",
   "scripts": {
