@@ -20,7 +20,10 @@ const PrivateRouter = React.memo(() => {
   const { showModal, MODAL_VARIANTS } = useModal();
   const { startLoader, stopLoader } = useLoader();
 
-  const showBottomNavbar = React.useMemo(() => ["/user", "/user/countries", "/user/account", "/user/settings", "/user/recent-servers"].includes(location.pathname), [location.pathname]);
+  const showBottomNavbar = React.useMemo(
+    () => ["/user", "/user/countries", "/user/account", "/user/settings", "/user/recent-servers"].includes(location.pathname),
+    [location.pathname]
+  );
 
   const shouldUserPay = React.useCallback(async () => {
     startLoader({ message: "checking_feegrant" });
@@ -75,7 +78,12 @@ const PrivateRouter = React.memo(() => {
       </div>
     );
   }
-  return <Navigate to={"/"} replace={true} />;
+  return (
+    <Navigate
+      to={"/"}
+      replace={true}
+    />
+  );
 });
 
 export default PrivateRouter;
