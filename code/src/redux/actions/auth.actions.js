@@ -59,10 +59,10 @@ export const dispatchRegisterWalletAddress = createAsyncThunk("USER/REGISTER_WAL
   }
 });
 
-export const dispatchGetFeeGrantDetails = createAsyncThunk("USER/FEE_GRANT_DETAILS", async ({ walletAddress, feeGrantEnabled }, { fulfillWithValue, rejectWithValue, dispatch }) => {
+export const dispatchGetFeeGrantDetails = createAsyncThunk("USER/FEE_GRANT_DETAILS", async ({ walletAddress, feeGrantEnabled = true }, { fulfillWithValue, dispatch }) => {
   try {
     if (feeGrantEnabled) {
-      const resp = await getFeeGrantDetails(walletAddress);
+      const resp = await getFeeGrantDetails(walletAddress, dispatch);
       if (resp) {
         return fulfillWithValue(true);
       }

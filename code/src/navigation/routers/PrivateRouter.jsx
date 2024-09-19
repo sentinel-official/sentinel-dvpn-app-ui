@@ -18,7 +18,7 @@ const PrivateRouter = React.memo(() => {
   const { feeGrantEnabled } = useSettingsSelector();
   const { initApp } = useInitApp();
   const { showModal, MODAL_VARIANTS } = useModal();
-  const { startLoader, stopLoader } = useLoader();
+  const { startLoader, stopLoader, changeMessage } = useLoader();
 
   const showBottomNavbar = React.useMemo(
     () => ["/user", "/user/countries", "/user/account", "/user/settings", "/user/recent-servers"].includes(location.pathname),
@@ -26,11 +26,12 @@ const PrivateRouter = React.memo(() => {
   );
 
   const shouldUserPay = React.useCallback(async () => {
-    startLoader({ message: "checking_feegrant" });
+    startLoader({ message: "checking_wallet_details" });
     const { payload: isRegisted } = await dispatch(dispatchRegisterWalletAddress(walletAddress));
     if (isRegisted) {
-      const { payload: isEnabled } = await dispatch(dispatchGetFeeGrantDetails({ walletAddress, feeGrantEnabled }));
-      return { isRegistered: true, showFeegrantModal: !isEnabled };
+      changeMessage({ message: "checking_feegrant" });
+      const { payload: canUserContinue } = await dispatch(dispatchGetFeeGrantDetails({ walletAddress, feeGrantEnabled }));
+      return { isRegistered: true, showFeegrantModal: !canUserContinue };
     }
     showModal({ name: "retry-register", cancellable: false });
     return { isRegistered: false };

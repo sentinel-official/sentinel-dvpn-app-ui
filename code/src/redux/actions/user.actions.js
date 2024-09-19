@@ -3,15 +3,21 @@ import { filterPlan, filterSubscription } from "@helpers/parse.data";
 import { isVersionGreater } from "@helpers/versionChecks";
 import { ALERT_TYPES } from "@hooks/use-alerts";
 import { ADD_NEW_ALERT } from "@reducers/alerts.reducer";
-import { START_LOADER, STOP_LOADER } from "@reducers/loader.reducer";
+import { CHANGE_MESSAGE, START_LOADER, STOP_LOADER } from "@reducers/loader.reducer";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { STATUS_ACTIVE } from "@root/constants";
 import settingsServices from "@services/settings.services";
 import userServices from "@services/user.services";
 import { getTxDetails } from "../helpers/getTxDetails";
 
-export const dispatchFetchApplicationVersion = createAsyncThunk("USER/CHECK_APPLICATION_VERSION", async (_, { fulfillWithValue, rejectWithValue }) => {
+export const dispatchFetchApplicationVersion = createAsyncThunk("USER/CHECK_APPLICATION_VERSION", async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
   try {
+    dispatch(
+      CHANGE_MESSAGE({
+        message: "checking_version",
+        description: "may_take_upto_30_secs",
+      })
+    );
     const os = getMobileOS();
     const response = await userServices.fetchApplicationVersion();
     const resp = await userServices.fetchLatestAppVersion();
@@ -24,7 +30,13 @@ export const dispatchFetchApplicationVersion = createAsyncThunk("USER/CHECK_APPL
       isLatestAvailable,
     });
   } catch (e) {
-    return rejectWithValue({ isError: true });
+    dispatch(
+      ADD_NEW_ALERT({
+        type: ALERT_TYPES.error,
+        message: `error_while_checking_version`,
+      })
+    );
+    return rejectWithValue();
   }
 });
 
@@ -47,21 +59,24 @@ export const dispatchFetchAvailablePlans = createAsyncThunk("USER/FETCH_AVAILABL
   }
 });
 
-export const dispatchFetchAvailableSubscriptions = createAsyncThunk("USER/FETCH_AVAILABLE_SUBSCRIPTIONS", async (walletAddress, { fulfillWithValue, rejectWithValue, dispatch }) => {
-  try {
-    const response = await userServices.fetchUserSubScriptions(walletAddress);
-    const subscription = filterSubscription(response.planSubscriptions);
-    return fulfillWithValue(subscription);
-  } catch (e) {
-    dispatch(
-      ADD_NEW_ALERT({
-        type: ALERT_TYPES.error,
-        message: `error_fetching_subscriptions`,
-      })
-    );
-    return rejectWithValue();
+export const dispatchFetchAvailableSubscriptions = createAsyncThunk(
+  "USER/FETCH_AVAILABLE_SUBSCRIPTIONS",
+  async (walletAddress, { fulfillWithValue, rejectWithValue, dispatch }) => {
+    try {
+      const response = await userServices.fetchUserSubScriptions(walletAddress);
+      const subscription = filterSubscription(response.planSubscriptions);
+      return fulfillWithValue(subscription);
+    } catch (e) {
+      dispatch(
+        ADD_NEW_ALERT({
+          type: ALERT_TYPES.error,
+          message: `error_fetching_subscriptions`,
+        })
+      );
+      return rejectWithValue();
+    }
   }
-});
+);
 
 export const dispatchFetchCurrentRPC = createAsyncThunk("USER/FETCH_CURRENT_RPC", async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
   try {

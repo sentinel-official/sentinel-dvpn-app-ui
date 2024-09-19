@@ -8,7 +8,13 @@ import { dispatchFetchAccountBalance, dispatchFetchTokenPrice, dispatchRegisterW
 import { useAuthSelector, useLoaderSelector } from "./use-selector";
 import useAlerts, { ALERT_TYPES } from "./use-alerts";
 import { SET_HOME_LOADED } from "@reducers/loader.reducer";
-import { dispatchFetchApplicationVersion, dispatchFetchAvailablePlans, dispatchFetchAvailableSubscriptions, dispatchFetchCurrentDNS, dispatchFetchCurrentRPC } from "@actions/user.actions";
+import {
+  dispatchFetchApplicationVersion,
+  dispatchFetchAvailablePlans,
+  dispatchFetchAvailableSubscriptions,
+  dispatchFetchCurrentDNS,
+  dispatchFetchCurrentRPC,
+} from "@actions/user.actions";
 import useModal from "./use-modal";
 import { dispatchPaymentLogin } from "@actions/payments.actions";
 
@@ -25,25 +31,16 @@ const useInitApp = () => {
       return;
     }
     try {
-      startLoader({
-        message: "preparing_the_app",
-        description: "may_take_upto_30_secs",
-      });
-
       const { payload } = await dispatch(dispatchFetchApplicationVersion());
 
       if (payload && payload.isLatestAvailable) {
         showModal({ name: "update-app", cancellable: false, variant: MODAL_VARIANTS.secondary });
         return;
       }
-
-      if (payload && payload.isError) {
-        showAlert({
-          type: ALERT_TYPES.error,
-          message: "error_while_checking_version",
-        });
-      }
-
+      startLoader({
+        message: "preparing_the_app",
+        description: "may_take_upto_30_secs",
+      });
       await Promise.all([
         dispatch(dispatchFetchConnectionStatus()),
         dispatch(dispatchPaymentLogin(walletAddress)),

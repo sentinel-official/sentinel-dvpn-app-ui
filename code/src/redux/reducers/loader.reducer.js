@@ -29,6 +29,7 @@ const slice = createSlice({
     }),
     CHANGE_MESSAGE: (state, { payload }) => ({
       ...state,
+      loading: true,
       message: payload.message || state.message,
       description: payload.description || state.description,
     }),
@@ -53,11 +54,7 @@ const slice = createSlice({
     }),
   },
   extraReducers: (builder) => {
-    builder.addCase(CHANGE_AUTH_STATUS, (state) => ({
-      ...state,
-      isHomeLoaded: false,
-      isFeegrantChecked: false,
-    }));
+    builder.addCase(CHANGE_AUTH_STATUS, (state) => ({ ...state, ...initialState }));
 
     builder.addCase(dispatchRegisterWalletAddress.fulfilled, (state) => ({
       ...state,

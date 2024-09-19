@@ -228,4 +228,6 @@ export default {
   deleting_account: "Deleting Account",
   error_while_deleting_account: "Error while deleting account [CODE: {{code}}]",
   error_deleting_account: "Error while deleting account",
+  checking_wallet_details: "Checking wallet details",
+  checking_version: "Checking Version",
 };

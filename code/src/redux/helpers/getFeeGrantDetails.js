@@ -1,11 +1,14 @@
+import { CHANGE_MESSAGE } from "@reducers/loader.reducer";
 import settingsServices from "@services/settings.services";
 
 const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
-
-const getFeeGrantDetails = async (walletAddress) => {
-  while (true) {
+const total = 30;
+const getFeeGrantDetails = async (walletAddress, dispatch) => {
+  let attempt = 0;
+  while (attempt < total) {
+    dispatch(CHANGE_MESSAGE({ description: `Attempt ${attempt + 1} of ${total}` }));
     try {
       const response = await settingsServices.fetchFeeGrantDetails(walletAddress);
       if (response.status === 200) {
@@ -17,6 +20,7 @@ const getFeeGrantDetails = async (walletAddress) => {
     } catch (error) {
       throw error;
     }
+    attempt++;
     await sleep(1000);
   }
 };

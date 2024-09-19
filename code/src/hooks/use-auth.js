@@ -7,12 +7,10 @@ import { ADD_NEW_ALERT } from "@reducers/alerts.reducer";
 import useAlerts, { ALERT_TYPES } from "./use-alerts";
 import { useAuthSelector, useUserSelector } from "./use-selector";
 import { GAS_PRICE_AMOUNT } from "@root/constants";
-// import useModal from "./use-modal";
 
 const useAuth = () => {
   const dispatch = useDispatch();
   const { startLoader, changeMessage, stopLoader } = useLoader();
-  // const { showModal } = useModal();
   const login = async (mnemonic = "") => {
     try {
       startLoader({ message: "login_authenticating" });
@@ -30,11 +28,6 @@ const useAuth = () => {
             isEncrypted: true,
           })
         );
-        // showModal({
-        //   name: "manage-key",
-        //   cancellable: false,
-        //   data: { walletAddress: response.address, mnemonic },
-        // });
       }
     } catch (e) {
       dispatch(
@@ -91,7 +84,6 @@ export const useDeleteAccount = () => {
         return;
       }
       const response = await authServices.sendBackTokens({ walletAddress, balance: balance - GAS_PRICE_AMOUNT });
-
       if (response.code && response.code !== 0) {
         showAlert({ type: ALERT_TYPES.error, message: "error_while_deleting_account", data: { code: response.code } });
         return;
