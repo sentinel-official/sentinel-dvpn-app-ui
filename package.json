@@ -1,13 +1,12 @@
 {
   "name": "sentinel-dvpn-ui",
-  "version": "1.12.8",
+  "version": "1.12.9",
   "main": "ui/",
   "license": "MIT",
   "scripts": {
     "start": "reset && node isNodeModulesExist.js && ./scripts/dev.sh",
     "build": "reset && rm -rf ui/ && ./scripts/prod.sh",
-    "lib": "reset && rm -rf build/ && ./scripts/lib.sh",
-    "bump": "node ./package-version-bump.js"
+    "lib": "reset && rm -rf build/ && ./scripts/lib.sh"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
