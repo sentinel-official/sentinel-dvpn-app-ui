@@ -109,7 +109,7 @@ const getPlugins = (isProduction, mode) => {
           },
           {
             urlPattern: /^https:\/\/flagcdn\.com\/.*\.svg$/,
-            handler: "StaleWhileRevalidate",
+            handler: "CacheFirst",
             options: {
               cacheName: "flags",
               expiration: {
@@ -123,7 +123,7 @@ const getPlugins = (isProduction, mode) => {
           },
           {
             urlPattern: /^https:\/\/.*\.mapbox\.com\/$/,
-            handler: "StaleWhileRevalidate",
+            handler: "CacheFirst",
             options: {
               cacheName: "map",
               expiration: {
