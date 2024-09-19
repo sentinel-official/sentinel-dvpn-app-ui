@@ -6,4 +6,5 @@ Disallow: /
 
 User-agent: *
 Allow: /
-Version: 1.12.7
+
+Version: 1.12.8
