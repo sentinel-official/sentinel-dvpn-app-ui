@@ -19,7 +19,6 @@ const slice = createSlice({
   },
 });
 
-export const { ADD_NEW_ALERT, REMOVE_OLDEST_ALERT, ADD_MODAL_DATA } =
-  slice.actions;
+export const { ADD_NEW_ALERT, REMOVE_OLDEST_ALERT, ADD_MODAL_DATA } = slice.actions;
 
 export default slice.reducer;
