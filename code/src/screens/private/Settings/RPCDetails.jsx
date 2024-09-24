@@ -66,12 +66,23 @@ const RPCDetails = () => {
           }}
         />
         <section>
-          <Text text={"rpc_list_link"} className="text-link" onClick={() => openWindow({ url: links.RPC_LIST_LINK })} />
+          <Text
+            text={"rpc_list_link"}
+            className="text-link"
+            onClick={() => openWindow({ url: links.RPC_LIST_LINK })}
+          />
         </section>
       </section>
       <section className={`${styles.btns} mb-36`}>
-        <Button onClick={handleChangeRPC} className="mr-6" disabled={String(state.host).trim().length === 0 || String(state.port).trim().length < 4 || `${rpc.host}${rpc.port}` === `${state.host}${state.port}`}>
-          <Text text={"save"} className="py-8" />
+        <Button
+          onClick={handleChangeRPC}
+          className="mr-6"
+          disabled={String(state.host).trim().length === 0 || String(state.port).trim().length === 0 || `${rpc.host}${rpc.port}` === `${state.host}${state.port}`}
+        >
+          <Text
+            text={"save"}
+            className="py-8"
+          />
         </Button>
         <Button
           variant={BTN_VARIANTS.SECONDARY}
@@ -80,7 +91,10 @@ const RPCDetails = () => {
             setState({ host: rpc.host, port: rpc.port });
           }}
         >
-          <Text text={"reset"} className="py-8" />
+          <Text
+            text={"reset"}
+            className="py-8"
+          />
         </Button>
       </section>
     </div>
