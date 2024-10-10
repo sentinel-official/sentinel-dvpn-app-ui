@@ -3,7 +3,6 @@ import React from "react";
 import styles from "./balance-card.module.scss";
 import { useUserSelector } from "@hooks/use-selector";
 import formatAmount from "@helpers/formatAmount";
-import PoweredByCosmosIcon from "@svgs/powered-by-cosmos.svg";
 import ReloadIcon from "@svgs/reload-icon.svg";
 import BalanceIcon from "@svgs/balance-icon.svg";
 import useRefetch from "@hooks/use-refetch";
@@ -13,23 +12,31 @@ const BalanceCard = () => {
   const { balance, price } = useUserSelector();
   const refetch = useRefetch();
   return (
-    <Card className={`${styles.root} py-12`}>
+    <Card className={`${styles.root}`}>
       <section className={`${styles.top} px-12`}>
-        <section className={styles.left}>
+        <section className={`${styles.left} mr-6`}>
           <img
             src={BalanceIcon}
             alt=""
             className={styles.icon}
           />
-          <section className={`${styles["details"]} ml-6 py-2`}>
-            <Text
-              text={"your_tokens"}
-              className={`fs-13 fw-6 text-9cabc9 mb-8`}
-            />
+          <section className={`${styles["details"]} ml-6`}>
             <Text
               text={`${formatAmount(balance / 1e6)}`}
               className={`fs-22 fw-6`}
             />
+            <section className={styles.right}>
+              {getMobileOS() !== "ios" && (
+                <Text
+                  text={`~ $${formatAmount(price * (balance / 1e6))}`}
+                  className="fs-13 fw-4 text-9cabc9 mx-6"
+                />
+              )}
+              <Text
+                text={"your_tokens"}
+                className={`fs-13 fw-6 text-9cabc9`}
+              />
+            </section>
           </section>
         </section>
         <section className={styles.right}>
@@ -46,14 +53,6 @@ const BalanceCard = () => {
           </Button>
         </section>
       </section>
-      {getMobileOS() !== "ios" && (
-        <section className={`${styles.bottom} py-2 px-12 mt-12`}>
-          <Text
-            text={`~ $${formatAmount(price * (balance / 1e6))}`}
-            className="fs-14 fw-4 text-9cabc9 mr-12"
-          />
-        </section>
-      )}
     </Card>
   );
 };

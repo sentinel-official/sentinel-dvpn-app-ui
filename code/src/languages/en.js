@@ -29,7 +29,7 @@ export default {
   passcode_point_five: "⁃ If you never entered passcode to encrypt your key, type '12345' to get the key",
   enter_passcode: "Enter Passcode",
   confirm_passcode: "Confirm Passcode",
-  your_tokens: "Your Credits",
+  your_tokens: "Credits",
   quick_connect: "Quick Connect",
   server_is_not_selected: "No Server is Selected",
   your_ip: "Your IP: ",

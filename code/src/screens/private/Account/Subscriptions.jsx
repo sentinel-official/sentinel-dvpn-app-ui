@@ -32,25 +32,34 @@ const Subscriptions = () => {
 
       <Card className={`${styles.subscriptions} p-16`}>
         <section className={styles.left}>
-          <Text text={"datacentre_nodes"} className="fs-14 fw-5 text-9cabc9 mb-6" />
+          <Text
+            text={"datacentre_nodes"}
+            className="fs-12 fw-5 text-9cabc9 mb-4"
+          />
           <Text
             text={"days_remaining"}
             data={{
               value: inActive,
             }}
-            className="fs-18 fw-5"
+            className="fs-16 fw-5"
           />
         </section>
         <section className={styles.right}>
           {isSubscriptionFetched ? (
             inActive === 0 && (
               <Button onClick={() => showModal({ name: "subscription" })}>
-                <Text text={"subscribe"} />
+                <Text
+                  text={"subscribe"}
+                  className="fs-12 fw-5"
+                />
               </Button>
             )
           ) : (
             <Button onClick={refetch}>
-              <Text text={"retry"} />
+              <Text
+                text={"retry"}
+                className="fs-12 fw-5"
+              />
             </Button>
           )}
         </section>

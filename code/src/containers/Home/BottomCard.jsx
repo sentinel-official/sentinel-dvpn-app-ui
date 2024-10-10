@@ -33,7 +33,7 @@ const BottomCard = () => {
         )}
       </Card>
       <Button
-        className={styles["quick-connect-btn"]}
+        className={`${styles["quick-connect-btn"]} mb-6`}
         variant={isConnected ? BTN_VARIANTS.SECONDARY : BTN_VARIANTS.PRIMARY}
         onClick={async () => {
           if (isConnected) {

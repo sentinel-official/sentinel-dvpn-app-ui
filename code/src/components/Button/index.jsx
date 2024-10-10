@@ -12,7 +12,13 @@ export const BTN_VARIANTS = {
 
 const Button = ({ children, onClick, disabled = false, className = "", variant = BTN_VARIANTS.PRIMARY, ...rest }) => {
   return (
-    <button aria-label={Math.random().toString(36)} disabled={disabled} className={`${styles.root} ${styles[variant]} ${disabled ? styles.disabled : ""} ${className} mb-6`} onClick={onClick} {...rest}>
+    <button
+      aria-label={Math.random().toString(36)}
+      disabled={disabled}
+      className={`${styles.root} ${styles[variant]} ${disabled ? styles.disabled : ""} ${className}`}
+      onClick={onClick}
+      {...rest}
+    >
       {children}
     </button>
   );

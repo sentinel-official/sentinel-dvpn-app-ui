@@ -53,7 +53,9 @@
 
 .subscriptions {
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  grid-template-rows: 1fr;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -61,12 +63,19 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
   .right {
-    width: 40%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
     button {
-      height: 28px;
+      height: 100%;
       width: 100%;
     }
   }

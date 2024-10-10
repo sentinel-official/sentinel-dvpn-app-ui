@@ -22,12 +22,12 @@ const BalanceCard = () => {
           />
           <section className={`${styles["details"]} ml-6 py-2`}>
             <Text
-              text={"your_tokens"}
-              className={`fs-14 fw-6 text-9cabc9 mb-4`}
-            />
-            <Text
               text={`${formatAmount(balance / 1e6)}`}
               className={`fs-22 fw-6 ${styles.balance}`}
+            />
+            <Text
+              text={"your_tokens"}
+              className={`fs-14 fw-6 text-9cabc9 ml-6`}
             />
           </section>
         </section>

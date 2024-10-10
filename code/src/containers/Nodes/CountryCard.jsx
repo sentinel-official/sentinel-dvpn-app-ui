@@ -23,16 +23,17 @@ const CountryCard = ({ country }) => {
       >
         <section className={styles["left-left"]}>
           <Image
-            src={`https://flagcdn.com/${String(
-              country.code
-            ).toLowerCase()}.svg`}
+            src={`https://flagcdn.com/${String(country.code).toLowerCase()}.svg`}
             alt=""
             width="32"
             style={{ display: "block" }}
           />
         </section>
         <section className={`${styles["left-right"]} ml-12`}>
-          <Text text={country.name} className={`${styles.title} fs-16 fw-6`} />
+          <Text
+            text={country.name}
+            className={`${styles.title} fs-16 fw-6`}
+          />
           <Text
             text={country.count > 1 ? "count_of_nodes" : "one_node"}
             data={{ count: country.count }}
