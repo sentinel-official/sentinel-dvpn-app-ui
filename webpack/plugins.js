@@ -6,8 +6,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { GenerateSW } = require("workbox-webpack-plugin");
 const HtmlWebpackInjectPreload = require("@principalstudio/html-webpack-inject-preload");
 
-const REACT_APP_MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiYmFzZWRhcHBzIiwiYSI6ImNsbjMza2I0NjBmYjgycm5rODM4d2I4ODEifQ.Mr0qLSfbCOoChGbAHvOo8g";
-const REACT_APP_MAP_STYLE = "mapbox://styles/basedapps/clorr29u400oq01qybkxo563d";
 const REACT_APP_APPLE_PAY_KEY = "appl_JaQzcXjXjbOZunQSRBXPYwwwECS";
 const REACT_APP_ANDROID_KEY = "goog_GhVCmDsDZszdauzUUxgsEwzHMvQ";
 
@@ -121,20 +119,6 @@ const getPlugins = (isProduction, mode) => {
               },
             },
           },
-          {
-            urlPattern: /^https:\/\/.*\.mapbox\.com\/$/,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "map",
-              expiration: {
-                maxEntries: 200,
-                maxAgeSeconds: 30 * 24 * 60 * 60,
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
         ],
       })
     );
@@ -155,12 +139,18 @@ const getPlugins = (isProduction, mode) => {
   plugins.push(
     new DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || mode),
-      "process.env.REACT_APP_DEV_MODE": JSON.stringify(process.env.REACT_APP_DEV_MODE || isProduction ? false : true),
-      "process.env.X_KEY": JSON.stringify(process.env.X_KEY || "SnLnkORrZuzYsEPb"),
-      "process.env.REACT_APP_MAPBOX_ACCESS_TOKEN": JSON.stringify(process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || REACT_APP_MAPBOX_ACCESS_TOKEN),
-      "process.env.REACT_APP_MAP_STYLE": JSON.stringify(process.env.REACT_APP_MAP_STYLE || REACT_APP_MAP_STYLE),
-      "process.env.REACT_APP_APPLE_PAY_KEY": JSON.stringify(process.env.REACT_APP_APPLE_PAY_KEY || REACT_APP_APPLE_PAY_KEY),
-      "process.env.REACT_APP_ANDROID_KEY": JSON.stringify(process.env.REACT_APP_ANDROID_KEY || REACT_APP_ANDROID_KEY),
+      "process.env.REACT_APP_DEV_MODE": JSON.stringify(
+        process.env.REACT_APP_DEV_MODE || isProduction ? false : true
+      ),
+      "process.env.X_KEY": JSON.stringify(
+        process.env.X_KEY || "SnLnkORrZuzYsEPb"
+      ),
+      "process.env.REACT_APP_APPLE_PAY_KEY": JSON.stringify(
+        process.env.REACT_APP_APPLE_PAY_KEY || REACT_APP_APPLE_PAY_KEY
+      ),
+      "process.env.REACT_APP_ANDROID_KEY": JSON.stringify(
+        process.env.REACT_APP_ANDROID_KEY || REACT_APP_ANDROID_KEY
+      ),
     }),
     new HtmlWebpackInjectPreload({
       files: [

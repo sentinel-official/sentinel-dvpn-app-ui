@@ -4,29 +4,14 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 registerRoute(
-  ({ url }) => url.origin === "https://flagcdn.com" && url.pathname.endsWith(".svg"),
+  ({ url }) =>
+    url.origin === "https://flagcdn.com" && url.pathname.endsWith(".svg"),
   new StaleWhileRevalidate({
     cacheName: "flags",
     plugins: [
       new ExpirationPlugin({
         maxEntries: 200,
         maxAgeSeconds: 30 * 24 * 60 * 60,
-      }),
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  })
-);
-
-registerRoute(
-  ({ url }) => /^https:\/\/.*\.mapbox\.com\//.test(url.href),
-  new StaleWhileRevalidate({
-    cacheName: "map",
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 200,
-        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
       }),
       new CacheableResponsePlugin({
         statuses: [0, 200],

@@ -18,6 +18,7 @@ body,
   top: 0;
   left: 0;
 }
+
 * {
   box-sizing: border-box;
   -ms-overflow-style: none;
@@ -32,17 +33,16 @@ body,
   -ms-user-select: none;
   position: relative;
 }
+
 img {
   user-select: none;
   pointer-events: none;
 }
+
 * ::-webkit-scrollbar {
   display: none;
 }
 
-.mapboxgl-control-container {
-  display: none;
-}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
