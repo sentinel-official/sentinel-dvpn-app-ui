@@ -6,10 +6,14 @@ import styles from "./home.module.scss";
 const Home = () => {
   return (
     <div className={`${styles.root}`}>
-      <Map />
-      <section className={`${styles.container} px-16 pt-16 pb-8`}>
-        <BalanceCard />
-        <BottomCard />
+      <section className={`${styles.container} pt-16 pb-8`}>
+        <section className={`${styles.card} px-16`}>
+          <BalanceCard />
+        </section>
+        <Map />
+        <section className={`${styles.card} px-16`}>
+          <BottomCard />
+        </section>
       </section>
     </div>
   );

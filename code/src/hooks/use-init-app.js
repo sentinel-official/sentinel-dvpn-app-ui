@@ -1,10 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import useLoader from "./use-loader";
-import { dispatchFetchConnectionStatus, dispatchFetchIPAddress } from "@actions/vpn.actions";
+import {
+  dispatchFetchConnectionStatus,
+  dispatchFetchIPAddress,
+} from "@actions/vpn.actions";
 import { dispatchFetchAvailableDNS } from "@actions/settings.actions";
 import { useCallback } from "react";
 import { dispatchFetchCountriesList } from "@actions/proxy.actions";
-import { dispatchFetchAccountBalance, dispatchFetchTokenPrice, dispatchRegisterWalletAddress } from "@actions/auth.actions";
+import {
+  dispatchFetchAccountBalance,
+  dispatchFetchTokenPrice,
+  dispatchRegisterWalletAddress,
+} from "@actions/auth.actions";
 import { useAuthSelector, useLoaderSelector } from "./use-selector";
 import useAlerts, { ALERT_TYPES } from "./use-alerts";
 import { SET_HOME_LOADED } from "@reducers/loader.reducer";
@@ -34,7 +41,11 @@ const useInitApp = () => {
       const { payload } = await dispatch(dispatchFetchApplicationVersion());
 
       if (payload && payload.isLatestAvailable) {
-        showModal({ name: "update-app", cancellable: false, variant: MODAL_VARIANTS.secondary });
+        showModal({
+          name: "update-app",
+          cancellable: false,
+          variant: MODAL_VARIANTS.secondary,
+        });
         return;
       }
       startLoader({

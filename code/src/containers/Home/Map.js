@@ -1,79 +1,107 @@
 import { useVPNSelector } from "@hooks/use-selector";
-import React from "react";
-import ReactMapGl from "react-map-gl";
-import process from "process";
+import React, {
+  useRef,
+  useState,
+  useLayoutEffect,
+  useMemo,
+  useCallback,
+} from "react";
+import MapSvg from "@svgs/map.svg";
+import styles from "./map.module.scss";
 
-const REACT_APP_MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-const REACT_APP_MAP_STYLE = process.env.REACT_APP_MAP_STYLE;
+var pointZero = { x: 0.4981273408, y: 0.6960227273 };
 
-const mapSettings = {
-  doubleClickZoom: true,
-  dragPan: false,
-  dragRotate: false,
-  interactive: false,
-  maxPitch: 0,
-  maxZoom: 20,
-  minPitch: 0,
-  minZoom: 2.5,
-  renderWorldCopies: false,
-  touchPitch: false,
-  touchZoomRotate: false,
-  attributionControl: false,
+const mapBounds = {
+  latMin: -58.55,
+  latMax: 83.62,
+  lonMin: -180,
+  lonMax: 180,
 };
 
-const zoom = [7];
+const normalizeLatitude = (lat) => {
+  return Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 180 / 2));
+};
+
+const getCoords = (latitude, longitude, mapWidth, mapHeight) => {
+  var x = 0;
+  var y = 0;
+  if (latitude > 0) {
+    y =
+      mapHeight *
+      pointZero.y *
+      (1 - normalizeLatitude(latitude) / normalizeLatitude(mapBounds.latMax));
+  }
+
+  if (latitude < 0) {
+    y =
+      mapHeight * pointZero.y +
+      (mapHeight - mapHeight * pointZero.y) *
+        (normalizeLatitude(latitude) / normalizeLatitude(mapBounds.latMin));
+  }
+
+  if (longitude > 0) {
+    x =
+      mapWidth * pointZero.x +
+      (mapWidth - mapWidth * pointZero.x) * (longitude / mapBounds.lonMax);
+  }
+
+  if (longitude < 0) {
+    x =
+      mapWidth * pointZero.x -
+      mapWidth * pointZero.x * (longitude / mapBounds.lonMin);
+  }
+
+  return { x, y };
+};
 
 const Map = () => {
-  const mapRef = React.useRef();
+  const mapRef = useRef();
   const { latitude, longitude } = useVPNSelector();
+  const [transform, setTransform] = useState({ x: 0, y: 0 });
 
-  React.useEffect(() => {
-    if (mapRef.current && mapRef.current.getMap()) {
-      mapRef.current.flyTo({
-        center: [longitude, latitude],
-        duration: 1000,
-        essential: true,
-        zoom,
-      });
+  const dimensions = useMemo(() => {
+    if (mapRef.current) {
+      const { clientWidth = 0, clientHeight = 0 } = mapRef.current;
+      return { width: clientWidth, height: clientHeight };
     }
-  }, [longitude, latitude]);
+    return { width: 0, height: 0 };
+  }, [mapRef.current]);
 
-  const onLoad = React.useCallback(() => {
-    const map = mapRef.current.getMap();
-    if (map) {
-      map.keyboard.disableRotation();
-      map.touchZoomRotate.disableRotation();
-    }
-  }, []);
+  useLayoutEffect(() => {
+    const mapWidth = dimensions.width;
+    const mapHeight = dimensions.height;
+    const coords = getCoords(latitude, longitude, mapWidth, mapHeight);
+    setTransform(coords);
+  }, [latitude, longitude, dimensions.width, dimensions.height]);
 
-  const reactMapGl = React.useMemo(() => {
-    return (
-      <ReactMapGl
-        mapLib={import("mapbox-gl")}
-        ref={mapRef}
-        onLoad={onLoad}
-        initialViewState={{
-          bearing: 0,
-          pitch: 0,
-          latitude: latitude,
-          longitude: longitude,
-          zoom: zoom,
-        }}
-        style={{
-          width: "100%",
-          height: `${window.innerHeight - 72}px`,
-          overflow: "hidden",
-        }}
-        cursor="default"
-        zoom={zoom}
-        mapboxAccessToken={REACT_APP_MAPBOX_ACCESS_TOKEN}
-        mapStyle={REACT_APP_MAP_STYLE}
-        {...mapSettings}
-      />
-    );
-  }, [latitude, longitude, onLoad]);
+  const backgroundPosition = useMemo(() => {
+    const x = `${(transform.x / dimensions.width) * 100}%`;
+    const y = `${(transform.y / dimensions.height) * 100}%`;
+    return `${x} ${y}`;
+  }, [dimensions.width, dimensions.height, transform.x, transform.y]);
 
-  return <>{reactMapGl}</>;
+  return (
+    <div
+      className={styles.root}
+      style={{
+        backgroundImage: `url(${MapSvg})`,
+        backgroundPosition,
+        backgroundSize: `auto 100%`,
+        transition: "background-position 0.1s ease-in-out",
+      }}
+      ref={mapRef}
+    >
+      {!(transform.x === 0 && transform.y === 0) && (
+        <div
+          className={styles.dot}
+          style={{
+            left: `${transform.x}px`,
+            top: `${transform.y}px`,
+          }}
+        />
+      )}
+    </div>
+  );
 };
 
-export default React.memo(Map);
+export default Map;

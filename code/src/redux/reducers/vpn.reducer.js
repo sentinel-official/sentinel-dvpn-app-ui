@@ -1,4 +1,9 @@
-import { dispatchConnectToVPN, dispatchDisconnectFromVPN, dispatchFetchConnectionStatus, dispatchFetchIPAddress } from "@actions/vpn.actions";
+import {
+  dispatchConnectToVPN,
+  dispatchDisconnectFromVPN,
+  dispatchFetchConnectionStatus,
+  dispatchFetchIPAddress,
+} from "@actions/vpn.actions";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -36,16 +41,22 @@ const slice = createSlice({
       latitude: payload.latitude,
       longitude: payload.longitude,
     }));
-    builder.addCase(dispatchFetchConnectionStatus.fulfilled, (state, { payload }) => ({
-      ...state,
-      isConnecting: false,
-      isConnected: payload,
-    }));
-    builder.addCase(dispatchDisconnectFromVPN.fulfilled, (state, { payload }) => ({
-      ...state,
-      isConnecting: false,
-      isConnected: payload,
-    }));
+    builder.addCase(
+      dispatchFetchConnectionStatus.fulfilled,
+      (state, { payload }) => ({
+        ...state,
+        isConnecting: false,
+        isConnected: payload,
+      })
+    );
+    builder.addCase(
+      dispatchDisconnectFromVPN.fulfilled,
+      (state, { payload }) => ({
+        ...state,
+        isConnecting: false,
+        isConnected: payload,
+      })
+    );
   },
 });
 

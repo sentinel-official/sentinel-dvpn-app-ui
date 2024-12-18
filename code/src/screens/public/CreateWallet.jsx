@@ -41,7 +41,7 @@ const CreateWallet = () => {
       element.scrollIntoView();
     }
   }, []);
-  console.log("keywords", keywords);
+
   return (
     <div
       className={`${styles.root} px-24 py-48`}

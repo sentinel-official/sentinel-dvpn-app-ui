@@ -2430,15 +2430,10 @@ camel-case@^4.1.2:
     pascal-case "^3.1.2"
     tslib "^2.0.3"
 
-caniuse-lite@^1.0.30001629:
-  version "1.0.30001634"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001634.tgz#aa563c8e7aeaf552f7ead60371bc8d803425deaa"
-  integrity sha512-fbBYXQ9q3+yp1q1gBk86tOFs4pyn/yxFm5ZNP18OXJDfA3txImOY9PhfxVggZ4vRHDqoU8NrKU81eN0OtzOgRA==
-
-caniuse-lite@^1.0.30001646:
-  version "1.0.30001651"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001651.tgz#52de59529e8b02b1aedcaaf5c05d9e23c0c28138"
-  integrity sha512-9Cf+Xv1jJNe1xPZLGuUXLNkE1BoDkqRqYyFJ9TDYSqhduqA4hu4oR9HluGoWYQC/aj8WHjsGVV+bwkh0+tegRg==
+caniuse-lite@^1.0.30001629, caniuse-lite@^1.0.30001646:
+  version "1.0.30001689"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001689.tgz"
+  integrity sha512-CmeR2VBycfa+5/jOfnp/NpWPGd06nf1XYiefUvhXFfZE4GkRc9jv+eGPS4nT558WS/8lYCzV8SlANCIPvbWP1g==
 
 chalk@^2.4.2:
   version "2.4.2"

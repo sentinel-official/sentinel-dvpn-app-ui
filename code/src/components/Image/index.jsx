@@ -1,6 +1,6 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-const Image = ({ src = "", ...rest }) => {
+const Image = forwardRef(({ src, ...rest }, ref) => {
   const path = React.useMemo(() => {
     if (src.startsWith("http://") || src.startsWith("https://")) {
       return src;
@@ -9,11 +9,12 @@ const Image = ({ src = "", ...rest }) => {
   }, [src]);
   return (
     <img
+      ref={ref}
       src={path}
       alt=""
       {...rest}
     />
   );
-};
+});
 
 export default Image;
