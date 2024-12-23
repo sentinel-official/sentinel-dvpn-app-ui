@@ -1,11 +1,25 @@
-import { deviceReducer, authReducer, settingsReducer } from "@reducers";
-import alertsReducer from "@reducers/alerts.reducer";
-import loaderReducer from "@reducers/loader.reducer";
-import nodesReducer from "@reducers/nodes.reducer";
-import userReducer from "@reducers/user.reducer";
-import vpnReducer from "@reducers/vpn.reducer";
+import {
+  alertsReducer,
+  deviceReducer,
+  authReducer,
+  settingsReducer,
+  tunnelReducer,
+  loaderReducer,
+  nodesReducer,
+  vpnReducer,
+  userReducer,
+} from "@reducers";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import process from "process";
 import paymentsReducer from "@reducers/payments.reducer";
@@ -47,6 +61,7 @@ const reducer = combineReducers({
   user: userReducer,
   vpn: vpnReducer,
   payments: paymentsReducer,
+  tunnel: tunnelReducer,
 });
 
 const store = configureStore({

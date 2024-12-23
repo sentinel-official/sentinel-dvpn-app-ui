@@ -1,7 +1,7 @@
 import { CHANGE_MESSAGE } from "@reducers/loader.reducer";
 import settingsServices from "@services/settings.services";
 
-const sleep = (ms) => {
+export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 const total = 30;

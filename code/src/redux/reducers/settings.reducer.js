@@ -18,7 +18,11 @@ const slice = createSlice({
       customDNSList: [...state.customDNSList, payload],
     }),
     REMOVE_CUSTOM_DNS: (state, { payload }) => {
-      const customDNSList = state.customDNSList.filter((i) => i.preferredName !== payload.preferredName && i.addresses !== payload.addresses);
+      const customDNSList = state.customDNSList.filter(
+        (i) =>
+          i.preferredName !== payload.preferredName &&
+          i.addresses !== payload.addresses
+      );
       return {
         ...state,
         customDNSList,
@@ -30,11 +34,18 @@ const slice = createSlice({
     }),
   },
   extraReducers: (builder) => {
-    builder.addCase(dispatchFetchAvailableDNS.fulfilled, (state, { payload }) => ({ ...state, dnsList: payload }));
-    builder.addCase(CHANGE_AUTH_STATUS, (state) => ({ ...state, ...initialState }));
+    builder.addCase(
+      dispatchFetchAvailableDNS.fulfilled,
+      (state, { payload }) => ({ ...state, dnsList: payload })
+    );
+    builder.addCase(CHANGE_AUTH_STATUS, (state) => ({
+      ...state,
+      ...initialState,
+    }));
   },
 });
 
-export const { ADD_CUSTOM_DNS, REMOVE_CUSTOM_DNS, CHANGE_FEE_GRANT } = slice.actions;
+export const { ADD_CUSTOM_DNS, REMOVE_CUSTOM_DNS, CHANGE_FEE_GRANT } =
+  slice.actions;
 
 export default slice.reducer;

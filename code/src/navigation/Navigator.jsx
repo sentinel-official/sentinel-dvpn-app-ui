@@ -27,6 +27,7 @@ import FeeGranter from "@private/Settings/FeeGranter";
 import AddCustomDNS from "@private/Settings/AddCustomDNS";
 import useModal from "@hooks/use-modal";
 import AddBalance from "@private/Account/AddBalance";
+import SplitTunnelling from "@private/Settings/SplitTunnelling";
 
 const Navigator = () => {
   const { getModalDetails, hideModal } = useModal();
@@ -70,6 +71,7 @@ const Navigator = () => {
           <Route path="settings/dns-details" element={<DNSDetails />} />
           <Route path="settings/dns-details/new" element={<AddCustomDNS />} />
           <Route path="settings/fee-granter" element={<FeeGranter />} />
+          <Route path="settings/split-tunnelling" element={<SplitTunnelling />} />
         </Route>
       </Route>
 

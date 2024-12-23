@@ -24,6 +24,7 @@ import {
 } from "@actions/user.actions";
 import useModal from "./use-modal";
 import { dispatchPaymentLogin } from "@actions/payments.actions";
+import { dispatchGetToggleTunnelEnableStatus } from "@actions/tunnel.actions";
 
 const useInitApp = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const useInitApp = () => {
         dispatch(dispatchFetchConnectionStatus()),
         dispatch(dispatchPaymentLogin(walletAddress)),
         dispatch(dispatchFetchIPAddress()),
+        dispatch(dispatchGetToggleTunnelEnableStatus()),
         dispatch(dispatchFetchAccountBalance(walletAddress)),
         dispatch(dispatchFetchTokenPrice()),
         dispatch(dispatchFetchCurrentRPC()),

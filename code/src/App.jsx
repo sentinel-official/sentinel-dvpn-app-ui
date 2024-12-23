@@ -18,7 +18,12 @@ const App = () => {
 
   return (
     <Suspense fallback={<></>}>
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_relativeSplatPath: true,
+          v7_startTransition: true,
+        }}
+      >
         <StoreProvider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <TranslationsProvider>

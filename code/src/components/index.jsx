@@ -7,3 +7,5 @@ export { default as InputBox } from "./InputBox";
 export { default as Image } from "./Image";
 export { default as RadioButton } from "./RadioButton";
 export { default as Card, CARD_VARIANTS } from "./Card";
+export { default as ToggleSwitch } from "./ToggleSwitch";
+export { default as TunnelApp } from "./TunnelApp";
