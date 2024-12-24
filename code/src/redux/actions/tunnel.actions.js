@@ -54,11 +54,6 @@ export const dispatchSetTunnelledApps = createAsyncThunk(
   "SET_TUNNEL_APPS",
   async (app, { getState, fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
-      dispatch(
-        START_LOADER({
-          message: `updating`,
-        })
-      );
       const tunnelledApps = getState().tunnel.tunnelledApps || [];
       const packageName = app.packageName;
       let apps = [...tunnelledApps, packageName].filter((i) => i && i.length > 0);
@@ -78,8 +73,6 @@ export const dispatchSetTunnelledApps = createAsyncThunk(
         })
       );
       return rejectWithValue(error);
-    } finally {
-      dispatch(STOP_LOADER());
     }
   }
 );
