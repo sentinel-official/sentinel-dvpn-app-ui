@@ -12,8 +12,41 @@ import AndroidIcon from "@svgs/android-icon.svg";
 import CheckIcon from "@svgs/check-icon.svg";
 import useLoader from "@hooks/use-loader";
 
+
+const AppCard = ({ item = {} }) => {
+  const dispatch = useDispatch();
+  const { tunnelledApps } = useTunnelSelector();
+  const icon = item.appIcon? `data:image/png;base64,${item.appIcon}` : AndroidIcon;
+  const isTunnelled = tunnelledApps.includes(item.packageName) || false;
+  return (
+    <Card
+      className={`${styles.application} px-6 py-8`}
+      onClick={() => dispatch(dispatchSetTunnelledApps(item))}
+    >
+      <section className={styles.left}>
+        <Image src={icon} className={styles.icon} base64={true} altImage={AndroidIcon} />
+        <section className={styles.content}>
+          <Text
+            text={`${item.appName}`}
+            className={`${styles["text"]} fs-14 fw-4`}
+          />
+          <Text
+            text={item.packageName}
+            className={`${styles["text"]} fs-10 fw-4 text-8a94a3`}
+          />
+        </section>
+      </section>
+      {isTunnelled && (
+        <section className={styles.right}>
+          <Image src={CheckIcon} className={styles.icon} height={"24px"} />
+        </section>
+      )}
+    </Card>
+  );
+};
+
 const ListOfApps = () => {
-  const { isEnabled, allApps, tunnelledApps } = useTunnelSelector();
+  const { isEnabled, allApps } = useTunnelSelector();
   const dispatch = useDispatch();
 
   const { startLoader, stopLoader } = useLoader();
@@ -48,38 +81,7 @@ const ListOfApps = () => {
     return (
       <div className={styles.root}>
         {allApps.map((item, index) => {
-          const icon = item.appIcon || AndroidIcon;
-          const isTunnelled = tunnelledApps.includes(item.packageName) || false;
-          return (
-            <Card
-              className={`${styles.application} px-6 py-8`}
-              key={`app-${item.appName}-${index}`}
-              onClick={() => dispatch(dispatchSetTunnelledApps(item))}
-            >
-              <section className={styles.left}>
-                <Image src={icon} className={styles.icon} />
-                <section className={styles.content}>
-                  <Text
-                    text={`${item.appName}`}
-                    className={`${styles["text"]} fs-14 fw-4`}
-                  />
-                  <Text
-                    text={item.packageName}
-                    className={`${styles["text"]} fs-10 fw-4 text-8a94a3`}
-                  />
-                </section>
-              </section>
-              {isTunnelled && (
-                <section className={styles.right}>
-                  <Image
-                    src={CheckIcon}
-                    className={styles.icon}
-                    height={"24px"}
-                  />
-                </section>
-              )}
-            </Card>
-          );
+          return <AppCard key={`app-${item.appName}-${index}`} item={item} />;
         })}
       </div>
     );

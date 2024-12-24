@@ -6,7 +6,7 @@ import {
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isEnabled: false,
+  isEnabled: true,
   allApps: [],
   tunnelledApps: [],
 };
