@@ -4,12 +4,11 @@ import React, {
   useState,
   useLayoutEffect,
   useMemo,
-  useCallback,
 } from "react";
 import MapSvg from "@svgs/map.svg";
 import styles from "./map.module.scss";
 
-var pointZero = { x: 0.4981273408, y: 0.6960227273 };
+var pointZero = { x: 0.48425, y: 0.696 };
 
 const mapBounds = {
   latMin: -58.55,
