@@ -19,15 +19,12 @@ export const dispatchSetToggleTunnelEnableStatus = createAsyncThunk(
   "SET_TOGGLE_TUNNEL_ENABLE",
   async (_, { dispatch, fulfillWithValue, getState, rejectWithValue }) => {
     try {
-      dispatch(START_LOADER({ message: "updating" }));
       const { isEnabled } = getState().tunnel;
       await tunnelServcies.setToggleTunnelEnableStatus(!isEnabled);
       await dispatch(dispatchGetToggleTunnelEnableStatus());
       return fulfillWithValue();
     } catch (error) {
       return rejectWithValue(error);
-    } finally {
-      dispatch(STOP_LOADER());
     }
   }
 );
