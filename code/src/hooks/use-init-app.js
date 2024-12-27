@@ -10,7 +10,6 @@ import { dispatchFetchCountriesList } from "@actions/proxy.actions";
 import {
   dispatchFetchAccountBalance,
   dispatchFetchTokenPrice,
-  dispatchRegisterWalletAddress,
 } from "@actions/auth.actions";
 import { useAuthSelector, useLoaderSelector } from "./use-selector";
 import useAlerts, { ALERT_TYPES } from "./use-alerts";
