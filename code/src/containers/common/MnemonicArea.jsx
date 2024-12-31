@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./mnemonic-area.module.scss";
 
 const MnemonicArea = ({
@@ -6,7 +6,35 @@ const MnemonicArea = ({
   changeValues = () => {},
   disabled = false,
   show = true,
+  isPasswordMode = false,
 }) => {
+  const noOfWords = Object.entries(inputValues).length;
+
+  const [inputTypes, setInputTypes] = useState(isPasswordMode ? Array(noOfWords).fill("password") : Array(noOfWords).fill("text"));
+
+  useEffect(() => {
+    setInputTypes(isPasswordMode ? Array(noOfWords).fill("password") : Array(noOfWords).fill("text"))
+  }, [isPasswordMode])
+
+  const handleFocus = (index) => {
+    setInputTypes((prevTypes) => {
+      const newTypes = [...prevTypes];
+      newTypes[index] = "text";
+      return newTypes;
+    });
+  };
+
+  const handleBlur = (index) => {
+    if (isPasswordMode) {
+      setInputTypes((prevTypes) => {
+        const newTypes = [...prevTypes];
+        newTypes[index] = "password";
+        return newTypes;
+      });
+    }
+  };
+
+
   return (
     <div className={`${styles["mnemonic-area"]} my-24`}>
       {Object.entries(inputValues).map(([_, value], index) => {
@@ -18,10 +46,12 @@ const MnemonicArea = ({
               show ? "" : styles.blur
             }`}
             id={`mnemonic-input-box-${index}`}
-            type="text"
             value={value}
             onChange={(event) => changeValues(event, index)}
             placeholder={`${index + 1}`}
+            type={inputTypes[index]}
+            onBlur={() => handleBlur(index)}
+            onFocus={() => handleFocus(index)}
           />
         );
       })}

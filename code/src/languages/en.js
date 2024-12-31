@@ -240,5 +240,6 @@ export default {
   turn_off: "Turn off",
   turn_on: "Turn on",
   updating: "Updating",
-  error_fetching_apps: "Error while fetching Apps"
+  error_fetching_apps: "Error while fetching Apps",
+  failed_create_subscription: "Failed to create Subscription"
 };

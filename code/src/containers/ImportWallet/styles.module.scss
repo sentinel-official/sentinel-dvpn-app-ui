@@ -9,8 +9,9 @@
 }
 
 .no-of-words {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 40% 40% 20%;
+  grid-template-rows: 100%;
   align-items: center;
   justify-content: space-evenly;
   width: 100%;

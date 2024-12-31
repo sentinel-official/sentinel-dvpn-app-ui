@@ -22,6 +22,8 @@ const ImportWallet = () => {
   const [inputValues, setInputValues] = React.useState(
     initializeInputValues(noOfWords)
   );
+  const [isPasswordMode, setIsPasswordMode] = React.useState(true);
+  
   React.useEffect(() => {
     setInputValues(initializeInputValues(noOfWords));
   }, [noOfWords]);
@@ -107,9 +109,11 @@ const ImportWallet = () => {
             <NoOfWords
               noOfWords={noOfWords}
               changeNoOfWords={(value) => setNoOfWords(value)}
+              isPasswordMode={isPasswordMode}
+              onChangeIsPasswordMode={()=>setIsPasswordMode(prev=>!prev)}
             />
           </legend>
-          <MnemonicArea inputValues={inputValues} changeValues={changeValues} />
+          <MnemonicArea isPasswordMode={isPasswordMode} inputValues={inputValues} changeValues={changeValues} />
         </fieldset>
       </section>
       <section className={`${styles.bottom} mt-48`}>

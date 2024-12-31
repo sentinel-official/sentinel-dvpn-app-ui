@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { Text } from "@components/index";
+import { BTN_VARIANTS, Button, Image, Text } from "@components/index";
+import EyeIcon from '@svgs/eye.svg'
+import EyeCrossIcon from '@svgs/eye-cross.svg'
 
-const NoOfWords = ({ noOfWords = 24, changeNoOfWords = () => {} }) => {
+const NoOfWords = ({ noOfWords = 24, changeNoOfWords = () => {}, isPasswordMode=true, onChangeIsPasswordMode=()=>{} }) => {
   return (
     <div className={`${styles["no-of-words"]} p-8`}>
       <Text
@@ -25,6 +27,9 @@ const NoOfWords = ({ noOfWords = 24, changeNoOfWords = () => {} }) => {
           changeNoOfWords(12);
         }}
       />
+      <Button variant={BTN_VARIANTS.TRANSPARENT} onClick={onChangeIsPasswordMode}>
+        <Image src={isPasswordMode ? EyeIcon: EyeCrossIcon}/>
+      </Button>
     </div>
   );
 };

@@ -43,10 +43,7 @@ const CreateWallet = () => {
   }, []);
 
   return (
-    <div
-      className={`${styles.root} px-24 py-48`}
-      id="top"
-    >
+    <div className={`${styles.root} px-24 py-48`} id="top">
       <Text
         text={"your_unique_private_key_title"}
         className="fs-22 fw-6 mb-16  ml-8"
@@ -57,11 +54,7 @@ const CreateWallet = () => {
         className="fs-14 fw-4 text-9cabc9 ml-8 mb-16"
       />
       <section className={styles["mnemonic-area"]}>
-        <MnemonicArea
-          show={show}
-          inputValues={keywords}
-          disabled={true}
-        />
+        <MnemonicArea show={show} inputValues={keywords} disabled={true} />
       </section>
 
       <Button
@@ -92,10 +85,7 @@ const CreateWallet = () => {
         onClick={() => login(keywords.join(" "))}
         className="mb-18"
       >
-        <Text
-          text={"create_wallet"}
-          className={"py-8"}
-        />
+        <Text text={"create_wallet"} className={"py-8"} />
       </Button>
       <section className={styles.login}>
         <Text
