@@ -1,4 +1,4 @@
-import { START_LOADER, STOP_LOADER } from "@reducers/loader.reducer";
+import { getMobileOS } from "@helpers/getOSType";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import tunnelServcies from "@services/tunnel.services";
 
@@ -6,8 +6,12 @@ export const dispatchGetToggleTunnelEnableStatus = createAsyncThunk(
   "GET_TOGGLE_TUNNEL_ENABLE",
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const response = await tunnelServcies.getToggleTunnelEnableStatus();
-      return fulfillWithValue(response.status);
+      const os = getMobileOS();
+      if (os === "android") {
+        const response = await tunnelServcies.getToggleTunnelEnableStatus();
+        return fulfillWithValue(response.status);
+      }
+      return fulfillWithValue(false);
     } catch (error) {
       console.log(error);
       return rejectWithValue();
@@ -53,7 +57,9 @@ export const dispatchSetTunnelledApps = createAsyncThunk(
     try {
       const tunnelledApps = getState().tunnel.tunnelledApps || [];
       const packageName = app.packageName;
-      let apps = [...tunnelledApps, packageName].filter((i) => i && i.length > 0);
+      let apps = [...tunnelledApps, packageName].filter(
+        (i) => i && i.length > 0
+      );
 
       if (tunnelledApps && tunnelledApps.includes(packageName)) {
         apps = tunnelledApps.filter((i) => i !== packageName);

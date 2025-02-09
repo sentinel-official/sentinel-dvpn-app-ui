@@ -1,5 +1,5 @@
 import useModal from "@hooks/use-modal";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { createPortal } from "react-dom";
 import styles from "./modal.module.scss";
 import AnimatedLayout from "@navigation/AnimatedLayout";
@@ -16,6 +16,9 @@ import RetryRegister from "@containers/Modals/RetryRegister";
 import FeeGranterModal from "@containers/Modals/FeeGranterModal";
 import PurchasePending from "@containers/Modals/PurchasePending";
 import DeleteAccount from "@containers/Modals/DeleteAccount";
+import NoInternet from "@containers/Modals/NoInternet";
+import { useDispatch } from "react-redux";
+import { STOP_LOADER } from "@reducers/loader.reducer";
 
 const types = {
   filters: Filters,
@@ -30,6 +33,7 @@ const types = {
   "fee-grant": FeeGranterModal,
   "purchase-pending": PurchasePending,
   "delete-account": DeleteAccount,
+  "no-internet": NoInternet,
 };
 
 const ModalComponent = ({ name }) => {
@@ -45,8 +49,15 @@ const ModalComponent = ({ name }) => {
 };
 
 const Modal = () => {
+  const dispatch = useDispatch();
   const { hideModal, getModalDetails } = useModal();
   const { show, name, cancellable, variant = "primary" } = getModalDetails();
+
+  useEffect(() => {
+    if (show) {
+      dispatch(STOP_LOADER());
+    }
+  }, [show, dispatch]);
 
   if (show) {
     return (

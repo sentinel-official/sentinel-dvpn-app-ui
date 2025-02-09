@@ -241,5 +241,9 @@ export default {
   turn_on: "Turn on",
   updating: "Updating",
   error_fetching_apps: "Error while fetching Apps",
-  failed_create_subscription: "Failed to create Subscription"
+  failed_create_subscription: "Failed to create Subscription",
+  no_internet: "No Internet",
+  error_no_internet: "Please check the internet connection and retry",
+  changing_rpc_loader: "Changing RPC",
+  reload: "Reload"
 };

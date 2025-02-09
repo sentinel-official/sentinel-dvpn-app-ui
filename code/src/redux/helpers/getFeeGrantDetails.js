@@ -4,7 +4,7 @@ import settingsServices from "@services/settings.services";
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
-const total = 30;
+const total = 15;
 const getFeeGrantDetails = async (walletAddress, dispatch) => {
   let attempt = 0;
   while (attempt < total) {

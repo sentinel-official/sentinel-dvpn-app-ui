@@ -83,3 +83,34 @@ export const langs = {
     global: "Turkish",
   },
 };
+
+  export const RPCS = [
+    {
+      host: "rpc-fast-1.sentinel.co",
+      port: 9090,
+    },
+    {
+      host: "sentinel-rpc.publicnode.com",
+      port: 443,
+    },
+    {
+      host: "rpc.sentineldao.com",
+      port: 443,
+    },
+    {
+      host: "as-rpc-sentinel.busurnode.com",
+      port: 443,
+    },
+    {
+      host: "as-rpc.sentineldao.com",
+      port: 443,
+    },
+    {
+      host: "rpc.dvpn.me",
+      port: 443,
+    },
+    {
+      host: "rpc.sentinel.co",
+      port: 9090,
+    },
+  ];

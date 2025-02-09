@@ -1,4 +1,6 @@
 import axios from "axios";
+import { rpcErrorEvent, updateInternetStatus } from "./events";
+import { RPCS } from "@root/constants";
 
 const Axios = axios.create({
   baseURL: "/api",
@@ -8,6 +10,13 @@ const Axios = axios.create({
   },
   timeout: 30000,
 });
+
+Axios.interceptors.request.use(request => {
+  if (window && window.Navigator && window.navigator.onLine &&  navigator.connection.downlink > 4) {
+    return request;
+  }
+  window.dispatchEvent(updateInternetStatus(false))
+})
 
 Axios.interceptors.response.use(
   (response) => {
@@ -22,7 +31,7 @@ Axios.interceptors.response.use(
     }
     throw { code: response.status };
   },
-  (error) => {
+  async (error) => {
     const name = error.code || "Error";
     const message = error.message || "";
     const resp = error?.response || {};
@@ -30,6 +39,26 @@ Axios.interceptors.response.use(
     const url = error.request.responseURL || "";
 
     console.error(`${new Date().toISOString()}: ${url}: ${name}: ${message}`, { REQ: req, RESP: resp });
+  
+    const isGrantsURL = resp.request.responseURL.includes("/api/blockchain/wallet/") && resp.request.responseURL.includes("/grants/");
+
+    if (resp.data.error && resp.data.reason === "RPC timed out before completing" && !isGrantsURL) {
+      console.log("eRRor")
+      const rpc = window.sessionStorage.getItem("rpc")
+      const { host = "", port = 0 } = rpc ? JSON.parse(rpc) : {}
+
+      const rpcIndex = RPCS.findIndex(rpcNode => rpcNode.host === host && rpcNode.port === port);
+
+
+      if (rpcIndex === RPCS.length - 1) {
+        await Axios.post("/blockchain/endpoint", RPCS[0]);
+      } else { 
+        const nextRPC = RPCS[rpcIndex + 1];
+        await Axios.post("/blockchain/endpoint", nextRPC)
+      }
+      window.dispatchEvent(rpcErrorEvent())
+      return axios(error.config)
+    }
 
     if (error?.request?.response && typeof error?.request?.response === "object") {
       throw {

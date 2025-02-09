@@ -81,6 +81,7 @@ export const dispatchFetchAvailableSubscriptions = createAsyncThunk(
 export const dispatchFetchCurrentRPC = createAsyncThunk("USER/FETCH_CURRENT_RPC", async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
   try {
     const response = await settingsServices.fetchCurrnetRPC();
+     window.sessionStorage.setItem("rpc", JSON.stringify(response))
     return fulfillWithValue(response);
   } catch (e) {
     dispatch(

@@ -8,7 +8,9 @@ import useModal from "@hooks/use-modal";
 import { dispatchGetFeeGrantDetails, dispatchRegisterWalletAddress } from "@actions/auth.actions";
 import { useDispatch } from "react-redux";
 import useLoader from "@hooks/use-loader";
-import { CHANGE_LOADING_APP, SET_FEEGRANT_CHECKED } from "@reducers/loader.reducer";
+import { CHANGE_LOADING_APP, SET_FEEGRANT_CHECKED, STOP_LOADER } from "@reducers/loader.reducer";
+import { INTERNET_STATUS, RPC_ERROR } from "@services/events";
+import { dispatchChangeCurrentRPC, dispatchFetchCurrentRPC } from "@actions/user.actions";
 
 const PrivateRouter = React.memo(() => {
   const dispatch = useDispatch();
@@ -17,7 +19,7 @@ const PrivateRouter = React.memo(() => {
   const { isFeegrantChecked, loadingApp } = useLoaderSelector();
   const { feeGrantEnabled } = useSettingsSelector();
   const { initApp } = useInitApp();
-  const { showModal, MODAL_VARIANTS } = useModal();
+  const { showModal, MODAL_VARIANTS, hideModal, getModalDetails } = useModal();
   const { startLoader, stopLoader, changeMessage } = useLoader();
 
   const showBottomNavbar = React.useMemo(
@@ -43,6 +45,7 @@ const PrivateRouter = React.memo(() => {
       return;
     }
     if (loadingApp) {
+      await dispatch(dispatchFetchCurrentRPC());
       const response = await shouldUserPay();
       await dispatch(CHANGE_LOADING_APP(false));
       stopLoader();
@@ -56,7 +59,7 @@ const PrivateRouter = React.memo(() => {
       }
       await dispatch(SET_FEEGRANT_CHECKED(true));
     }
-  }, [initApp, shouldUserPay, loadingApp, isFeegrantChecked]);
+  }, [initApp, shouldUserPay, loadingApp, isFeegrantChecked, dispatch]);
 
   React.useEffect(() => {
     if (isAuthenticated) {
@@ -64,6 +67,33 @@ const PrivateRouter = React.memo(() => {
       return;
     }
   }, [init, isAuthenticated]);
+
+  React.useEffect(() => {
+    const handleRpcError = async () => {
+      try {
+        await dispatch(CHANGE_LOADING_APP(false)).unwrap();
+        await dispatch(CHANGE_LOADING_APP(true)).unwrap();
+      } catch (error) {
+        
+      } finally {
+        await dispatch(dispatchFetchCurrentRPC());
+      }
+    }
+
+    const handleUserInternetStatus = async ({detail}) => {
+      if (detail.status === false) {
+        await dispatch(CHANGE_LOADING_APP(false));
+        showModal({ name: "no-internet", cancellable: false, })
+      }
+    }
+
+    window.addEventListener(RPC_ERROR, handleRpcError);
+    window.addEventListener(INTERNET_STATUS, handleUserInternetStatus)
+    return () => {
+      window.removeEventListener(RPC_ERROR, handleRpcError);
+      window.removeEventListener(INTERNET_STATUS, handleUserInternetStatus)
+    }
+   }, [])
 
   if (isAuthenticated) {
     return (
