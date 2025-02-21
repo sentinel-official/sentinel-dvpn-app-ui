@@ -84,7 +84,11 @@ export const langs = {
   },
 };
 
-  export const RPCS = [
+export const RPCS = [
+     {
+      host: "rpc.sentinel.co",
+      port: 9090,
+    },
     {
       host: "rpc-fast-1.sentinel.co",
       port: 9090,

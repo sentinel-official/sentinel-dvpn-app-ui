@@ -82,8 +82,8 @@ const PrivateRouter = React.memo(() => {
 
     const handleUserInternetStatus = async ({detail}) => {
       if (detail.status === false) {
-        await dispatch(CHANGE_LOADING_APP(false));
-        showModal({ name: "no-internet", cancellable: false, })
+        await dispatch(CHANGE_LOADING_APP(false)).unwrap();
+        await dispatch(CHANGE_LOADING_APP(true)).unwrap();
       }
     }
 

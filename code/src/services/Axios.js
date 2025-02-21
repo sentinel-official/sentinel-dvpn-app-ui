@@ -42,7 +42,7 @@ Axios.interceptors.response.use(
   
     const isGrantsURL = resp.request.responseURL.includes("/api/blockchain/wallet/") && resp.request.responseURL.includes("/grants/");
 
-    if (resp.data.error && resp.data.reason === "RPC timed out before completing" && !isGrantsURL) {
+    if (resp.data.error && ["Not Found", "RPC timed out before completing"].includes(resp.data.reason) && !isGrantsURL) {
       console.log("eRRor")
       const rpc = window.sessionStorage.getItem("rpc")
       const { host = "", port = 0 } = rpc ? JSON.parse(rpc) : {}
