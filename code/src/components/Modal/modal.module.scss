@@ -1,0 +1,45 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(107, 122, 151, 0.15);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  z-index: 99;
+
+  .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+  }
+  .container {
+    z-index: 101;
+    width: 100%;
+    background-color: #000610;
+    border-radius: 8px;
+    border: 1px solid #0156fc80;
+  }
+}
+
+.primary {
+  padding: 0 16px;
+  justify-content: center;
+}
+.secondary {
+  justify-content: flex-end;
+  .container {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+}

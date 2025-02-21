@@ -1,0 +1,39 @@
+.root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  .button {
+    height: 42px;
+  }
+}
+
+.para {
+  width: 100%;
+}
+
+.slide {
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  text-align: left;
+}
+
+.built-on-cosmos-image {
+  width: max(200px, 50vw);
+  height: auto;
+}
+
+.map-image {
+  width: max(200px, 70vw);
+  height: auto;
+}
+
+.subscription-image {
+  height: min(200px, 70vh);
+  width: auto;
+}

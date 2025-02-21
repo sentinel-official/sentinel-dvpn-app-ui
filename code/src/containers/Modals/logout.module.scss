@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  .confirmation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      display: none;
+    }
+
+    .check-box {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #9cabc9;
+      border-radius: 2px;
+      position: relative;
+      img {
+        position: absolute;
+        top: -5px;
+        left: -1px;
+        padding: 0;
+        margin: 0;
+        width: 18px;
+        height: 24px;
+      }
+    }
+  }
+}

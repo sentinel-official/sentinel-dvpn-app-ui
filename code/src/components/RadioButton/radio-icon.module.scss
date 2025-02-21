@@ -1,0 +1,43 @@
+.radioBtn {
+  width: 100%;
+  height: 28px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  input,
+  .input-radio {
+    display: none;
+    margin: 0 8px;
+  }
+
+  .svg {
+    margin-right: 0.5em;
+  }
+
+  .radioDot {
+    opacity: 0;
+  }
+
+  .radioOutline {
+    opacity: 0.2;
+  }
+
+  input:checked + svg {
+    .radioDot,
+    .radioOutline {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    .radioDot {
+      opacity: 0;
+    }
+    .radioOutline {
+      opacity: 0.3;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+// .root {
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: space-between;
+//   text-align: center;
+//   .top {
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     justify-content: flex-start;
+//     text-align: left;
+//   }
+//   .middle {
+//     width: 100%;
+//     min-height: 350px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: space-between;
+//     text-align: center;
+//   }
+//   .bottom {
+//     width: 100%;
+//   }
+//   button {
+//     height: 42px;
+//   }
+// }
+
+.root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  .mnemonic-area {
+    min-height: 340px;
+  }
+  .login {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}

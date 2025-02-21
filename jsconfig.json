@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./code",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@containers/*": ["src/containers/*"],
+      "@public/*": ["src/screens/public/*"],
+      "@private/*": ["src/screens/private/*"],
+      "@store": ["src/redux/reducers/store.js"],
+      "@actions/*": ["src/redux/actions/*"],
+      "@reducers/*": ["src/redux/reducers/*"],
+      "@services/*": ["src/services/*"],
+      "@navigation/*": ["src/navigation/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pngs/*": ["src/assets/pngs/*"],
+      "@svgs/*": ["src/assets/svgs/*"],
+      "@gifs/*": ["src/assets/gifs/*"],
+      "@root/*": ["src/*"]
+    }
+  },
+  "include": ["code/src"]
+}

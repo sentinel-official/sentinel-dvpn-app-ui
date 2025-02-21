@@ -1,0 +1,31 @@
+$header-height: 72px;
+
+.root {
+  width: 100%;
+  height: inherit;
+  .outlet {
+    width: 100%;
+  }
+  .with {
+    height: calc(100% - $header-height);
+    transition: height 0.2s ease;
+  }
+  .without {
+    height: 100%;
+    transition: height 0.2s ease;
+  }
+  .navbar {
+    height: $header-height;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 5;
+    background-color: #191f31;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,36 @@
+.root {
+    width: 2.4em;
+    height: 1.2em;
+    background-color: #9cabc9;
+    padding: 2px;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+
+    &-checked {
+        @extend .root;
+        background-color: #0156FC;
+    }
+
+    .slider {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(2px, -50%);
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        background-color: #ffffff;
+        -webkit-transition: .3s;
+        transition: .3s;
+
+        &-checked {
+            @extend .slider;
+            background-color: #ffffff;
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translate(calc(-2px - 1em), -50%);
+        }
+    }
+}

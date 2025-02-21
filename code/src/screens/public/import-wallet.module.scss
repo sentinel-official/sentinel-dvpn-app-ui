@@ -1,0 +1,39 @@
+.root {
+  width: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-position-y: -64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  .top {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    max-width: 240px;
+  }
+  .middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    .fieldset {
+      width: 100%;
+      background: #26304c;
+      border: 1.5px solid #1f367c;
+      border-radius: 6px;
+      .legend {
+        width: 100%;
+        max-width: 240px;
+      }
+    }
+  }
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}

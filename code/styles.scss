@@ -1,0 +1,80 @@
+@use "sass:list";
+@mixin generate-spacing-classes($prefix, $property, $start, $end) {
+  @for $i from $start through $end {
+    .#{$prefix}-#{$i} {
+      #{$property}: #{$i}px;
+    }
+    .#{$prefix}t-#{$i} {
+      #{$property}-top: #{$i}px;
+    }
+    .#{$prefix}r-#{$i} {
+      #{$property}-right: #{$i}px;
+    }
+    .#{$prefix}b-#{$i} {
+      #{$property}-bottom: #{$i}px;
+    }
+    .#{$prefix}l-#{$i} {
+      #{$property}-left: #{$i}px;
+    }
+    .#{$prefix}x-#{$i} {
+      #{$property}-left: #{$i}px;
+      #{$property}-right: #{$i}px;
+    }
+    .#{$prefix}y-#{$i} {
+      #{$property}-top: #{$i}px;
+      #{$property}-bottom: #{$i}px;
+    }
+  }
+}
+
+@mixin generate-font-size-classes($start, $end) {
+  @for $i from $start through $end {
+    .fs-#{$i} {
+      font-size: #{$i}px;
+      line-height: calc(#{$i}px + 2px);
+      letter-spacing: 0.05px;
+    }
+
+    @media (max-width: 321px) {
+      .fs-#{$i} {
+        font-size: calc(#{$i}px - 0.25em);
+        line-height: #{$i}px;
+        letter-spacing: 0.05px;
+      }
+    }
+  }
+}
+
+$font-weights: 100, 200, 300, 400, 500, 600, 700;
+
+@mixin generate-font-weight-classes($start, $end) {
+  @for $i from $start through $end {
+    .fw-#{$i} {
+      font-weight: list.nth($font-weights, $i);
+    }
+  }
+}
+
+@include generate-spacing-classes("m", "margin", 0, 100);
+
+@include generate-spacing-classes("p", "padding", 0, 100);
+
+@include generate-font-size-classes(1, 100);
+
+@include generate-font-weight-classes(1, 7);
+
+@mixin text-color($color) {
+  .text-#{$color} {
+    color: #{"#"}#{$color};
+  }
+}
+
+$colors: (ffffff, ff0000, d4d4d4, 9c9c9c, e9e9e9, eeeeee, dadada, 9cabc9, 8a94a3, e0e4ea, 6b7a97);
+
+@each $color in $colors {
+  @include text-color($color);
+}
+
+.text-link {
+  color: #0156fc;
+}

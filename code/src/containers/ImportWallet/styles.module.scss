@@ -1,0 +1,21 @@
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 120px;
+}
+
+.no-of-words {
+  display: grid;
+  grid-template-columns: 40% 40% 20%;
+  grid-template-rows: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  background: #131829;
+  border: 1.2px solid rgba(131, 194, 253, 0.8);
+  border-radius: 50px;
+}

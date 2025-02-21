@@ -1,0 +1,42 @@
+.root {
+  width: 100%;
+  height: 100%;
+  min-height: 42px;
+  max-height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  .box {
+    width: 100%;
+    min-height: 42px;
+    background: #0d0c29;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #223e4e;
+    color: #ffffff;
+    opacity: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    .mag-icon {
+      height: 18px;
+      width: 18px;
+    }
+    .input {
+      width: 100%;
+      height: 100%;
+      background: none;
+      outline: none;
+      border: none;
+      color: #ffffff;
+      opacity: 1;
+      caret-color: #ffffff;
+    }
+    .input[disabled] {
+      color: #ffffff;
+      opacity: 1;
+    }
+  }
+}

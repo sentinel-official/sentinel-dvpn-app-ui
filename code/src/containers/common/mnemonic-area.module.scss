@@ -1,0 +1,26 @@
+.mnemonic-area {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width: 100%;
+  .input-box {
+    outline: none;
+    border: 1.5px solid #1f367c;
+    background-color: #131829;
+    border-radius: 8px;
+    caret-color: #ffffff;
+    color: #ffffff;
+    text-align: center;
+    width: calc(33% - 8px);
+    height: 28px;
+  }
+  .input-box[disabled] {
+    color: #ffffff;
+    opacity: 1;
+  }
+  .blur {
+    filter: blur(3px);
+  }
+}

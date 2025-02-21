@@ -1,0 +1,82 @@
+.root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .top {
+    width: 100%;
+    .card {
+      width: 100%;
+      height: 52px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        .image {
+          width: 36px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            width: inherit;
+          }
+        }
+      }
+      .right {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+      }
+    }
+  }
+  .bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    .image {
+      max-width: 200px;
+    }
+  }
+}
+
+.subscriptions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  grid-template-rows: 1fr;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  .left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .right {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    button {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

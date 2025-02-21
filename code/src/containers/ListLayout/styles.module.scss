@@ -1,0 +1,46 @@
+.box {
+  width: 100%;
+  height: 42px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background: #191f31;
+  border-radius: 8px;
+  outline: none;
+  border: 2px solid #26304c;
+  color: #ffffff;
+  opacity: 1;
+  .mag-icon {
+    height: 18px;
+    width: 18px;
+  }
+  .input {
+    width: 100%;
+    height: 100%;
+    background: none;
+    outline: none;
+    border: none;
+    color: #ffffff;
+    opacity: 1;
+    caret-color: #ffffff;
+  }
+}
+
+.filters-btn {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-connect-btn {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
