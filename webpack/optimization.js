@@ -9,7 +9,7 @@ module.exports = {
       terserOptions: {
         sourceMap: true,
         compress: {
-          drop_console: false,
+          drop_console: true,
           evaluate: true,
           reduce_funcs: true,
           reduce_vars: true,

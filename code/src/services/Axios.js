@@ -12,10 +12,7 @@ const Axios = axios.create({
 });
 
 Axios.interceptors.request.use(request => {
-  if (window && window.Navigator && window.navigator.onLine &&  navigator.connection.downlink > 4) {
-    return request;
-  }
-  window.dispatchEvent(updateInternetStatus(false))
+ return request;
 })
 
 Axios.interceptors.response.use(
