@@ -26,19 +26,21 @@ const Alerts = () => {
   }, [alerts.length]);
 
   if (alerts.length > 0) {
-    return (
-      <div className={styles.root}>
-        {alerts.map((alert, index) => {
-          return (
-            <AnimatedLayout key={`alert-${index}`} variants={animationVariants} className="mb-4">
-              <div className={`${styles.alert} ${styles[alert.type]}`}>
-                <Text key={`alert-${index}`} text={alert.message} data={alert.data} />
-              </div>
-            </AnimatedLayout>
-          );
-        })}
-      </div>
-    );
+    return <>
+      {
+        createPortal(<div className={styles.root}>
+          {alerts.map((alert, index) => {
+            return (
+              <AnimatedLayout key={`alert-${index}`} variants={animationVariants} className="mb-4">
+                <div className={`${styles.alert} ${styles[alert.type]}`}>
+                  <Text key={`alert-${index}`} text={alert.message} data={alert.data} />
+                </div>
+              </AnimatedLayout>
+            );
+          })}
+        </div>, document.body)
+      }
+    </>
   }
   return null;
 };

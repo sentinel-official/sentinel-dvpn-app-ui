@@ -19,6 +19,7 @@ import DeleteAccount from "@containers/Modals/DeleteAccount";
 import NoInternet from "@containers/Modals/NoInternet";
 import { useDispatch } from "react-redux";
 import { STOP_LOADER } from "@reducers/loader.reducer";
+import ReferEarn from "@containers/Modals/ReferEarn";
 
 const types = {
   filters: Filters,
@@ -34,6 +35,7 @@ const types = {
   "purchase-pending": PurchasePending,
   "delete-account": DeleteAccount,
   "no-internet": NoInternet,
+  "refer-earn":ReferEarn
 };
 
 const ModalComponent = ({ name }) => {

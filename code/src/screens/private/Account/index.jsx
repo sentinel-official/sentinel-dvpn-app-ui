@@ -10,7 +10,7 @@ import WalletDetailsIcon from "@svgs/wallet-details-icon.svg";
 import AddDVPNIcon from "@svgs/payments.svg";
 import LogoutIcon from "@svgs/logout-icon.svg";
 import SwapIcon from "@svgs/swap-icon.svg";
-
+import ReferIcon from '@svgs/refer-icon.svg'
 import RightArrowIcon from "@svgs/right-arrow-icon.svg";
 import useModal from "@hooks/use-modal";
 import useOpenWindow from "@hooks/use-open-window";
@@ -80,6 +80,30 @@ const Account = () => {
             </Card>
           );
         })}
+        <Card
+          variant={CARD_VARIANTS.PRIMARY}
+          onClick={() => showModal({ name: "refer-earn" })}
+          className={`${styles.card} my-12 px-16`}
+        >
+          <section className={styles.left}>
+            <section className={styles.image}>
+              <Image
+                src={ReferIcon}
+                height={"20px"}
+              />
+            </section>
+            <Text
+              text={"refer_earn"}
+              className="fs-14 fw-5 ml-6"
+            />
+          </section>
+          <section className={styles.right}>
+            <Image
+              src={RightArrowIcon}
+              height={"14px"}
+            />
+          </section>
+        </Card>
         {getMobileOS() !== "ios" && (
           <Card
             variant={CARD_VARIANTS.PRIMARY}

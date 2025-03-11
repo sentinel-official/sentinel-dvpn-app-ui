@@ -1,7 +1,8 @@
 export default {
   welcome_home_welcome_to: "Welcome to",
   welcome_sentinel_shield_dvpn: "Sentinel Shield dVPN",
-  welcome_home_description: "Decentralized, Open-Source, p2p VPN application powered by the Sentinel Blockchain",
+  welcome_home_description:
+    "Decentralized, Open-Source, p2p VPN application powered by the Sentinel Blockchain",
   log_in_with_your_key_title: "Access Account with your key",
   log_in_with_your_key_desc: "Provide your unique {{noOfWords}} word key",
   no_of_words: "{{noOfWords}} Words",
@@ -24,9 +25,12 @@ export default {
   secure_your_private_key_title: "Secure your Private key",
   passcode_point_one: "⁃ We encrypt your private key with the pass code",
   passcode_point_two: "⁃ We will not store the Passcode",
-  passcode_point_three: "⁃ Please remember the passcode to get the key in future",
-  passcode_point_four: "⁃ Ensure your typing the correct passcode used to encrypt the Private Key",
-  passcode_point_five: "⁃ If you never entered passcode to encrypt your key, type '12345' to get the key",
+  passcode_point_three:
+    "⁃ Please remember the passcode to get the key in future",
+  passcode_point_four:
+    "⁃ Ensure your typing the correct passcode used to encrypt the Private Key",
+  passcode_point_five:
+    "⁃ If you never entered passcode to encrypt your key, type '12345' to get the key",
   enter_passcode: "Enter Passcode",
   confirm_passcode: "Confirm Passcode",
   your_tokens: "Credits",
@@ -80,7 +84,8 @@ export default {
   you_are_online: "You are Online",
   logout_checkbox_label: "I have stored my private key",
   logout_title: "Are you sure?",
-  logout_desc: "Make sure you have a copy of your keys otherwise you cannot recover your account.",
+  logout_desc:
+    "Make sure you have a copy of your keys otherwise you cannot recover your account.",
   cancel: "Cancel",
   refreshing_your_details: "Refreshing your details",
   error_fetching_plans: "Error while fetching plans",
@@ -126,7 +131,8 @@ export default {
   any_problems: "Any problems?",
   report_an_issue: "Report an issue",
   error_while_open_window: "Error while opening the window",
-  modal_subscription_description_1: "Access thousands of decentralized servers from",
+  modal_subscription_description_1:
+    "Access thousands of decentralized servers from",
   modal_subscription_description_2: "using your in-app credits",
   modal_no_subscriptions_link_text: "Sentinel's Blockchain",
   modal_subscription_title: "Get {{days}} days access to decentralized nodes",
@@ -139,7 +145,8 @@ export default {
   fetching_plans: "Fetching Plans",
   creating_new_subscription: "Creating new Subscription",
   fetching_subscription_details: "Fetching subscription details",
-  failed_create_subscription_for: "Failed to create a Subscription. [CODE: {{code}}]",
+  failed_create_subscription_for:
+    "Failed to create a Subscription. [CODE: {{code}}]",
   disconnect: "Disconnect",
   disconnecting: "Disconnecting",
   disconnect_before_switch: "Please dis-connect from VPN before switching",
@@ -156,7 +163,8 @@ export default {
   ok: "OK",
   error_switching_dns: "Error while switching DNS",
   rpc_list_link: "Sentinel Community RPC List",
-  modal_update_app_to_enjoy: "Please update the app to fix any bugs and ensure security.",
+  modal_update_app_to_enjoy:
+    "Please update the app to fix any bugs and ensure security.",
   modal_update_available: "Update available!",
   modal_your_app_version: "Your app version is {{version}}",
   modal_latest_app_version: "Latest version available {{version}}",
@@ -166,8 +174,10 @@ export default {
   creating_a_session: "Creating a Session",
   creating_credentials: "Creating credentials",
   disconnecting_vpn: "Disconnecting VPN",
-  failed_create_subscription_no_balance: "Failed to subscribe because No Balance",
-  failed_create_session_no_balance: "Failed to create Session because No Balance",
+  failed_create_subscription_no_balance:
+    "Failed to subscribe because No Balance",
+  failed_create_session_no_balance:
+    "Failed to create Session because No Balance",
   failed_create_session_for: "Failed to create a session. [CODE: {{code}}]",
   failed_create_credentials: "Failed to create Credentials",
   failed_fetch_session: "Failed to fetch Session details",
@@ -189,7 +199,8 @@ export default {
   intro_slides_one_text_two: "The Sentinel Shield dVPN is built on",
   intro_slides_three_link_one: "Sentinel $DVPN",
   intro_slides_three_link_two: "contracts",
-  intro_slides_three_text_four: "on Sentinel allow for users to receive 1-click access to thousands of nodes.",
+  intro_slides_three_text_four:
+    "on Sentinel allow for users to receive 1-click access to thousands of nodes.",
   intro_slides_three_text_one: "The",
   intro_slides_three_text_three: "On-Chain subscription",
   intro_slides_three_text_two:
@@ -202,16 +213,19 @@ export default {
   next: "Next",
   continue: "Continue",
   retry: "Retry",
-  error_registering_wallet: "Error while retrieving Account details. Please try again.",
+  error_registering_wallet:
+    "Error while retrieving Account details. Please try again.",
   fee_grant: "Set Fee Grant",
-  fee_grant_desc: "Fee Grant will soon be available. Please proceed without fee grant, your account has been funded for gas payments.",
+  fee_grant_desc:
+    "Fee Grant will soon be available. Please proceed without fee grant, your account has been funded for gas payments.",
   what_is_fee_grant: "What is fee grant?",
   fetching_countries: "Fetching countries",
   error_login: "Error while Login",
   please_disconnect_from_vpn: "Please disconnect from VPN to modify",
   add_balance: "Account Top-Up",
   get_some_dvpn: "Get Some Credits",
-  get_some_dvpn_desc: "Purchase Credits and spend them on fast, secure & decentralized VPN service within Sentinel Blockchain.",
+  get_some_dvpn_desc:
+    "Purchase Credits and spend them on fast, secure & decentralized VPN service within Sentinel Blockchain.",
   buy_now: "Buy Now",
   get_some_dvpn_foot_note:
     "You're purchasing {{tokens}} Credits for {{amount}}. Payment will be charged to your {{account}} Account. This credits are for decentralized VPN services only. By proceeding, you confirm you've read our Terms of Service and Privacy Policy.",
@@ -220,10 +234,12 @@ export default {
   please_autorize_transaction: "Please autorize the transaction",
   error_adding_balance: "Error while adding balance",
   dvpn_are_on_the_way: "Payment successful",
-  dvpn_are_on_the_way_desc: "Your payment was successfully completed using your {{from}} account. Credits are on the way. If they don't arrive, please contact support.",
+  dvpn_are_on_the_way_desc:
+    "Your payment was successfully completed using your {{from}} account. Credits are on the way. If they don't arrive, please contact support.",
   connectivity: "Connectivity",
   delete_account: "Delete My Account",
-  delete_desc: "Deleting your account will result in permanent loss of your credits and subscriptions. Your account will be deleted within next 30 days.",
+  delete_desc:
+    "Deleting your account will result in permanent loss of your credits and subscriptions. Your account will be deleted within next 30 days.",
   delete_check: "I confirm account deletion.",
   deleting_account: "Deleting Account",
   error_while_deleting_account: "Error while deleting account [CODE: {{code}}]",
@@ -245,5 +261,10 @@ export default {
   no_internet: "No Internet",
   error_no_internet: "Please check the internet connection and retry",
   changing_rpc_loader: "Changing RPC",
-  reload: "Reload"
+  reload: "Reload",
+  refer_earn: "Refer and Earn",
+  refer_earn_desc:
+    "Share with friends and <span class='bold'>earn credits</span>",
+  refer: "Refer",
+  success_copied: "Copied Successfully",
 };

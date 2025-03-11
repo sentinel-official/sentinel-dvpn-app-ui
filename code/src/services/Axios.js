@@ -38,14 +38,11 @@ Axios.interceptors.response.use(
     console.error(`${new Date().toISOString()}: ${url}: ${name}: ${message}`, { REQ: req, RESP: resp });
   
     const isGrantsURL = resp.request.responseURL.includes("/api/blockchain/wallet/") && resp.request.responseURL.includes("/grants/");
-
     if (resp.data.error && ["Not Found", "RPC timed out before completing"].includes(resp.data.reason) && !isGrantsURL) {
-      console.log("eRRor")
       const rpc = window.sessionStorage.getItem("rpc")
       const { host = "", port = 0 } = rpc ? JSON.parse(rpc) : {}
 
       const rpcIndex = RPCS.findIndex(rpcNode => rpcNode.host === host && rpcNode.port === port);
-
 
       if (rpcIndex === RPCS.length - 1) {
         await Axios.post("/blockchain/endpoint", RPCS[0]);
