@@ -8,6 +8,7 @@ import {
   nodesReducer,
   vpnReducer,
   userReducer,
+  refferalReducer,
 } from "@reducers";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
@@ -62,6 +63,7 @@ const reducer = combineReducers({
   vpn: vpnReducer,
   payments: paymentsReducer,
   tunnel: tunnelReducer,
+  referral: refferalReducer
 });
 
 const store = configureStore({

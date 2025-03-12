@@ -10,3 +10,4 @@ export const useNodesSelector = () => useSelector((state) => state.nodes);
 export const useAlertsSelector = () => useSelector((state) => state.alerts);
 export const usePaymentsSelector = () => useSelector((state) => state.payments);
 export const useTunnelSelector = () => useSelector((state) => state.tunnel);
+export const useRefferrerSelector = ()=>useSelector((state)=>state.referral)

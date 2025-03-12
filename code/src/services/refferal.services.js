@@ -8,13 +8,13 @@ const refferalServices = {
         }),
     sendInvitattion: (address) =>
         Axios.post('/blockchain/wallet/invite', {
-            // title: "Sentinel dVPN",
+            title: "",
             canonicalIdentifier: "invite",
             customMetadata: { "u": address }
         })
-        .then((response) => response.data)
-        .catch((e) => {
-            throw e;
-        }),
+            .then((response) => response.data)
+            .catch((e) => {
+                throw e;
+            }),
 }
 export default refferalServices;

@@ -8,6 +8,7 @@ import copy from "copy-to-clipboard";
 import useAlerts, { ALERT_TYPES } from "@hooks/use-alerts";
 import useAuth from "@hooks/use-auth";
 import authServices from "@services/auth.services";
+import useRefferal from "@hooks/use-refferal";
 
 const CreateWallet = () => {
   const navigate = useNavigate();
@@ -16,10 +17,13 @@ const CreateWallet = () => {
   const { startLoader, stopLoader } = useLoader();
   const showAlert = useAlerts();
   const { login } = useAuth();
+  const { fetchRefferalAddress } = useRefferal()
+    
   React.useEffect(() => {
     const init = async () => {
       try {
         startLoader({ message: "loader_fetching_private_key" });
+        await fetchRefferalAddress();
         const response = await authServices.getUniqueKey();
         setKeywords(response.keywords);
       } catch (e) {

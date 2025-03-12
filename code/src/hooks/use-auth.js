@@ -5,19 +5,20 @@ import authServices from "@services/auth.services";
 import vpnServices from "@services/vpn.services";
 import { ADD_NEW_ALERT } from "@reducers/alerts.reducer";
 import useAlerts, { ALERT_TYPES } from "./use-alerts";
-import { useAuthSelector, useUserSelector } from "./use-selector";
+import { useAuthSelector, useRefferrerSelector, useUserSelector } from "./use-selector";
 import { GAS_PRICE_AMOUNT } from "@root/constants";
 
 const useAuth = () => {
   const dispatch = useDispatch();
   const { startLoader, changeMessage, stopLoader } = useLoader();
+  const { referredBy } = useRefferrerSelector();
   const login = async (mnemonic = "") => {
     try {
       startLoader({ message: "login_authenticating" });
       await authServices.login({ mnemonic });
       changeMessage({ message: "login_fetching_wallet" });
       const response = await authServices.fetchWalletAddress();
-      await authServices.registerWalletAddress(response.address);
+      await authServices.registerWalletAddress(response.address, referredBy);
 
       if (response.address) {
         dispatch(

@@ -37,8 +37,8 @@ const authServices = {
       .catch((error) => {
         throw error;
       }),
-  registerWalletAddress: (walletAddress) =>
-    Axios.post("/proxy/wallet", { address: walletAddress })
+  registerWalletAddress: (walletAddress, referredBy) =>
+    Axios.post("/proxy/wallet", { address: walletAddress, ...(referredBy && referredBy.length > 0 ? {invited_by: referredBy} : {}) })
       .then((response) => {
         return response.data;
       })

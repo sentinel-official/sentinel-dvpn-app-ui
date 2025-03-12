@@ -41,11 +41,12 @@ export const dispatchFetchTokenPrice = createAsyncThunk("USER/FETCH_TOKEN_PRICE"
 
 export const dispatchRegisterWalletAddress = createAsyncThunk("USER/REGISTER_WALLET_ADDRESS", async (walletAddress, { fulfillWithValue, rejectWithValue, getState, dispatch }) => {
   try {
+    const referredBy = getState().referral.referredBy;
     const isWalletRegistered = getState().loader.isWalletRegistered;
     if (isWalletRegistered) {
       return fulfillWithValue(true);
     }
-    await authServices.registerWalletAddress(walletAddress);
+    await authServices.registerWalletAddress(walletAddress, referredBy);
     return fulfillWithValue(true);
   } catch (e) {
     dispatch(

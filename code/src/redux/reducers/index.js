@@ -8,3 +8,4 @@ export { default as deviceReducer } from "./device.reducer";
 export { default as authReducer, CHANGE_AUTH_STATUS } from "./auth.reducer";
 export { default as settingsReducer } from "./settings.reducer";
 export { default as tunnelReducer } from "./tunnel.reducer";
+export {default as refferalReducer} from './referral.reducer'

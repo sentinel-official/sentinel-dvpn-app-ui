@@ -51,28 +51,6 @@ const getPlugins = (isProduction, mode) => {
             },
           },
           {
-            urlPattern: /\.(css)$/,
-            handler: "StaleWhileRevalidate",
-            options: {
-              cacheName: "css",
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 7 * 24 * 60 * 60,
-              },
-            },
-          },
-          {
-            urlPattern: /\.(js)$/,
-            handler: "StaleWhileRevalidate",
-            options: {
-              cacheName: "js",
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 7 * 24 * 60 * 60,
-              },
-            },
-          },
-          {
             urlPattern: /\.(json)$/,
             handler: "StaleWhileRevalidate",
             options: {

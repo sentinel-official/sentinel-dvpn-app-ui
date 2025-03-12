@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import useLoader from "@hooks/use-loader";
 import { CHANGE_LOADING_APP, SET_FEEGRANT_CHECKED, STOP_LOADER } from "@reducers/loader.reducer";
 import { INTERNET_STATUS, RPC_ERROR } from "@services/events";
-import { dispatchChangeCurrentRPC, dispatchFetchCurrentRPC } from "@actions/user.actions";
+import { dispatchFetchCurrentRPC } from "@actions/user.actions";
 
 const PrivateRouter = React.memo(() => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const PrivateRouter = React.memo(() => {
   const { isFeegrantChecked, loadingApp } = useLoaderSelector();
   const { feeGrantEnabled } = useSettingsSelector();
   const { initApp } = useInitApp();
-  const { showModal, MODAL_VARIANTS, hideModal, getModalDetails } = useModal();
+  const { showModal, MODAL_VARIANTS } = useModal();
   const { startLoader, stopLoader, changeMessage } = useLoader();
 
   const showBottomNavbar = React.useMemo(
