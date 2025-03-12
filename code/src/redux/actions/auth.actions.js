@@ -5,6 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import authServices from "@services/auth.services";
 import otherServices from "@services/other.services";
 import getFeeGrantDetails from "../helpers/getFeeGrantDetails";
+import refferalServices from "@services/refferal.services";
 
 export const dispatchFetchAccountBalance = createAsyncThunk("USER/FETCH_ACCOUNT_BALANCE", async (walletAddress, { fulfillWithValue, rejectWithValue, dispatch }) => {
   try {
@@ -47,6 +48,9 @@ export const dispatchRegisterWalletAddress = createAsyncThunk("USER/REGISTER_WAL
       return fulfillWithValue(true);
     }
     await authServices.registerWalletAddress(walletAddress, referredBy);
+    if (referredBy && referredBy.length > 0) {
+      await refferalServices.deleteReferredBy()
+    }
     return fulfillWithValue(true);
   } catch (e) {
     dispatch(

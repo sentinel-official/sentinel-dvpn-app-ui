@@ -7,6 +7,7 @@ import { ADD_NEW_ALERT } from "@reducers/alerts.reducer";
 import useAlerts, { ALERT_TYPES } from "./use-alerts";
 import { useAuthSelector, useRefferrerSelector, useUserSelector } from "./use-selector";
 import { GAS_PRICE_AMOUNT } from "@root/constants";
+import { UPDATE_REFFERRED_BY } from "@reducers/referral.reducer";
 
 const useAuth = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const useAuth = () => {
           isEncrypted: false,
         })
       );
+      await dispatch(UPDATE_REFFERRED_BY(""))
     }
   };
   return { login, logout };
