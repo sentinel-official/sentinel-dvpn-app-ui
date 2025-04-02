@@ -1,5 +1,5 @@
 import refferalServices from '@services/refferal.services'
-import { useAuthSelector, useRefferrerSelector } from './use-selector';
+import { useAuthSelector } from './use-selector';
 import useModal from './use-modal';
 import useAlerts, { ALERT_TYPES } from './use-alerts';
 import { useDispatch } from 'react-redux';
@@ -7,7 +7,6 @@ import { UPDATE_REFFERRED_BY } from '@reducers/referral.reducer';
 
 const useRefferal = () => {
     const { walletAddress } = useAuthSelector();
-    const { referredBy } = useRefferrerSelector()
     const { hideModal } = useModal();
     const showAlert = useAlerts()
     const dispatch = useDispatch()

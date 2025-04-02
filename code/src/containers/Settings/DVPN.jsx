@@ -4,6 +4,7 @@ import { Card, CARD_VARIANTS, Image, Text } from "@components/index";
 import { useNavigate } from "react-router-dom";
 import DNSIcon from "@svgs/dns-icon.svg";
 import FeeGranterIcon from "@svgs/fee-granter-icon.svg";
+import KillSwitchIcon from "@svgs/kill-switch.svg";
 import SplitTunnellingIcon from "@svgs/split-tunnelling-icon.svg";
 import RPCIcon from "@svgs/rpc-icon.svg";
 import RightArrowIcon from "@svgs/right-arrow-icon.svg";
@@ -97,6 +98,25 @@ const DVPN = () => {
         <section className={styles.left}>
           <Image src={FeeGranterIcon} height={"20px"} />
           <Text text={"set_fee_granter"} className="fs-14 fw-5 ml-8" />
+        </section>
+        <section className={styles.right}>
+          <Image src={RightArrowIcon} height={"14px"} />
+        </section>
+      </Card>
+       <Card
+        variant={CARD_VARIANTS.SECONDARY}
+        onClick={() => {
+          if (isConnected) {
+            showAlert({ message: "please_disconnect_from_vpn" });
+            return;
+          }
+          navigate("kill-switch");
+        }}
+        className={`${styles.card} my-4 px-14`}
+      >
+        <section className={styles.left}>
+          <Image src={KillSwitchIcon} height={"20px"} />
+          <Text text={"kill_switch"} className="fs-14 fw-5 ml-8" />
         </section>
         <section className={styles.right}>
           <Image src={RightArrowIcon} height={"14px"} />

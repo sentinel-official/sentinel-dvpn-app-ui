@@ -7,6 +7,7 @@ const initialState = {
   customDNSList: [],
   dnsList: [],
   feeGrantEnabled: true,
+  killSwitch: true
 };
 
 const slice = createSlice({
@@ -32,6 +33,7 @@ const slice = createSlice({
       ...state,
       feeGrantEnabled: payload,
     }),
+    TOGGLE_KILL_SWITCH: (state, {payload})=>({...state, killSwitch: payload})
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -45,7 +47,6 @@ const slice = createSlice({
   },
 });
 
-export const { ADD_CUSTOM_DNS, REMOVE_CUSTOM_DNS, CHANGE_FEE_GRANT } =
-  slice.actions;
+export const { ADD_CUSTOM_DNS, REMOVE_CUSTOM_DNS, CHANGE_FEE_GRANT, TOGGLE_KILL_SWITCH } = slice.actions;
 
 export default slice.reducer;

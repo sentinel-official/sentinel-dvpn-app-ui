@@ -267,4 +267,13 @@ export default {
     "Share with friends and <span class='bold'>earn credits</span>",
   refer: "Refer",
   success_copied: "Copied Successfully",
+  kill_switch: "Kill Switch",
+  open_settings: "Open Settings",
+  how_to_enable_kill_switch: "How to enable Kill Switch",
+  how_to_enable_kill_switch_point_1: "1. Go to Settings on your device.",
+  how_to_enable_kill_switch_point_2: "2. Select Sentinel dVPN.",
+  how_to_enable_kill_switch_point_3: `3. Turn on "Always-on VPN" and "Block connections without VPN".`,
+  how_to_enable_kill_switch_note: "<span>&#9432;</span> When Kill Switch is active, you can’t access:",
+  how_to_enable_kill_switch_note_point_1: "<span>&#x2022;</span> Apps/websites excluded by split tunneling",
+  how_to_enable_kill_switch_note_point_2: "<span>&#x2022;</span> Devices on your local network (LAN)",
 };

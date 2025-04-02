@@ -44,6 +44,10 @@ const settingsServices = {
       .catch((error) => {
         throw error;
       }),
+  openSettings: () =>
+    Axios.post("/api/device/settings/vpn")
+      .then((response) => response)
+      .catch((error) => error),
 };
 
 export default settingsServices;

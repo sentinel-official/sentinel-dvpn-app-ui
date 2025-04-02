@@ -1,4 +1,4 @@
-const { default: Axios } = require("./Axios");
+import Axios from "./Axios";
 
 const refferalServices = {
     fetchRefferalAddress: () =>

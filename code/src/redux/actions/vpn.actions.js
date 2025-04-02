@@ -63,16 +63,17 @@ export const dispatchConnectToVPN = createAsyncThunk(
   "VPN/CONNECT_TO_VPN",
   async (
     { credentials = {}, node = {} },
-    { dispatch, fulfillWithValue, rejectWithValue }
+    { dispatch, getState, fulfillWithValue, rejectWithValue }
   ) => {
     try {
+      const { killSwitch = true } = getState().settings;
       dispatch(
         CHANGE_MESSAGE({
           message: `connecting_to_vpn`,
         })
       );
       const response = await vpnServices.createConnection({
-        data: credentials,
+        data: {...credentials, on_demand: killSwitch},
       });
       if (response.isConnected) {
         return fulfillWithValue({ isConnected: response.isConnected, node });
