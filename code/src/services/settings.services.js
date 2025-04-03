@@ -45,7 +45,7 @@ const settingsServices = {
         throw error;
       }),
   openSettings: () =>
-    Axios.post("/api/device/settings/vpn")
+    Axios.post("/device/settings/vpn")
       .then((response) => response)
       .catch((error) => error),
 };
