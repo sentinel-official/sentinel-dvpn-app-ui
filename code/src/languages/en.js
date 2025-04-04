@@ -246,7 +246,7 @@ export default {
   error_deleting_account: "Error while deleting account",
   checking_wallet_details: "Checking wallet details",
   checking_version: "Checking Version",
-  split_tunnelling: "Split Tunnelling",
+  split_tunnelling: "Split Tunneling",
   fetching_apps: "Fetching Apps",
   error_fetching_apps: "Error while fetching Apps",
   enable_to_tunnel_apps: "Please enable to tunnel apps",
