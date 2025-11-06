@@ -41,7 +41,7 @@ export const dispatchBuyProduct = createAsyncThunk(
       );
       const response = await paymentServices.buyProduct(product);
       if (response.isCancelled) {
-        return fulfillWithValue();
+        return fulfillWithValue({transaction: null});
       }
       return fulfillWithValue({ transaction: response.transaction });
     } catch (e) {
