@@ -7,6 +7,7 @@ import { dispatchFetchAccountBalance } from "@actions/auth.actions";
 import { dispatchConnectToVPN, dispatchDisconnectFromVPN, dispatchFetchConnectionStatus, dispatchFetchIPAddress } from "@actions/vpn.actions";
 import { useCallback } from "react";
 import useAlerts, { ALERT_TYPES } from "./use-alerts";
+import { STATUS_ACTIVE } from "@root/constants";
 
 const useVPN = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,13 @@ const useVPN = () => {
   const fetchSessionDetails = async (walletAddress) => {
     try {
       const response = await vpnServices.fetchSessionDetails(walletAddress);
-      return response;
+      const session = response.sessions.find(r => r.baseSession.status === STATUS_ACTIVE);
+      if (session && session.baseSession) {
+        return session.baseSession
+      }
+      return {};
     } catch (e) {
+      console.log("e", e)
       throw { reason: "failed_fetch_session" };
     }
   };
