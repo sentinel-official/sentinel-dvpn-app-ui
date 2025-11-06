@@ -12,7 +12,7 @@ const Axios = axios.create({
 });
 
 Axios.interceptors.request.use(request => {
- return request;
+  return request;
 })
 
 Axios.interceptors.response.use(
@@ -36,8 +36,9 @@ Axios.interceptors.response.use(
     const url = error.request.responseURL || "";
 
     console.error(`${new Date().toISOString()}: ${url}: ${name}: ${message}`, { REQ: req, RESP: resp });
-  
+
     const isGrantsURL = (resp.request.responseURL.includes("/api/blockchain/wallet/") && resp.request.responseURL.includes("/grants/")) || resp.request.responseURL.includes("/api/blockchain/transactions/");
+
     if (resp.data.error && ["Not Found", "RPC timed out before completing"].includes(resp.data.reason) && !isGrantsURL) {
       const rpc = window.sessionStorage.getItem("rpc")
       const { host = "", port = 0 } = rpc ? JSON.parse(rpc) : {}
@@ -46,7 +47,7 @@ Axios.interceptors.response.use(
 
       if (rpcIndex === RPCS.length - 1) {
         await Axios.post("/blockchain/endpoint", RPCS[0]);
-      } else { 
+      } else {
         const nextRPC = RPCS[rpcIndex + 1];
         await Axios.post("/blockchain/endpoint", nextRPC)
       }

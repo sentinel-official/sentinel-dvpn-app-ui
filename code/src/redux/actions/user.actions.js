@@ -64,7 +64,7 @@ export const dispatchFetchAvailableSubscriptions = createAsyncThunk(
   async (walletAddress, { fulfillWithValue, rejectWithValue, dispatch }) => {
     try {
       const response = await userServices.fetchUserSubScriptions(walletAddress);
-      const subscription = filterSubscription(response.planSubscriptions);
+      const subscription = filterSubscription(response.subscriptions);
       return fulfillWithValue(subscription);
     } catch (e) {
       dispatch(
@@ -81,7 +81,7 @@ export const dispatchFetchAvailableSubscriptions = createAsyncThunk(
 export const dispatchFetchCurrentRPC = createAsyncThunk("USER/FETCH_CURRENT_RPC", async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
   try {
     const response = await settingsServices.fetchCurrnetRPC();
-     window.sessionStorage.setItem("rpc", JSON.stringify(response))
+    window.sessionStorage.setItem("rpc", JSON.stringify(response))
     return fulfillWithValue(response);
   } catch (e) {
     dispatch(

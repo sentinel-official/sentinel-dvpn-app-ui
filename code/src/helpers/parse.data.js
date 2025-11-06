@@ -102,7 +102,7 @@ export const filterPlan = (plans = []) => {
       plan = {
         id: p.id,
         price: parsePlanAmount(p.prices),
-        providerAddress: p.providerAddress,
+        providerAddress: p.provAddress,
         status: p.status,
         duration: p.duration,
       };
@@ -117,16 +117,15 @@ export const filterSubscription = (subscriptions = []) => {
   let subscription = "";
   subscriptions.forEach((s) => {
     if (
-      s.denom === APP_DENOM &&
       s.planId === PLAN_ID &&
-      s.base?.status === STATUS_ACTIVE
+      s.status === STATUS_ACTIVE
     ) {
       subscription = {
-        id: s.base.id,
+        id: s.id,
         planId: s.planId,
-        status: s.base.status,
+        status: s.status,
         denom: s.denom,
-        inactiveAt: s.base.inactiveAt,
+        inactiveAt: s.inactiveAt,
       };
       return;
     }
