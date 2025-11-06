@@ -8,6 +8,7 @@
   background-position: top right;
   background-repeat: no-repeat;
   overflow-y: auto;
+
   .top {
     display: flex;
     flex-direction: column;
@@ -15,6 +16,7 @@
     text-align: center;
     justify-content: space-between;
     height: 120px;
+
     .logo {
       width: 56px;
     }

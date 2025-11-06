@@ -85,13 +85,23 @@ export const parseAccountBalance = (balances = []) => {
   return balance;
 };
 
+const parsePlanAmount = (prices = []) => {
+  let amount = 0;
+  prices.forEach((bal) => {
+    if (bal.denom === APP_DENOM) {
+      amount += Number.parseInt(bal.quoteValue);
+    }
+  });
+  return amount;
+}
+
 export const filterPlan = (plans = []) => {
   let plan = {};
   plans.forEach((p) => {
     if (p.id?.toString() === PLAN_ID && p.status === STATUS_ACTIVE) {
       plan = {
         id: p.id,
-        price: parseAccountBalance(p.prices),
+        price: parsePlanAmount(p.prices),
         providerAddress: p.providerAddress,
         status: p.status,
         duration: p.duration,

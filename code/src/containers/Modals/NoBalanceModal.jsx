@@ -18,7 +18,7 @@ const NoBalanceModal = () => {
       <Text text={"no_balance_description"} className="fw-4 fs-14 text-8a94a3" />
       <section className={`mb-36 mt-18 ${styles.balance}`}>
         <Image src={Icon} />
-        <Text text={`${formatAmount(balance / 1e6)} DVPN`} className="fw-5 fs-18" />
+        <Text text="the_credits" data={{credits: `${formatAmount(balance / 1e6)}`}} className="fw-5 fs-18" />
       </section>
       <Button
         className=" mb-8"

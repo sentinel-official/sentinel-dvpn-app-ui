@@ -34,6 +34,7 @@ export default {
   enter_passcode: "Enter Passcode",
   confirm_passcode: "Confirm Passcode",
   your_tokens: "Credits",
+  the_credits: "{{credits}} Credits",
   quick_connect: "Quick Connect",
   server_is_not_selected: "No Server is Selected",
   your_ip: "Your IP: ",

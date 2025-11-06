@@ -2,9 +2,9 @@ import { getMobileOS } from "@helpers/getOSType";
 import process from "process";
 export const APP_DENOM = "udvpn";
 export const STATUS_ACTIVE = "STATUS_ACTIVE";
-export const PLAN_ID = "32";
+export const PLAN_ID = "41";
 export const GAS_PRICE_AMOUNT = 200000;
-export const FEE_GRANT_ADDERSS = "sent1vtakcr67ejvknr00vmq8vh6dm9mn5hr6gzu27m";
+export const FEE_GRANT_ADDERSS = "sent1p47m9wlwuv40t29h2yhuaqn6up5u6xs8anjxvs";
 export const DELETE_ACCOUNT_ADDRESS = "sent1nwmxl7pa7mq5n7s9rfmzljhrxngppg8y0svzve";
 export const PAYMENT_KEY = getMobileOS() === "ios" ? process.env.REACT_APP_APPLE_PAY_KEY : process.env.REACT_APP_ANDROID_KEY;
 export const PRODUCT_IDENTIFIER = "sentinel.dvpn";
@@ -85,36 +85,36 @@ export const langs = {
 };
 
 export const RPCS = [
-     {
-      host: "rpc.sentinel.co",
-      port: 9090,
-    },
-    {
-      host: "rpc-fast-1.sentinel.co",
-      port: 9090,
-    },
-    {
-      host: "sentinel-rpc.publicnode.com",
-      port: 443,
-    },
-    {
-      host: "rpc.sentineldao.com",
-      port: 443,
-    },
-    {
-      host: "as-rpc-sentinel.busurnode.com",
-      port: 443,
-    },
-    {
-      host: "as-rpc.sentineldao.com",
-      port: 443,
-    },
-    {
-      host: "rpc.dvpn.me",
-      port: 443,
-    },
-    {
-      host: "rpc.sentinel.co",
-      port: 9090,
-    },
-  ];
+  {
+    host: "rpc.sentinel.co",
+    port: 9090,
+  },
+  {
+    host: "rpc-fast-1.sentinel.co",
+    port: 9090,
+  },
+  {
+    host: "sentinel-rpc.publicnode.com",
+    port: 443,
+  },
+  {
+    host: "rpc.sentineldao.com",
+    port: 443,
+  },
+  {
+    host: "as-rpc-sentinel.busurnode.com",
+    port: 443,
+  },
+  {
+    host: "as-rpc.sentineldao.com",
+    port: 443,
+  },
+  {
+    host: "rpc.dvpn.me",
+    port: 443,
+  },
+  {
+    host: "rpc.sentinel.co",
+    port: 9090,
+  },
+];
