@@ -20,9 +20,11 @@ const useVPN = () => {
   const fetchSessionDetails = async (walletAddress) => {
     try {
       const response = await vpnServices.fetchSessionDetails(walletAddress);
-      const session = response.sessions.find(r => r.baseSession.status === STATUS_ACTIVE);
-      if (session && session.baseSession) {
-        return session.baseSession
+      if (response && response.sessions && response.sessions.length > 0) {
+        const session = response.sessions.find(r => r.baseSession && r.baseSession.status === STATUS_ACTIVE);
+        if (session && session.baseSession) {
+          return session.baseSession
+        }
       }
       return {};
     } catch (e) {
