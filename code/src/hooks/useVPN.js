@@ -20,13 +20,20 @@ const useVPN = () => {
   const fetchSessionDetails = async (walletAddress) => {
     try {
       const response = await vpnServices.fetchSessionDetails(walletAddress);
-      if (response && response.sessions && response.sessions.length > 0) {
-        const session = response.sessions.find(r => r.baseSession && r.baseSession.status === STATUS_ACTIVE);
-        if (session && session.baseSession) {
-          return session.baseSession
-        }
+
+      if (!response || typeof response !== "object" || !Array.isArray(response.sessions) || response.sessions.length === 0) {
+        return null;
       }
-      return {};
+      const sorted = response.sessions
+        .filter(s => s && s.baseSession && typeof s.baseSession === "object")
+        .sort((a, b) => {
+          const one = String(a.baseSession.id ?? "");
+          const two = String(b.baseSession.id ?? "");
+          return two.localeCompare(one);
+        });
+
+      const active = sorted.find(s => s.baseSession.status === STATUS_ACTIVE);
+      return active?.baseSession ?? null;
     } catch (e) {
       console.log("e", e)
       throw { reason: "failed_fetch_session" };
