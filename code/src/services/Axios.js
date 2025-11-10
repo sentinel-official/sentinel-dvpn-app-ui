@@ -33,13 +33,13 @@ Axios.interceptors.response.use(
     const message = error.message || "";
     const resp = error?.response || {};
     const req = error?.request || {};
-    const url = error.request.responseURL || "";
+    const url = resp.config.url || "";
 
     console.error(`${new Date().toISOString()}: ${url}: ${name}: ${message}`, { REQ: req, RESP: resp });
 
-    const isGrantsURL = (resp.request.responseURL.includes("/api/blockchain/wallet/") && resp.request.responseURL.includes("/grants/")) || resp.request.responseURL.includes("/api/blockchain/transactions/");
+    const isGrantsURL = (String(resp.config.url).includes("/blockchain/wallet/") && String(resp.config.url).includes("/grants/")) || String(resp.config.url).includes("/api/blockchain/transactions/") || String(resp.config.url).endsWith("/session");
 
-    if (resp.data.error && ["Not Found", "RPC timed out before completing"].includes(resp.data.reason) && !isGrantsURL) {
+    if (resp.data.error && ["RPC timed out before completing"].includes(resp.data.reason) && !isGrantsURL) {
       const rpc = window.sessionStorage.getItem("rpc")
       const { host = "", port = 0 } = rpc ? JSON.parse(rpc) : {}
 
