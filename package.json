@@ -21,7 +21,7 @@
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.1.6",
     "react-qr-code": "^2.0.12",
-    "react-router-dom": "^6.9.0",
+    "react-router-dom": "^6.30.3",
     "sass": "^1.60.0",
     "ts-clipboard": "^1.0.17"
   },
